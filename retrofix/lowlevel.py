@@ -127,14 +127,22 @@ def extract_record(line, structure, first_position=1):
         if ftype == 'N':
             assert re.match('[0-9]*$', value), (
                     'Non-numeric value "%s" in field "%s"' % (value, key))
-	    sign = 1
-	    if options[-1] == '-' and value[0] == '2':
-                sign = -1
-            if options[0] == '2':
+            sign = 1
+            if options and options[-1] == '-':
+                    if value[0] == '1':
+                        sign = -1
+                    elif value[0] == '2':
+                        sign = 1
+                    else:
+                        raise RetrofixException('Invalid numeric value "%s". First '
+                            'character should be "1" for negative or "2" for '
+                            'positive values.')
+                    value = value[1:]
+            if options and options[0] == '2':
                 value = sign * Decimal('%s.%s' % (value[:-2], value[-2:]))
         elif ftype == 'D':
-	    if value == '0'*len(value):
-                value = None 	
+            if value == '0'*len(value):
+                value = None     
             else:
                 try:
                     value = datetime.strptime(value, options)
