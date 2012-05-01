@@ -127,21 +127,24 @@ def extract_record(line, structure, first_position=1):
         if ftype == 'N':
             assert re.match('[0-9]*$', value), (
                     'Non-numeric value "%s" in field "%s"' % (value, key))
-            if options == '2':
-                value = Decimal( '%s.%s' % (value[:-2], value[-2:]) )
+	    sign = 1
+	    if options[-1] == '-' and value[0] == '2':
+                sign = -1
+            if options[0] == '2':
+                value = sign * Decimal('%s.%s' % (value[:-2], value[-2:]))
         elif ftype == 'D':
 	    if value == '0'*len(value):
                 value = None 	
             else:
                 try:
                     value = datetime.strptime(value, options)
-                except ValueError, e:
+                except ValueError:
                     raise RetrofixException('Invalid date value "%s" does not '
                             'match pattern "%s" in field "%s"' % (value, 
                             options, key))
         elif ftype == 'ACCOUNT':
             if value == ' '*len(value):
-	        value = None
+                value = None
             else:
                 assert bank_account.valid_bank_account(value), (
                         'Invalid bank account "%s" in field "%s"' % 
@@ -180,31 +183,6 @@ def format_string(text, length, fill=' ', align='<'):
 
     if not text:
         return fill*length
-
-    #
-    # Replace accents
-    #
-    replacements = [
-        (u'Á', 'A'),(u'á', 'A'),
-        (u'É', 'E'),(u'é', 'E'),
-        (u'Í', 'I'),(u'í', 'I'),
-        (u'Ó', 'O'),(u'ó', 'O'),
-        (u'Ú', 'U'),(u'ú', 'U'),
-        (u'Ä', 'A'),(u'ä', 'A'),
-        (u'Ë', 'E'),(u'ë', 'E'),
-        (u'Ï', 'I'),(u'ï', 'I'),
-        (u'Ö', 'O'),(u'ö', 'O'),
-        (u'Ü', 'U'),(u'ü', 'U'),
-        (u'À', 'A'),(u'à', 'A'),
-        (u'È', 'E'),(u'è', 'E'),
-        (u'Ì', 'I'),(u'ì', 'I'),
-        (u'Ò', 'O'),(u'ò', 'O'),
-        (u'Ù', 'U'),(u'ù', 'U'),
-        (u'Â', 'A'),(u'â', 'A'),
-        (u'Ê', 'E'),(u'ê', 'E'),
-        (u'Î', 'I'),(u'î', 'I'),
-        (u'Ô', 'O'),(u'ô', 'O'),
-        (u'Û', 'U'),(u'û', 'U')]
 
     #
     # String uppercase
@@ -299,7 +277,6 @@ def write_record(record, first_position=1):
     for field in record._structure:
         start = field[0] - first_position
         length = field[1]
-        end = start + length
         key = field[2]
         ftype = field[3]
 

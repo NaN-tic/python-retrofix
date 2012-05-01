@@ -51,8 +51,7 @@ ACCOUNT_HEADER_RECORD = (
     (11, 10, 'account_number', 'N'),
     (21,  6, 'start_date', 'D', '%y%m%d'),
     (27,  6, 'end_date', 'D', '%y%m%d'),
-    (33,  1, 'initial_balance_sign', 'N'),
-    (34, 14, 'initial_balance', 'N', '2'),
+    (33, 15, 'initial_balance', 'N', '2-'),
     (48,  3, 'currency_code', 'N'),
     (51,  1, 'information_mode', 'N'),
     (52, 26, 'customer_name', 'A'),
@@ -67,8 +66,8 @@ MOVE_RECORD = (
     (17,  6, 'value_date', 'D', '%y%m%d'),
     (23,  2, 'common_concept_code', 'N'),
     (25,  3, 'bank_concept_code', 'N'), # Bank's own concept code
-    (28,  1, 'amount_sign', 'N'), # 1=debit, 2=credit
-    (29, 14, 'amount', 'N', '2'), # No decimal separator with 2 decimal places
+    (28, 15, 'amount', 'N', '2-'), # No decimal separator with 2 decimal places.
+                                   # First character should be the sign
     (43, 10, 'document_number', 'N'),
     (53, 12, 'reference_1', 'A'),
     (65, 16, 'reference_2', 'A'),
@@ -98,8 +97,7 @@ ACCOUNT_FOOTER_RECORD = (
     (26, 14, 'debit_total', 'N', '2'),
     (40,  5, 'credit_record_count', 'N'),
     (45,  5, 'credit_total', 'N', '2'),
-    (59,  1, 'final_balance_sign', 'N'), # 1 = Debit, 2 = Credit
-    (60, 14, 'final_balance', 'N', '2'),
+    (59, 15, 'final_balance', 'N', '2-'),
     (74,  3, 'currency_code', 'N'),
     (77,  4, 'free', 'A'),
 )

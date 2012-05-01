@@ -132,8 +132,6 @@ PRESENTER_FOOTER_RECORD = (
 
 def read(data):
     lines = data.splitlines()
-    line_count = len(lines)
-
     records = []
 
     current_line = lines.pop(0)
