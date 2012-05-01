@@ -1,0 +1,40 @@
+retrofix
+========
+
+RetroFix is a python library for reading and writing fixed-size field text file
+and more specifically for managing files from Spanish banks and public 
+institutions, including Norma 19, 32, 34, 43 & 58.
+
+Installing
+----------
+
+See INSTALL
+
+Package Contents
+----------------
+
+  bin/
+      Script for startup.
+
+  doc/
+      sphinx documentation in reStructuredText.
+      To generate the HTML:
+
+        sphinx-build doc/ doc/
+
+  retrofix/
+      retrofix sources.
+
+Support
+-------
+
+License
+-------
+
+See LICENSE
+
+Copyright
+---------
+
+See project files for the complete list of Copyright owners.
+
