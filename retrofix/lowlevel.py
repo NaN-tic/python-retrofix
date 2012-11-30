@@ -30,10 +30,10 @@ except ImportError:
     pass
 
 from decimal import Decimal
+import banknumber
 
 import re
 from datetime import datetime
-import bank_account
 
 # Record structures: 
 # * Initial position starting at 1 (instead of 0)
@@ -154,7 +154,7 @@ def extract_record(line, structure, first_position=1):
             if value == ' '*len(value):
                 value = None
             else:
-                assert bank_account.valid_bank_account(value), (
+                assert banknumber.check_code('ES', value), (
                         'Invalid bank account "%s" in field "%s"' % 
                         (value, key))
         elif ftype == 'E':
@@ -169,7 +169,7 @@ def valid_record(line, structure, first_position=1):
     try:
         extract_record(line, structure, first_position=first_position)
         return True
-    except (AssertionError, RetrofixException):
+    except (AssertionError, RetrofixException), e:
         return False
 
 
@@ -301,22 +301,32 @@ def write_record(record, first_position=1):
             if not value:
                 value = match
             else:
-                assert value == match, 'In field "%s", "%s" != "%s"' % (key, value, match)
+                assert value == match, 'In field "%s", "%s" != "%s"' % (key, 
+                    value, match)
     
         if ftype == 'N':
             if isinstance(value, Decimal):
-                if options == '2':
-                    value = format_number(value, length-2, 2)
+                if options and options[0] == '2':
+                    minus = 2
+                    sign = ''
+                    if options[-1] == '-': 
+                        minus += 1
+                        if value >= 0.0:
+                            sign = '2'
+                        else:
+                            sign = '1'
+                    value = sign + format_number(value, length - minus, 2)
                 else:
-                    # TODO?
-                    assert False
+                    raise Exception('Invalid option "%s" o field "%s".' % (
+                            options, field))
             else:
-                assert re.match('[0-9]*$', value), 'Non-numeric value "%s" in field "%s"' % (value, key)
+                assert re.match('[0-9]*$', value), ('Non-numeric value "%s" in '
+                            'field "%s"') % (value, key)
                 value = format_string(value, length, fill='0', align='>')
         elif ftype == 'D':
             value = datetime.strftime(value, options)
         elif ftype == 'ACCOUNT':
-            assert bank_account.valid_bank_account(value)
+            assert banknumber.check_code('ES', value)
             value = format_string(value, length)
         elif ftype == 'E':
             value = enum_text_to_value(value, options)
@@ -327,8 +337,10 @@ def write_record(record, first_position=1):
         else:
             value = format_string(value, length)
 
-        assert len(value) == length
-        assert start == current_position, 'Start: %d, Current Position: %d' % (start, current_position)
+        assert len(value) == length, ('Size of record "%s" should be %d but it '
+            'is %d (%s)') % (value, length, len(value), str(record))
+        assert start == current_position, 'Start: %d, Current Position: %d' % (
+            start, current_position)
         text += value
         current_position = len(text)
 

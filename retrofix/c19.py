@@ -158,12 +158,14 @@ def read(data):
     while lines:
         if valid_record(current_line, REQUIRED_INDIVIDUAL_RECORD):
             record = extract_record(current_line, REQUIRED_INDIVIDUAL_RECORD)
-        if valid_record(current_line, OPTIONAL_RECORD):
+        elif valid_record(current_line, OPTIONAL_RECORD):
             record = extract_record(current_line, OPTIONAL_RECORD)
         elif valid_record(current_line, ORDERING_FOOTER_RECORD):
             record = extract_record(current_line, ORDERING_FOOTER_RECORD)
         elif valid_record(current_line, PRESENTER_FOOTER_RECORD):
             record = extract_record(current_line, PRESENTER_FOOTER_RECORD)
+        else:
+            raise Exception('Invalid record: %s' % current_line)
         records.append(record)
         current_line = lines.pop(0)
     return records
