@@ -346,3 +346,9 @@ def write_record(record, first_position=1):
 
     return text
 
+
+def write(records):
+    data = ''
+    for record in records:
+        data += write_record(record)
+    return data
