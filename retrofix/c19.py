@@ -83,18 +83,80 @@ REQUIRED_INDIVIDUAL_RECORD = (
         (155,  8, 'free_2', 'A')
         )
 
-OPTIONAL_RECORD = (
+FIRST_OPTIONAL_INDIVIDUAL_RECORD = (
+        (  1,  2, 'record_code', 'N', '=56'),
+        (  3,  2, 'data_code', 'N', '=81'),
+        (  5,  9, 'nif', 'A'),
+        ( 14,  3, 'suffix', 'A'),
+        ( 17, 12, 'reference_code', 'A'),
+        ( 29, 40, 'second_field_concept', 'A'),
+        ( 69, 40, 'third_field_concept', 'A'),
+        (109, 40, 'fourth_field_concept', 'A'),
+        (149, 14, 'free', 'A'),
+        )  # Annex 2. CSB 19 Norm.
+
+SECOND_OPTIONAL_INDIVIDUAL_RECORD = (
+        (  1,  2, 'record_code', 'N', '=56'),
+        (  3,  2, 'data_code', 'N', '=82'),
+        (  5,  9, 'nif', 'A'),
+        ( 14,  3, 'suffix', 'A'),
+        ( 17, 12, 'reference_code', 'A'),
+        ( 29, 40, 'fifth_field_concept', 'A'),
+        ( 69, 40, 'sixth_field_concept', 'A'),
+        (109, 40, 'seventh_field_concept', 'A'),
+        (149, 14, 'free', 'A'),
+        )  # Annex 2. CSB 19 Norm.
+
+THIRD_OPTIONAL_INDIVIDUAL_RECORD = (
+        (  1,  2, 'record_code', 'N', '=56'),
+        (  3,  2, 'data_code', 'N', '=83'),
+        (  5,  9, 'nif', 'A'),
+        ( 14,  3, 'suffix', 'A'),
+        ( 17, 12, 'reference_code', 'A'),
+        ( 29, 40, 'eighth_field_concept', 'A'),
+        ( 69, 40, 'ninth_field_concept', 'A'),
+        (109, 40, 'tenth_field_concept', 'A'),
+        (149, 14, 'free', 'A'),
+        )  # Annex 2. CSB 19 Norm.
+
+FOURTH_OPTIONAL_INDIVIDUAL_RECORD = (
+        (  1,  2, 'record_code', 'N', '=56'),
+        (  3,  2, 'data_code', 'N', '=84'),
+        (  5,  9, 'nif', 'A'),
+        ( 14,  3, 'suffix', 'A'),
+        ( 17, 12, 'reference_code', 'A'),
+        ( 29, 40, 'eleventh_field_concept', 'A'),
+        ( 69, 40, 'twelfth_field_concept', 'A'),
+        (109, 40, 'thirteenth_field_concept', 'A'),
+        (149, 14, 'free', 'A'),
+        )  # Annex 2. CSB 19 Norm.
+
+FIFTH_OPTIONAL_INDIVIDUAL_RECORD = (
+        (  1,  2, 'record_code', 'N', '=56'),
+        (  3,  2, 'data_code', 'N', '=85'),
+        (  5,  9, 'nif', 'A'),
+        ( 14,  3, 'suffix', 'A'),
+        ( 17, 12, 'reference_code', 'A'),
+        ( 29, 40, 'fourteenth_field_concept', 'A'),
+        ( 69, 40, 'fifteenth_field_concept', 'A'),
+        (109, 40, 'sixteenth_field_concept', 'A'),
+        (149, 14, 'free', 'A'),
+        )  # Annex 2. CSB 19 Norm.
+
+SIXTH_OPTIONAL_INDIVIDUAL_RECORD = (
         (  1,  2, 'record_code', 'N', '=56'),
         (  3,  2, 'data_code', 'N', '=86'),
         (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'reference_code'),
+        ( 14,  3, 'suffix', 'A'),
+        ( 17, 12, 'reference_code', 'A'),
         ( 29, 40, 'name', 'A'),
-        ( 69, 40, 'address', 'N'), # Domicilio del titular de la cuenta
-        (109, 10, 'city', 'N', '2'), # Plaza del domicilio del titular de la cuenta
+        ( 69, 40, 'address', 'A'),
+        (109, 35, 'city', 'A'),
         (144,  5, 'zip', 'A'),
         (149, 14, 'free', 'A'),
-        )
+        )  # Annex 2. CSB 19 Norm.
+
+OPTIONAL_RECORD = SIXTH_OPTIONAL_INDIVIDUAL_RECORD  # Annex 3. CSB 19 Norm.
 
 ORDERING_FOOTER_RECORD = (
         (  1,  2, 'record_code', 'N', '=58'),
@@ -120,7 +182,7 @@ PRESENTER_FOOTER_RECORD = (
         ( 17, 12, 'free_1', 'A'),
         ( 29, 40, 'free_2', 'A'),
         ( 69,  4, 'ordering_count', 'N'), # Número de ordenantes
-        ( 83, 16, 'free_3', 'A'),
+        ( 73, 16, 'free_3', 'A'),
         ( 89, 10, 'amount_sum', 'N', '2'), # Suma total de importes
         ( 99,  6, 'free_4', 'A'),
         (105, 10, 'required_count', 'N'), # Número total de domiciliaciones
