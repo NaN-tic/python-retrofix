@@ -71,7 +71,7 @@ REQUIRED_INDIVIDUAL_RECORD = (
 
 OPTIONAL_INDIVIDUAL_RECORD = (
         (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=70'),
+        (  3,  2, 'data_code', 'N', '=71'),
         (  5,  9, 'nif', 'A'),
         ( 14,  3, 'suffix', 'N'),
         ( 17, 12, 'reference', 'A'), # Código de referencia
@@ -104,7 +104,7 @@ ORDERING_FOOTER_RECORD = (
         ( 17, 12, 'free_1', 'A'), # Código de referencia
         ( 29, 40, 'free_2', 'A'),
         ( 69, 20, 'free_3', 'A'),
-        ( 89, 10, 'amount', 'N'), # Suma de importes del ordenante
+        ( 89, 10, 'amount', 'N', '2'), # Suma de importes del ordenante
         ( 99,  6, 'free_4', 'A'),
         (105, 10, 'payment_line_count', 'N'), # Número de créditos del ordenante
         (115, 10, 'record_count', 'N'), # Número registros del ordenante
@@ -121,7 +121,7 @@ PRESENTER_FOOTER_RECORD = (
         ( 29, 40, 'free_2', 'A'),
         ( 69,  4, 'ordering_count', 'N'),
         ( 73, 16, 'free_4', 'A'),
-        ( 89, 10, 'amount', 'N'), # Suma total de importes
+        ( 89, 10, 'amount', 'N', '2'), # Suma total de importes
         ( 99,  6, 'free_5', 'A'),
         (105, 10, 'payment_line_count', 'N'), # Número total de créditos
         (115, 10, 'record_count', 'N'), # Número total de registros de fichero
