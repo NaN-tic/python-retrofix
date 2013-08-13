@@ -83,7 +83,7 @@ RECORD = (
     (770, 17, 'to_deduce', 'N', '2'), # [47]
     (787, 17, 'liquidation_result', 'N', '2'), # [48]
     (804, 17, 'amount_to_compensate', 'N', '2'), # [49]
-    (821,  1, 'without_activity', 'N', '2'),
+    (821,  1, 'without_activity', 'A'),
     (822, 17, 'refund_amount', 'N', '2'), # [50]
     (839, 20, 'refund_bank_account', 'N', '2'),
     (859, 1, 'payment_type', 'N', '2'),
@@ -91,9 +91,9 @@ RECORD = (
     (877, 20, 'payment_bank_account', 'A'),
     (897, 1, 'complementary_autoliquidation', 'N', '2'),
     (898, 17, 'previous_declaration_receipt', 'N', '2'),
-    (911, 1, 'joint_presentation_allowed', 'N', '2'),
-    (912, 1, 'auto_bankruptcy_declaration', 'N', '2'),
-    (913, 398, 'reserved', 'N', '2'),
+    (911, 1, 'joint_presentation_allowed', 'A'),
+    (912, 1, 'auto_bankruptcy_declaration', 'A'),
+    (913, 398, 'reserved', 'A'),
     (1311, 16, 'signature_city', 'N', '2'),
     (1327,  2, 'signature_day', 'A'),
     (1329, 10, 'signature_month', 'A'),
