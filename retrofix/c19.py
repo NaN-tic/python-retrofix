@@ -203,9 +203,6 @@ PRESENTER_FOOTER_RECORD = (
 #)
 
 
-def write(records):
-    pass
-
 def read(data):
     lines = data.splitlines()
     records = []
