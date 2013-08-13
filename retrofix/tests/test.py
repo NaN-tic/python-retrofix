@@ -56,7 +56,7 @@ class C19TestCase(unittest.TestCase):
         record.free_3 = ''
         record.free_4 = ''
         self.presenter_header = record
-        
+
     def test0000_c19_read(self):
         records = c19.read(self.data)
         self.assertEqual(records[0], self.presenter_header)
