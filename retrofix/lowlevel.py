@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-    
+
 try:
     import sys
     import cdecimal
@@ -35,7 +35,7 @@ import banknumber
 import re
 from datetime import datetime
 
-# Record structures: 
+# Record structures:
 # * Initial position starting at 1 (instead of 0)
 # * Length
 # * Field name
@@ -121,9 +121,9 @@ def extract_record(line, structure, first_position=1):
 
         if stroptions.startswith('='):
             match = options[1:]
-            assert value == match, 'In field "%s", "%s" != "%s"' % (key, 
+            assert value == match, 'In field "%s", "%s" != "%s"' % (key,
                     value, match)
-    
+
         if ftype == 'N':
             assert re.match('[0-9]*$', value), (
                     'Non-numeric value "%s" in field "%s"' % (value, key))
@@ -142,20 +142,20 @@ def extract_record(line, structure, first_position=1):
                 value = sign * Decimal('%s.%s' % (value[:-2], value[-2:]))
         elif ftype == 'D':
             if value == '0'*len(value):
-                value = None     
+                value = None
             else:
                 try:
                     value = datetime.strptime(value, options)
                 except ValueError:
                     raise RetrofixException('Invalid date value "%s" does not '
-                            'match pattern "%s" in field "%s"' % (value, 
+                            'match pattern "%s" in field "%s"' % (value,
                             options, key))
         elif ftype == 'ACCOUNT':
             if value == ' '*len(value):
                 value = None
             else:
                 assert banknumber.check_code('ES', value), (
-                        'Invalid bank account "%s" in field "%s"' % 
+                        'Invalid bank account "%s" in field "%s"' %
                         (value, key))
         elif ftype == 'E':
             value = enum_value_to_text(value.strip(), options)
@@ -255,14 +255,14 @@ def format_number(number, int_length, dec_length=0, include_sign=False):
     ascii_string = ''
     if include_sign:
         ascii_string += sign
-        
+
     if dec_length > 0:
         ascii_string += '%0*.*f' % (int_length+dec_length+1,dec_length, number)
         ascii_string = ascii_string.replace('.','')
     elif int_length > 0:
         ascii_string += '%.*d' % (int_length, int_part)
-        
-    assert (len(ascii_string) == (include_sign and 1 or 0) + int_length + 
+
+    assert (len(ascii_string) == (include_sign and 1 or 0) + int_length +
             dec_length), "The formated string must match the given length"
 
     return ascii_string
@@ -295,27 +295,30 @@ def write_record(record, first_position=1):
         stroptions = str(options)
 
         value = record[key]
-    
+
         if stroptions.startswith('='):
             match = options[1:]
             if not value:
                 value = match
             else:
-                assert value == match, 'In field "%s", "%s" != "%s"' % (key, 
+                assert value == match, 'In field "%s", "%s" != "%s"' % (key,
                     value, match)
-    
+
         if ftype == 'N':
-            if isinstance(value, Decimal):
-                if options and options[0] == '2':
+            if isinstance(value, (Decimal, int)):
+                if options and options[0] != '2':
                     minus = 2
                     sign = ''
-                    if options[-1] == '-': 
+                    if options[-1] == '-':
                         minus += 1
                         if value >= 0.0:
                             sign = '2'
                         else:
                             sign = '1'
                     value = sign + format_number(value, length - minus, 2)
+                elif not options:
+                    sign = ''
+                    value = sign + format_number(value, length)
                 else:
                     raise Exception('Invalid option "%s" o field "%s".' % (
                             options, field))
