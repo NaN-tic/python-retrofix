@@ -71,7 +71,7 @@ DECLARED_RECORD = (
     (248, 16, 'fourth_quarter_property_amount', 'N', '2'),
     )
 
-# TODO: DOc says record_code is 3, but shouldn't it be 3?
+# TODO: Doc says record_code is 2, but shouldn't it be 3?
 PROPERTY_RECORD = (
     (  1,  1, 'record_code', 'N', '=2'),
     (  2,  3, 'model', 'N', '=347'),
