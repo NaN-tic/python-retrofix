@@ -33,7 +33,7 @@ import codecs
 from retrofix import lowlevel
 from retrofix import c19
 from retrofix import c32
-from retrofix import c34_oe as c34
+from retrofix import c34_1_la_caixa as c34
 from retrofix import c43
 from retrofix import c58
 
@@ -98,14 +98,14 @@ class C34TestCase(unittest.TestCase):
         record = lowlevel.Record(c34.ORDERING_HEADER_RECORD)
         record.record_code = '03'
         #record.free_1 = ''
-        record.data_code = '62'
+        record.operation_code = '62'
         #record.free_2 = ''
         record.nif = 'B17616756'
         record.suffix = '000'
         record.data_number = '001'
         record.send_date = datetime.datetime(2012, 2, 24)
         record.creation_date = datetime.datetime(2012, 2, 24)
-        record.account = '20150024519202333478'
+        record.account = '20594887510123456789'
         record.charge_detail = 'false'
         self.ordering_header = record
         
