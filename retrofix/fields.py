@@ -18,6 +18,7 @@
 #
 ##############################################################################
 
+import sys
 try:
     import cdecimal
     # Use cdecimal globally
