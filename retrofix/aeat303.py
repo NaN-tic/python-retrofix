@@ -24,10 +24,10 @@ from .fields import *
 
 
 RECORD = (
-    (  1,  2, 'model_start', 'A', '=<T'),
+    (  1,  2, 'model_start', Const('<T')),
     (  3,  3, 'model', Const('303')),
     (  6,  2, 'page', Const('01')),
-    (  8,  1, 'model_end', 'A', '>'),
+    (  8,  1, 'model_end', Const('>')),
     ( 10,  1, 'declaration_type', Char),
     ( 11,  9, 'nif', Char),
     ( 20, 30, 'company_name', Char),
