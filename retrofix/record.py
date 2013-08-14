@@ -62,7 +62,7 @@ class Record(object):
                 field = field()
             field._size = size
             field._name = name
-            assert name not in keys
+            assert name not in keys, 'Duplicate field name "%s".' % name
             keys.add(name)
             self._fields[name] = field
 
