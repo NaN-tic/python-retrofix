@@ -45,7 +45,7 @@ PRESENTER_HEADER_RECORD = (
     (400, 16, 'electronic_number', Char),
     )
 
-DETAIL_RECORD = (
+ISSUED_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('340')),
     (  5,  4, 'fiscalyear', Number),
@@ -68,7 +68,7 @@ DETAIL_RECORD = (
     (178, 40, 'invoice_number', Char),
     (218, 18, 'record_number', Char),
     # Issued Invoices
-    (236,  8, 'invoice_count', Integer),
+    (236,  8, 'issued_invoice_count', Integer),
     (244,  2, 'record_count', Integer),
     (246, 40, 'first_invoice_number', Char),
     (286, 40, 'last_invoice_number', Char),
@@ -79,14 +79,62 @@ DETAIL_RECORD = (
     (386, 25, 'cadaster_number', Char),
     (411, 15, 'cash_amount_sign', Char),
     (411, 15, 'cash_amount', Numeric(sign=SIGN_N)),
-    (426,  4, 'fiscalyear', Number),
+    (426,  4, 'invoice_fiscalyear', Number),
     (430, 15, 'property_transfer_amount', Numeric(sign=SIGN_N)),
+    )
+
+RECEIVED_RECORD = (
+    (  1,  1, 'record_code', Const('2')),
+    (  2,  3, 'model', Const('340')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18,  9, 'party_nif', Char),
+    ( 27,  9, 'representative_nif', Char),
+    ( 36, 40, 'party_name', Char),
+    ( 76,  2, 'party_country', Char),
+    ( 78,  1, 'party_identifier_type', Number),
+    ( 79, 20, 'party_identifier', Char),
+    ( 99,  1, 'book_key', Char),
+    (100,  1, 'operation_key', Char),
+    (101,  8, 'issue_date', Date('%Y%m%d')),
+    (109,  8, 'operation_date', Date('%Y%m%d')),
+    (117,  5, 'tax_rate', Numeric(sign=SIGN_N)),
+    (122, 14, 'base', Numeric(sign=SIGN_N)),
+    (136, 14, 'tax', Numeric(sign=SIGN_N)),
+    (150, 14, 'total', Numeric(sign=SIGN_N)),
+    (164, 14, 'cost', Numeric(sign=SIGN_N)),
+    (178, 40, 'invoice_number', Char),
+    (218, 18, 'record_number', Char),
     # Received Invoices
-    (236, 18, 'invoice_count', Integer),
+    (236, 18, 'received_invoice_count', Integer),
     (254,  2, 'record_count', Integer),
     (256, 40, 'first_invoice_number', Char),
     (296, 40, 'last_invoice_number', Char),
     (336, 14, 'deducible_amount', Numeric(sign=SIGN_N)),
+    )
+
+INVESTMENT_RECORD = (
+    (  1,  1, 'record_code', Const('2')),
+    (  2,  3, 'model', Const('340')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18,  9, 'party_nif', Char),
+    ( 27,  9, 'representative_nif', Char),
+    ( 36, 40, 'party_name', Char),
+    ( 76,  2, 'party_country', Char),
+    ( 78,  1, 'party_identifier_type', Number),
+    ( 79, 20, 'party_identifier', Char),
+    ( 99,  1, 'book_key', Char),
+    (100,  1, 'operation_key', Char),
+    (101,  8, 'issue_date', Date('%Y%m%d')),
+    (109,  8, 'operation_date', Date('%Y%m%d')),
+    (117,  5, 'tax_rate', Numeric(sign=SIGN_N)),
+    (122, 14, 'base', Numeric(sign=SIGN_N)),
+    (136, 14, 'tax', Numeric(sign=SIGN_N)),
+    (150, 14, 'total', Numeric(sign=SIGN_N)),
+    (164, 14, 'cost', Numeric(sign=SIGN_N)),
+    (178, 40, 'invoice_number', Char),
+    (218, 18, 'record_number', Char),
     # Investment goods
     (236,  3, 'pro_rata', Integer),
     (239, 14, 'yearly_regularization', Numeric(sign=SIGN_N)),
@@ -94,6 +142,30 @@ DETAIL_RECORD = (
     (293, 14, 'transmissions', Numeric(sign=SIGN_N)),
     (307,  8, 'usage_start_date', Date('%Y%m%d')),
     (315, 17, 'good_identifier', Char),
+    )
+
+INTRACOMMUNITY_RECORD = (
+    (  1,  1, 'record_code', Const('2')),
+    (  2,  3, 'model', Const('340')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18,  9, 'party_nif', Char),
+    ( 27,  9, 'representative_nif', Char),
+    ( 36, 40, 'party_name', Char),
+    ( 76,  2, 'party_country', Char),
+    ( 78,  1, 'party_identifier_type', Number),
+    ( 79, 20, 'party_identifier', Char),
+    ( 99,  1, 'book_key', Char),
+    (100,  1, 'operation_key', Char),
+    (101,  8, 'issue_date', Date('%Y%m%d')),
+    (109,  8, 'operation_date', Date('%Y%m%d')),
+    (117,  5, 'tax_rate', Numeric(sign=SIGN_N)),
+    (122, 14, 'base', Numeric(sign=SIGN_N)),
+    (136, 14, 'tax', Numeric(sign=SIGN_N)),
+    (150, 14, 'total', Numeric(sign=SIGN_N)),
+    (164, 14, 'cost', Numeric(sign=SIGN_N)),
+    (178, 40, 'invoice_number', Char),
+    (218, 18, 'record_number', Char),
     # Intracommunity operations (certain)
     (236,  1, 'intracommunity_operation_type', Number),
     (237,  1, 'declaring_key', Char),
@@ -105,7 +177,6 @@ DETAIL_RECORD = (
     (278, 10, 'party_zip', Char),
     (350, 135, 'other_documentation', Char),
     )
-
 
 def read(data):
     lines = data.splitlines()
