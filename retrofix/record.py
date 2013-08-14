@@ -112,21 +112,16 @@ class Record(object):
         for field in self._structure:
             start = field[0] - first_position
             length = field[1]
-            key = field[2]
-            ftype = field[3]
+            name = field[2]
 
-            if len(field) > 4:
-                options = field[4]
-            else:
-                options = ''
-            stroptions = str(options)
+            value = self.get_for_file(name)
 
-            value = self.get_for_file(key)
-
-            assert len(value) == length, ('Field "%s" should be of size "%d" but '
-                'got "%d" on record "%s".' % (key, length, len(value), str(self)))
-            assert start >= current_position, 'Start: %d, Current Position: %d' % (
-                start, current_position)
+            assert len(value) == length, ('Field "%s" should be of size "%d" '
+                'but got "%d" on record "%s".' % (name, length, len(value),
+                    str(self)))
+            assert start >= current_position, ('Error writing field "%s". '
+                'Start: %d, Current Position: %d' % (name, start,
+                    current_position))
             text += BLANK * (start - current_position)
             text += value
             current_position = len(text)
