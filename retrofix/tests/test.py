@@ -39,7 +39,8 @@ from retrofix import c58
 
 class C19TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c19.txt', 'r', encoding='latin1').read().upper()
+        self.data = codecs.open('c19.txt', 'r', encoding='latin1').read()
+        self.data = self.data.upper()
         # Presenter Header
         record = lowlevel.Record(c19.PRESENTER_HEADER_RECORD)
         record.record_code = '51'
@@ -68,7 +69,8 @@ class C19TestCase(unittest.TestCase):
 
 class C32TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c32.txt', 'r', encoding='latin1').read().upper()
+        self.data = codecs.open('c32.txt', 'r', encoding='latin1').read()
+        self.data = self.data.upper()
         # Presenter Header
         record = lowlevel.Record(c32.FILE_HEADER_RECORD)
         record.record_code = '02'
@@ -78,7 +80,7 @@ class C32TestCase(unittest.TestCase):
         record.bank_code = '2959'
         record.bank_office = '0912'
         self.file_header = record
-        
+
     def test0000_c32_read(self):
         records = c32.read(self.data)
         self.assertEqual(records[0], self.file_header)
@@ -90,7 +92,8 @@ class C32TestCase(unittest.TestCase):
 
 class C34TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c34.txt', 'r', encoding='latin1').read().upper()
+        self.data = codecs.open('c34.txt', 'r', encoding='latin1').read()
+        self.data = self.data.upper()
         # Presenter Header
         record = lowlevel.Record(c34.ORDERING_HEADER_RECORD)
         record.record_code = '03'
@@ -116,7 +119,8 @@ class C34TestCase(unittest.TestCase):
 
 class C43TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c43.txt', 'r', encoding='latin1').read().upper()
+        self.data = codecs.open('c43.txt', 'r', encoding='latin1').read()
+        self.data = self.data.upper()
         # Account Header
         record = lowlevel.Record(c43.ACCOUNT_HEADER_RECORD)
         record.record_code = '11'
@@ -142,7 +146,8 @@ class C43TestCase(unittest.TestCase):
 
 class C58TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c58.txt', 'r', encoding='latin1').read().upper()
+        self.data = codecs.open('c58.txt', 'r', encoding='latin1').read()
+        self.data = self.data.upper()
         # Presenter Header
         record = lowlevel.Record(c58.PRESENTER_HEADER_RECORD)
         record.record_code = '51'
