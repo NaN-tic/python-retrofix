@@ -77,7 +77,6 @@ ISSUED_RECORD = (
     (371, 14, 'equivalence_tax', Numeric(sign=SIGN_N)),
     (385,  1, 'property_state', Char),
     (386, 25, 'cadaster_number', Char),
-    (411, 15, 'cash_amount_sign', Char),
     (411, 15, 'cash_amount', Numeric(sign=SIGN_N)),
     (426,  4, 'invoice_fiscalyear', Number),
     (430, 15, 'property_transfer_amount', Numeric(sign=SIGN_N)),
