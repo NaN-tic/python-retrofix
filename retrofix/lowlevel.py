@@ -35,6 +35,8 @@ import banknumber
 import re
 from datetime import datetime
 
+BLANK = ' '
+
 # Record structures:
 # * Initial position starting at 1 (instead of 0)
 # * Length
@@ -61,6 +63,7 @@ def enum_text_to_value(text, enum):
         if item[1].upper() == text.upper():
             return item[0]
     return None
+
 
 class Record(dict):
     def __init__(self, structure=None):
@@ -306,7 +309,7 @@ def write_record(record, first_position=1):
 
         if ftype == 'N':
             if isinstance(value, (Decimal, int)):
-                if options and options[0] != '2':
+                if options and options[0] == '2':
                     minus = 2
                     sign = ''
                     if options[-1] == '-':
@@ -334,7 +337,7 @@ def write_record(record, first_position=1):
         elif ftype == 'E':
             value = enum_text_to_value(value, options)
             if value is None:
-                raise BaseException('Invalid value "%s" for field "%s". Valid '
+                raise RetrofixException('Invalid value "%s" for field "%s". Valid '
                         'values are: %s' % (value, key, stroptions))
 
         else:
@@ -342,8 +345,9 @@ def write_record(record, first_position=1):
 
         assert len(value) == length, ('Size of record "%s" should be %d but it '
             'is %d (%s)') % (value, length, len(value), str(record))
-        assert start == current_position, 'Start: %d, Current Position: %d' % (
+        assert start >= current_position, 'Start: %d, Current Position: %d' % (
             start, current_position)
+        text += BLANK * (start - current_position)
         text += value
         current_position = len(text)
 
