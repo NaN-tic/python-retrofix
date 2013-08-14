@@ -37,6 +37,7 @@ from retrofix import c34_1_la_caixa as c34
 from retrofix import c43
 from retrofix import c58
 
+
 class C19TestCase(unittest.TestCase):
     def setUp(self):
         self.data = codecs.open('c19.txt', 'r', encoding='latin1').read()
@@ -108,7 +109,7 @@ class C34TestCase(unittest.TestCase):
         record.account = '20594887510123456789'
         record.charge_detail = 'false'
         self.ordering_header = record
-        
+
     def test0000_c34_read(self):
         records = c34.read(self.data)
         self.assertEqual(records[0], self.ordering_header)
@@ -135,7 +136,7 @@ class C43TestCase(unittest.TestCase):
         record.customer_name = ''
         record.free = ''
         self.account_header = record
-        
+
     def test0000_c43_read(self):
         records = c43.read(self.data)
         self.assertEqual(records[0], self.account_header)
@@ -143,6 +144,7 @@ class C43TestCase(unittest.TestCase):
     def test0001_c43_write(self):
         data = lowlevel.write_record(self.account_header)
         self.assertEqual(self.data[:len(data)], data)
+
 
 class C58TestCase(unittest.TestCase):
     def setUp(self):
@@ -159,7 +161,7 @@ class C58TestCase(unittest.TestCase):
         record.bank_code = '0075'
         record.bank_office = '1454'
         self.presenter_header = record
-        
+
     def test0000_c58_read(self):
         records = c58.read(self.data)
         self.assertEqual(records[0], self.presenter_header)
