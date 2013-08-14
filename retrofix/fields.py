@@ -156,6 +156,8 @@ class Numeric(Field):
                 value[-self._decimals:]))
 
     def get_for_file(self, value):
+        if value is None:
+            value = Decimal('0')
         minus = self._decimals
         sign = self.get_sign(value)
         minus += len(sign)
@@ -190,7 +192,11 @@ class Date(Field):
                     pattern, key))
 
     def get_for_file(self, value):
-        return datetime.strftime(value, self._pattern)
+        if value is None:
+            res = ''
+        else:
+            res = datetime.strftime(value, self._pattern)
+        return super(Date, self).get_for_file(res)
 
     def set(self, value):
         assert value, datetime
