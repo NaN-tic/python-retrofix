@@ -36,7 +36,7 @@ HEADER_RECORD_TYPE_1 = (
     (60, 1, 'charge_detail', Selection([
             ('0', 'only_one_account_move_line'),
             ('1', 'one_account_move_line_for_each_recipient'),
-            )),
+            ])),
     (61, 3, 'free_2', Char),
     (64, 2, 'bank_account_dc', Number),
     (66, 7, 'free_3', Char),
