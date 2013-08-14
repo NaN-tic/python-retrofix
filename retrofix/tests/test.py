@@ -30,7 +30,7 @@ import pprint
 from decimal import Decimal
 import codecs
 
-from retrofix import lowlevel
+from retrofix.record import Record
 from retrofix import c19
 from retrofix import c32
 from retrofix import c34_1_la_caixa as c34
@@ -43,20 +43,15 @@ class C19TestCase(unittest.TestCase):
         self.data = codecs.open('c19.txt', 'r', encoding='latin1').read()
         self.data = self.data.upper()
         # Presenter Header
-        record = lowlevel.Record(c19.PRESENTER_HEADER_RECORD)
+        record = Record(c19.PRESENTER_HEADER_RECORD)
         record.record_code = '51'
         record.data_code = '80'
         record.nif = 'B65247983'
         record.suffix = '701'
         record.creation_date = datetime.datetime(2012, 2, 24)
-        record.free = ''
-        record.name = 'NaN Projectes de Programari Lliure, S.L.'
-        record.free_1 = ''
+        record.name = 'NAN PROJECTES DE PROGRAMARI LLIURE, S.L.'
         record.bank_code = '2059'
         record.bank_office = '0060'
-        record.free_2 = ''
-        record.free_3 = ''
-        record.free_4 = ''
         self.presenter_header = record
 
     def test0000_c19_read(self):
@@ -64,7 +59,7 @@ class C19TestCase(unittest.TestCase):
         self.assertEqual(records[0], self.presenter_header)
 
     def test0001_c19_write(self):
-        data = lowlevel.write_record(self.presenter_header)
+        data = self.presenter_header.write()
         self.assert_(self.data.startswith(data))
 
 
@@ -73,7 +68,7 @@ class C32TestCase(unittest.TestCase):
         self.data = codecs.open('c32.txt', 'r', encoding='latin1').read()
         self.data = self.data.upper()
         # Presenter Header
-        record = lowlevel.Record(c32.FILE_HEADER_RECORD)
+        record = Record(c32.FILE_HEADER_RECORD)
         record.record_code = '02'
         record.data_code = '65'
         record.file_date = datetime.datetime(2011, 07, 04)
@@ -87,7 +82,7 @@ class C32TestCase(unittest.TestCase):
         self.assertEqual(records[0], self.file_header)
 
     def test0001_c32_write(self):
-        data = lowlevel.write_record(self.file_header)
+        data = self.file_header.write()
         self.assert_(self.data.startswith(data))
 
 
@@ -96,11 +91,9 @@ class C34TestCase(unittest.TestCase):
         self.data = codecs.open('c34.txt', 'r', encoding='latin1').read()
         self.data = self.data.upper()
         # Presenter Header
-        record = lowlevel.Record(c34.ORDERING_HEADER_RECORD)
+        record = Record(c34.ORDERING_HEADER_RECORD)
         record.record_code = '03'
-        #record.free_1 = ''
         record.operation_code = '62'
-        #record.free_2 = ''
         record.nif = 'B17616756'
         record.suffix = '000'
         record.data_number = '001'
@@ -115,7 +108,7 @@ class C34TestCase(unittest.TestCase):
         self.assertEqual(records[0], self.ordering_header)
 
     def test0001_c34_write(self):
-        data = lowlevel.write_record(self.ordering_header)
+        data = self.ordering_header.write()
         self.assert_(self.data.startswith(data))
 
 class C43TestCase(unittest.TestCase):
@@ -123,7 +116,7 @@ class C43TestCase(unittest.TestCase):
         self.data = codecs.open('c43.txt', 'r', encoding='latin1').read()
         self.data = self.data.upper()
         # Account Header
-        record = lowlevel.Record(c43.ACCOUNT_HEADER_RECORD)
+        record = Record(c43.ACCOUNT_HEADER_RECORD)
         record.record_code = '11'
         record.bank_code = '2059'
         record.bank_office = '0060'
@@ -134,7 +127,6 @@ class C43TestCase(unittest.TestCase):
         record.currency_code = '978'
         record.information_mode = '2'
         record.customer_name = ''
-        record.free = ''
         self.account_header = record
 
     def test0000_c43_read(self):
@@ -142,7 +134,7 @@ class C43TestCase(unittest.TestCase):
         self.assertEqual(records[0], self.account_header)
 
     def test0001_c43_write(self):
-        data = lowlevel.write_record(self.account_header)
+        data = self.account_header.write()
         self.assertEqual(self.data[:len(data)], data)
 
 
@@ -151,13 +143,13 @@ class C58TestCase(unittest.TestCase):
         self.data = codecs.open('c58.txt', 'r', encoding='latin1').read()
         self.data = self.data.upper()
         # Presenter Header
-        record = lowlevel.Record(c58.PRESENTER_HEADER_RECORD)
+        record = Record(c58.PRESENTER_HEADER_RECORD)
         record.record_code = '51'
         record.data_code = '70'
         record.nif = 'B65247983'
         record.suffix = '000'
         record.creation_date = datetime.datetime(2012, 2, 24)
-        record.name = 'NaN Projectes de Programari Lliure, S.L.'
+        record.name = 'NAN PROJECTES DE PROGRAMARI LLIURE, S.L.'
         record.bank_code = '0075'
         record.bank_office = '1454'
         self.presenter_header = record
@@ -167,7 +159,7 @@ class C58TestCase(unittest.TestCase):
         self.assertEqual(records[0], self.presenter_header)
 
     def test0001_c58_write(self):
-        data = lowlevel.write_record(self.presenter_header)
+        data = self.presenter_header.write()
         self.assert_(self.data.startswith(data))
 
 

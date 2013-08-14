@@ -19,87 +19,88 @@
 #
 ##############################################################################
 
-from lowlevel import extract_record, valid_record
+from record import Record
+from .fields import *
 
-# TODO: Implement numbers without the _sign field
+
 PRESENTER_HEADER_RECORD = (
-    (  1,  1, 'record_code', 'N', '=1'),
-    (  2,  3, 'model', 'N', '=347'),
-    (  5,  4, 'fiscalyear', 'N'),
-    (  9,  9, 'nif', 'A'),
-    ( 18, 40, 'presenter_name', 'A'),
-    ( 58,  1, 'support_type', 'A'),
-    ( 59,  9, 'contact_phone', 'N'),
-    ( 68, 40, 'contact_name', 'A'),
-    (108, 13, 'declaration_number', 'N'),
-    (121,  1, 'complementary', 'A'),
-    (122,  1, 'replacement', 'A'),
-    (123, 13, 'previous_declaration_number', 'N'),
-    (136,  9, 'party_count', 'N'),
-    (145, 16, 'total', 'N', '2'),
-    (161,  9, 'property_count', 'N'),
-    (170, 15, 'lease_total', 'N', '2'),
-    (391,  9, 'representative_nif', 'A'),
-    (488, 13, 'digital_signature', 'A'),
+    (  1,  1, 'record_code', Const('1')),
+    (  2,  3, 'model', Const('347')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18, 40, 'presenter_name', Char),
+    ( 58,  1, 'support_type', Char),
+    ( 59,  9, 'contact_phone', Number),
+    ( 68, 40, 'contact_name', Char),
+    (108, 13, 'declaration_number', Number),
+    (121,  1, 'complementary', Char),
+    (122,  1, 'replacement', Char),
+    (123, 13, 'previous_declaration_number', Number),
+    (136,  9, 'party_count', Integer),
+    (145, 16, 'total', Numeric(sign=SIGN_N)),
+    (161,  9, 'property_count', Integer),
+    (170, 15, 'lease_total', Numeric(sign=SIGN_N)),
+    (391,  9, 'representative_nif', Char),
+    (488, 13, 'digital_signature', Char),
     )
 
 DECLARED_RECORD = (
-    (  1,  1, 'record_code', 'N', '=2'),
-    (  2,  3, 'model', 'N', '=347'),
-    (  5,  4, 'fiscalyear', 'N'),
-    (  9,  9, 'nif', 'A'),
-    ( 18,  9, 'party_nif', 'A'),
-    ( 27,  9, 'representative_nif', 'A'),
-    ( 36, 40, 'party_name', 'A'),
-    ( 76,  1, 'sheet_type', 'A', '=D'),
-    ( 77,  2, 'province_code', 'N'),
-    ( 79,  2, 'country_code', 'N'),
-    ( 82,  1, 'operation_key', 'A'),
-    ( 83, 16, 'operation_total', 'N', '2'),
-    ( 99,  1, 'insurance', 'A'),
-    (100,  1, 'business_premises_rent', 'A'),
-    (101, 15, 'cash_amount', 'N', '2'),
-    (116, 16, 'vat_liable_property_amount', 'N', '2'),
-    (132,  4, 'fiscalyear_cash_operation', 'N'),
-    (136, 16, 'first_quarter_amount', 'N', '2'),
-    (152, 16, 'first_quarter_property_amount', 'N', '2'),
-    (168, 16, 'second_quarter_amount', 'N', '2'),
-    (184, 16, 'second_quarter_property_amount', 'N', '2'),
-    (200, 16, 'third_quarter_amount', 'N', '2'),
-    (216, 16, 'third_quarter_property_amount', 'N', '2'),
-    (232, 16, 'fourth_quarter_amount', 'N', '2'),
-    (248, 16, 'fourth_quarter_property_amount', 'N', '2'),
+    (  1,  1, 'record_code', Const('2')),
+    (  2,  3, 'model', Const('347')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18,  9, 'party_nif', Char),
+    ( 27,  9, 'representative_nif', Char),
+    ( 36, 40, 'party_name', Char),
+    ( 76,  1, 'sheet_type', Const('D')),
+    ( 77,  2, 'province_code', Number),
+    ( 79,  2, 'country_code', Number),
+    ( 82,  1, 'operation_key', Char),
+    ( 83, 16, 'operation_total', Numeric(sign=SIGN_N)),
+    ( 99,  1, 'insurance', Char),
+    (100,  1, 'business_premises_rent', Char),
+    (101, 15, 'cash_amount', Numeric(sign=SIGN_N)),
+    (116, 16, 'vat_liable_property_amount', Numeric(sign=SIGN_N)),
+    (132,  4, 'fiscalyear_cash_operation', Number),
+    (136, 16, 'first_quarter_amount', Numeric(sign=SIGN_N)),
+    (152, 16, 'first_quarter_property_amount', Numeric(sign=SIGN_N)),
+    (168, 16, 'second_quarter_amount', Numeric(sign=SIGN_N)),
+    (184, 16, 'second_quarter_property_amount', Numeric(sign=SIGN_N)),
+    (200, 16, 'third_quarter_amount', Numeric(sign=SIGN_N)),
+    (216, 16, 'third_quarter_property_amount', Numeric(sign=SIGN_N)),
+    (232, 16, 'fourth_quarter_amount', Numeric(sign=SIGN_N)),
+    (248, 16, 'fourth_quarter_property_amount', Numeric(sign=SIGN_N)),
     )
 
 # TODO: Doc says record_code is 2, but shouldn't it be 3?
 PROPERTY_RECORD = (
-    (  1,  1, 'record_code', 'N', '=2'),
-    (  2,  3, 'model', 'N', '=347'),
-    (  5,  4, 'fiscalyear', 'N'),
-    (  9,  9, 'nif', 'A'),
-    ( 18,  9, 'party_nif', 'A'),
-    ( 27,  9, 'representative_nif', 'A'),
-    ( 36, 40, 'party_name', 'A'),
-    ( 76,  1, 'sheet_type', 'A', '=D'),
-    (100, 15, 'total', 'A'),
-    (115,  1, 'situation', 'N'),
-    (116, 25, 'cadaster_number', 'A'),
-    (141,  5, 'road_type', 'A'),
-    (146, 50, 'street', 'A'),
-    (196,  3, 'number_type', 'A'),
-    (199,  5, 'number', 'N'),
-    (204,  3, 'number_qualifier', 'A'),
-    (207,  3, 'block', 'A'),
-    (210,  3, 'doorway', 'A'),
-    (213,  3, 'stair', 'A'),
-    (216,  3, 'floor', 'A'),
-    (219,  3, 'door', 'A'),
-    (222, 40, 'complement', 'A'),
-    (262, 30, 'city', 'A'),
-    (292, 30, 'municipality', 'A'),
-    (322,  5, 'municipality_code', 'A'),
-    (327,  2, 'province_code', 'N'),
-    (329,  5, 'zip', 'N'),
+    (  1,  1, 'record_code', Const('2')),
+    (  2,  3, 'model', Const('347')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18,  9, 'party_nif', Char),
+    ( 27,  9, 'representative_nif', Char),
+    ( 36, 40, 'party_name', Char),
+    ( 76,  1, 'sheet_type', Const('D')),
+    (100, 15, 'total', Char),
+    (115,  1, 'situation', Number),
+    (116, 25, 'cadaster_number', Char),
+    (141,  5, 'road_type', Char),
+    (146, 50, 'street', Char),
+    (196,  3, 'number_type', Char),
+    (199,  5, 'number', Number),
+    (204,  3, 'number_qualifier', Char),
+    (207,  3, 'block', Char),
+    (210,  3, 'doorway', Char),
+    (213,  3, 'stair', Char),
+    (216,  3, 'floor', Char),
+    (219,  3, 'door', Char),
+    (222, 40, 'complement', Char),
+    (262, 30, 'city', Char),
+    (292, 30, 'municipality', Char),
+    (322,  5, 'municipality_code', Char),
+    (327,  2, 'province_code', Number),
+    (329,  5, 'zip', Number),
     )
 
 
@@ -108,14 +109,14 @@ def read(data):
     records = []
 
     current_line = lines.pop(0)
-    records.append(extract_record(current_line, PRESENTER_HEADER_RECORD))
+    records.append(Record.extract(current_line, PRESENTER_HEADER_RECORD))
 
     current_line = lines.pop(0)
     while lines:
-        if valid_record(current_line, DECLARED_RECORD):
-            record = extract_record(current_line, DECLARED_RECORD)
-        if valid_record(current_line, PROPERTY_RECORD):
-            record = extract_record(current_line, PROPERTY_RECORD)
+        if Record.valid(current_line, DECLARED_RECORD):
+            record = Record.extract(current_line, DECLARED_RECORD)
+        if Record.valid(current_line, PROPERTY_RECORD):
+            record = Record.extract(current_line, PROPERTY_RECORD)
         else:
             raise Exception('Invalid record: %s' % current_line)
         records.append(record)

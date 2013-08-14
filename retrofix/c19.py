@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-from lowlevel import extract_record, valid_record
+from record import Record
+from fields import *
 
 # Currency ISO codes:
 # 
@@ -35,160 +36,165 @@ from lowlevel import extract_record, valid_record
 # Dólar USA            840
 # Euro                 978
 
-# See lowlevel.py for record structures
-
 PRESENTER_HEADER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=51'), # 00
-        (  3,  2, 'data_code', 'N', '=80'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17,  6, 'creation_date', 'D', '%d%m%y'),
-        ( 23,  6, 'free', 'A'),
-        ( 29, 40, 'name', 'A'),
-        ( 69, 20, 'free_1', 'A'),
-        ( 89,  4, 'bank_code', 'N'),
-        ( 93,  4, 'bank_office', 'N'),
-        ( 97, 12, 'free_2', 'A'),
-        (109, 40, 'free_3', 'A'),
-        (149, 14, 'free_4', 'A'),
+        (  1,  2, 'record_code', Const('51')),
+        (  3,  2, 'data_code', Const('80')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17,  6, 'creation_date', Date('%d%m%y')),
+        ( 23,  6, 'free', Char),
+        ( 29, 40, 'name', Char),
+        ( 69, 20, 'free_1', Char),
+        ( 89,  4, 'bank_code', Number),
+        ( 93,  4, 'bank_office', Number),
+        ( 97, 12, 'free_2', Char),
+        (109, 40, 'free_3', Char),
+        (149, 14, 'free_4', Char),
         )
 
 ORDERING_HEADER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=53'),
-        (  3,  2, 'data_code', 'N', '=80'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17,  6, 'creation_date', 'D', '%d%m%y'),
-        ( 23,  6, 'payment_date', 'D', '%d%m%y'),
-        ( 29, 40, 'name', 'A'),
-        ( 69, 20, 'account', 'ACCOUNT'), # Complete account number
-        ( 89,  8, 'free_1', 'A'),
-        ( 97,  2, 'procedure', 'A'), # Type?
-        ( 99, 10, 'free_2', 'A'),
-        (109, 40, 'free_3', 'A'),
-        (149, 14, 'free_4', 'A'),
+        (  1,  2, 'record_code', Const('53')),
+        (  3,  2, 'data_code', Const('80')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17,  6, 'creation_date', Date('%d%m%y')),
+        ( 23,  6, 'payment_date', Date('%d%m%y')),
+        ( 29, 40, 'name', Char),
+        ( 69, 20, 'account', Account),
+        ( 89,  8, 'free_1', Char),
+        ( 97,  2, 'procedure', Char), # Type?
+        ( 99, 10, 'free_2', Char),
+        (109, 40, 'free_3', Char),
+        (149, 14, 'free_4', Char),
         )
 
 REQUIRED_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=80'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'reference_code', 'A'),
-        ( 29, 40, 'name', 'A'),
-        ( 69, 20, 'account', 'ACCOUNT'),
-        ( 89, 10, 'amount', 'N', '2'),
-        ( 99, 16, 'free_1', 'A'),
-        (115, 40, 'concept', 'A'),
-        (155,  8, 'free_2', 'A')
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('80')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'reference_code', Char),
+        ( 29, 40, 'name', Char),
+        ( 69, 20, 'account', Account),
+        ( 89, 10, 'amount', Numeric(sign=SIGN_12)),
+        ( 99, 16, 'free_1', Char),
+        (115, 40, 'concept', Char),
+        (155,  8, 'free_2', Char)
         )
 
 FIRST_OPTIONAL_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=81'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'A'),
-        ( 17, 12, 'reference_code', 'A'),
-        ( 29, 40, 'second_field_concept', 'A'),
-        ( 69, 40, 'third_field_concept', 'A'),
-        (109, 40, 'fourth_field_concept', 'A'),
-        (149, 14, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('81')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Char),
+        ( 17, 12, 'reference_code', Char),
+        ( 29, 40, 'second_field_concept', Char),
+        ( 69, 40, 'third_field_concept', Char),
+        (109, 40, 'fourth_field_concept', Char),
+        (149, 14, 'free', Char),
         )  # Annex 2. CSB 19 Norm.
 
 SECOND_OPTIONAL_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=82'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'A'),
-        ( 17, 12, 'reference_code', 'A'),
-        ( 29, 40, 'fifth_field_concept', 'A'),
-        ( 69, 40, 'sixth_field_concept', 'A'),
-        (109, 40, 'seventh_field_concept', 'A'),
-        (149, 14, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('82')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Char),
+        ( 17, 12, 'reference_code', Char),
+        ( 29, 40, 'fifth_field_concept', Char),
+        ( 69, 40, 'sixth_field_concept', Char),
+        (109, 40, 'seventh_field_concept', Char),
+        (149, 14, 'free', Char),
         )  # Annex 2. CSB 19 Norm.
 
 THIRD_OPTIONAL_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=83'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'A'),
-        ( 17, 12, 'reference_code', 'A'),
-        ( 29, 40, 'eighth_field_concept', 'A'),
-        ( 69, 40, 'ninth_field_concept', 'A'),
-        (109, 40, 'tenth_field_concept', 'A'),
-        (149, 14, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('83')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Char),
+        ( 17, 12, 'reference_code', Char),
+        ( 29, 40, 'eighth_field_concept', Char),
+        ( 69, 40, 'ninth_field_concept', Char),
+        (109, 40, 'tenth_field_concept', Char),
+        (149, 14, 'free', Char),
         )  # Annex 2. CSB 19 Norm.
 
 FOURTH_OPTIONAL_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=84'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'A'),
-        ( 17, 12, 'reference_code', 'A'),
-        ( 29, 40, 'eleventh_field_concept', 'A'),
-        ( 69, 40, 'twelfth_field_concept', 'A'),
-        (109, 40, 'thirteenth_field_concept', 'A'),
-        (149, 14, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('84')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Char),
+        ( 17, 12, 'reference_code', Char),
+        ( 29, 40, 'eleventh_field_concept', Char),
+        ( 69, 40, 'twelfth_field_concept', Char),
+        (109, 40, 'thirteenth_field_concept', Char),
+        (149, 14, 'free', Char),
         )  # Annex 2. CSB 19 Norm.
 
 FIFTH_OPTIONAL_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=85'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'A'),
-        ( 17, 12, 'reference_code', 'A'),
-        ( 29, 40, 'fourteenth_field_concept', 'A'),
-        ( 69, 40, 'fifteenth_field_concept', 'A'),
-        (109, 40, 'sixteenth_field_concept', 'A'),
-        (149, 14, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('85')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Char),
+        ( 17, 12, 'reference_code', Char),
+        ( 29, 40, 'fourteenth_field_concept', Char),
+        ( 69, 40, 'fifteenth_field_concept', Char),
+        (109, 40, 'sixteenth_field_concept', Char),
+        (149, 14, 'free', Char),
         )  # Annex 2. CSB 19 Norm.
 
 SIXTH_OPTIONAL_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=86'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'A'),
-        ( 17, 12, 'reference_code', 'A'),
-        ( 29, 40, 'name', 'A'),
-        ( 69, 40, 'address', 'A'),
-        (109, 35, 'city', 'A'),
-        (144,  5, 'zip', 'A'),
-        (149, 14, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('86')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Char),
+        ( 17, 12, 'reference_code', Char),
+        ( 29, 40, 'name', Char),
+        ( 69, 40, 'address', Char),
+        (109, 35, 'city', Char),
+        (144,  5, 'zip', Char),
+        (149, 14, 'free', Char),
         )  # Annex 2. CSB 19 Norm.
 
 OPTIONAL_RECORD = SIXTH_OPTIONAL_INDIVIDUAL_RECORD  # Annex 3. CSB 19 Norm.
 
 ORDERING_FOOTER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=58'),
-        (  3,  2, 'data_code', 'N', '=80'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'free_1', 'A'),
-        ( 29, 40, 'free_2', 'A'),
-        ( 69, 20, 'free_3', 'A'),
-        ( 89, 10, 'amount_sum', 'N', '2'), # Suma de los importes del ordenante
-        ( 99,  6, 'free_4', 'A'),
-        (105, 10, 'required_count', 'N'), # Número de domiciliaciones del ordenante
-        (115, 10, 'record_count', 'N'), # Número total de registros del ordenante
-        (125, 20, 'free_5', 'A'),
-        (145, 18, 'free_6', 'A'),
+        (  1,  2, 'record_code', Const('58')),
+        (  3,  2, 'data_code', Const('80')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'free_1', Char),
+        ( 29, 40, 'free_2', Char),
+        ( 69, 20, 'free_3', Char),
+	# Suma de los importes del ordenante
+        ( 89, 10, 'amount_sum', Numeric(sign=SIGN_12)),
+        ( 99,  6, 'free_4', Char),
+ 	# Número de domiciliaciones del ordenante
+        (105, 10, 'required_count', Integer),
+	# Número total de registros del ordenante
+        (115, 10, 'record_count', Integer),
+        (125, 20, 'free_5', Char),
+        (145, 18, 'free_6', Char),
         )
 
 PRESENTER_FOOTER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=59'),
-        (  3,  2, 'data_code', 'N', '=80'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'free_1', 'A'),
-        ( 29, 40, 'free_2', 'A'),
-        ( 69,  4, 'ordering_count', 'N'), # Número de ordenantes
-        ( 73, 16, 'free_3', 'A'),
-        ( 89, 10, 'amount_sum', 'N', '2'), # Suma total de importes
-        ( 99,  6, 'free_4', 'A'),
-        (105, 10, 'required_count', 'N'), # Número total de domiciliaciones
-        (115, 10, 'record_count', 'N'), # Número total de registros del soporte
-        (125, 20, 'free_5', 'A'),
-        (145, 18, 'free_6', 'A'),
+        (  1,  2, 'record_code', Const('59')),
+        (  3,  2, 'data_code', Const('80')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'free_1', Char),
+        ( 29, 40, 'free_2', Char),
+	# Número de ordenantes
+        ( 69,  4, 'ordering_count', Integer),
+        ( 73, 16, 'free_3', Char),
+	# Suma total de importes
+        ( 89, 10, 'amount_sum', Numeric(sign=SIGN_12)),
+        ( 99,  6, 'free_4', Char),
+	# Número total de domiciliaciones
+        (105, 10, 'required_count', Integer),
+	# Número total de registros del soporte
+        (115, 10, 'record_count', Integer),
+        (125, 20, 'free_5', Char),
+        (145, 18, 'free_6', Char),
         )
 
 # Structure:
@@ -208,21 +214,21 @@ def read(data):
     records = []
 
     current_line = lines.pop(0)
-    records.append(extract_record(current_line, PRESENTER_HEADER_RECORD))
+    records.append(Record.extract(current_line, PRESENTER_HEADER_RECORD))
 
     current_line = lines.pop(0)
-    records.append(extract_record(current_line, ORDERING_HEADER_RECORD))
+    records.append(Record.extract(current_line, ORDERING_HEADER_RECORD))
 
     current_line = lines.pop(0)
     while lines:
-        if valid_record(current_line, REQUIRED_INDIVIDUAL_RECORD):
-            record = extract_record(current_line, REQUIRED_INDIVIDUAL_RECORD)
-        elif valid_record(current_line, OPTIONAL_RECORD):
-            record = extract_record(current_line, OPTIONAL_RECORD)
-        elif valid_record(current_line, ORDERING_FOOTER_RECORD):
-            record = extract_record(current_line, ORDERING_FOOTER_RECORD)
-        elif valid_record(current_line, PRESENTER_FOOTER_RECORD):
-            record = extract_record(current_line, PRESENTER_FOOTER_RECORD)
+        if Record.valid(current_line, REQUIRED_INDIVIDUAL_RECORD):
+            record = Record.extract(current_line, REQUIRED_INDIVIDUAL_RECORD)
+        elif Record.valid(current_line, OPTIONAL_RECORD):
+            record = Record.extract(current_line, OPTIONAL_RECORD)
+        elif Record.valid(current_line, ORDERING_FOOTER_RECORD):
+            record = Record.extract(current_line, ORDERING_FOOTER_RECORD)
+        elif Record.valid(current_line, PRESENTER_FOOTER_RECORD):
+            record = Record.extract(current_line, PRESENTER_FOOTER_RECORD)
         else:
             raise Exception('Invalid record: %s' % current_line)
         records.append(record)

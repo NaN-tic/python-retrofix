@@ -19,10 +19,11 @@
 #
 ##############################################################################
 
-from lowlevel import extract_record, valid_record
+from record import Record
+from .fields import *
 
 # Currency ISO codes:
-# 
+#
 # Dólar australiano    036
 # Dólar canadiense     124
 # Corona Danesa        208
@@ -35,78 +36,76 @@ from lowlevel import extract_record, valid_record
 # Dólar USA            840
 # Euro                 978
 
-# See lowlevel.py for record structures
-
 FILE_HEADER_RECORD = (
-    ( 1,  2, 'record_code', 'N', '=00'), # 00
-    ( 3,  4, 'bank_code', 'N'),
-    ( 7,  6, 'date', 'N'),
-    (13, 68, 'free', 'A'),
-)
+    ( 1,  2, 'record_code', Const('00')),
+    ( 3,  4, 'bank_code', Number),
+    ( 7,  6, 'date', Date('%y%m%d')),
+    (13, 68, 'free', Char),
+    )
 
 ACCOUNT_HEADER_RECORD = (
-    ( 1,  2, 'record_code', 'N', '=11'), # 11
-    ( 3,  4, 'bank_code', 'N'),
-    ( 7,  4, 'bank_office', 'N'),
-    (11, 10, 'account_number', 'N'),
-    (21,  6, 'start_date', 'D', '%y%m%d'),
-    (27,  6, 'end_date', 'D', '%y%m%d'),
-    (33, 15, 'initial_balance', 'N', '2-'),
-    (48,  3, 'currency_code', 'N'),
-    (51,  1, 'information_mode', 'N'),
-    (52, 26, 'customer_name', 'A'),
-    (78,  3, 'free', 'A'), # customer_code
-)
+    ( 1,  2, 'record_code', Const('11')),
+    ( 3,  4, 'bank_code', Number),
+    ( 7,  4, 'bank_office', Number),
+    (11, 10, 'account_number', Number),
+    (21,  6, 'start_date', Date('%y%m%d')),
+    (27,  6, 'end_date', Date('%y%m%d')),
+    (33, 15, 'initial_balance', Numeric),
+    (48,  3, 'currency_code', Number),
+    (51,  1, 'information_mode', Number),
+    (52, 26, 'customer_name', Char),
+    (78,  3, 'free', Char), # customer_code
+    )
 
 MOVE_RECORD = (
-    ( 1,  2, 'record_code', 'N', '=22'), # 22
-    ( 3,  4, 'free', 'A'), # With space. Exceptionally will show bank code
-    ( 7,  4, 'bank_office', 'N'),
-    (11,  6, 'operation_date', 'D', '%y%m%d'),
-    (17,  6, 'value_date', 'D', '%y%m%d'),
-    (23,  2, 'common_concept_code', 'N'),
-    (25,  3, 'bank_concept_code', 'N'), # Bank's own concept code
-    (28, 15, 'amount', 'N', '2-'), # No decimal separator with 2 decimal places.
-                                   # First character should be the sign
-    (43, 10, 'document_number', 'N'),
-    (53, 12, 'reference_1', 'A'),
-    (65, 16, 'reference_2', 'A'),
+    ( 1,  2, 'record_code', Const('22')),
+    ( 3,  4, 'free', Char), # With space. Exceptionally will show bank code
+    ( 7,  4, 'bank_office', Number),
+    (11,  6, 'operation_date', Date('%y%m%d')),
+    (17,  6, 'value_date', Date('%y%m%d')),
+    (23,  2, 'common_concept_code', Number),
+    (25,  3, 'bank_concept_code', Number), # Bank's own concept code
+    (28, 15, 'amount', Numeric),
+    (43, 10, 'document_number', Number),
+    (53, 12, 'reference_1', Char),
+    (65, 16, 'reference_2', Char),
 )
 
 MOVE_CONCEPT_RECORD = (
-    ( 1,  2, 'record_code', 'N', '=23'),
-    ( 3,  2, 'data_code', 'N'),
-    ( 5, 38, 'concept_1', 'A'),
-    (43, 38, 'concept_2', 'A'),
+    ( 1,  2, 'record_code', Const('23')),
+    ( 3,  2, 'data_code', Number),
+    ( 5, 38, 'concept_1', Char),
+    (43, 38, 'concept_2', Char),
 )
 
 MOVE_AMOUNT_EQUIVALENCE_RECORD = (
-    ( 1,  2, 'record_code', 'N', '=24'), # Unknown
-    ( 3,  2, 'data_code', 'N'), 
-    ( 5,  3, 'source_currency_code', 'N'), 
-    ( 8, 14, 'amount', 'N'), 
-    (22, 59, 'free', 'A'), 
+    ( 1,  2, 'record_code', Const('24')), # Unknown
+    ( 3,  2, 'data_code', Number),
+    ( 5,  3, 'source_currency_code', Number),
+    ( 8, 14, 'amount', Numeric),
+    (22, 59, 'free', Char),
 )
 
 ACCOUNT_FOOTER_RECORD = (
-    ( 1,  2, 'record_code', 'N', '=33'), # 33
-    ( 3,  4, 'bank_code', 'N'),
-    ( 7,  4, 'bank_office', 'N'),
-    (11, 10, 'account_number', 'N'),
-    (21,  5, 'debit_record_count', 'N'),
-    (26, 14, 'debit_total', 'N', '2'),
-    (40,  5, 'credit_record_count', 'N'),
-    (45,  5, 'credit_total', 'N', '2'),
-    (59, 15, 'final_balance', 'N', '2-'),
-    (74,  3, 'currency_code', 'N'),
-    (77,  4, 'free', 'A'),
+    ( 1,  2, 'record_code', Const('33')),
+    ( 3,  4, 'bank_code', Number),
+    ( 7,  4, 'bank_office', Number),
+    (11, 10, 'account_number', Number),
+    (21,  5, 'debit_record_count', Integer),
+    (26, 14, 'debit_total', Numeric),
+    (40,  5, 'credit_record_count', Integer),
+    (45,  5, 'credit_total', Numeric),
+    (59, 15, 'final_balance', Numeric),
+    (74,  3, 'currency_code', Number),
+    (77,  4, 'free', Char),
 )
 
 FILE_FOOTER_RECORD = (
-    ( 1,  2, 'record_code', 'N', '=88'), # 88
-    ( 3, 18, 'nines', 'N'), # Filled with '9'*18
-    (21,  6, 'record_count', 'N'), # Number of records in the file excluding itself and FILE_HEADER_RECORD (00).
-    (27, 54, 'free', 'A'),
+    ( 1,  2, 'record_code', Const('88')),
+    ( 3, 18, 'nines', Number), # Filled with '9'*18
+    # Number of records in the file excluding itself and FILE_HEADER_RECORD (00).
+    (21,  6, 'record_count', Integer),
+    (27, 54, 'free', Char),
 )
 
 # Structure:
@@ -126,31 +125,30 @@ def read(data):
     line_count = len(lines)
 
     current_line = lines.pop(0)
-    if valid_record(current_line, FILE_HEADER_RECORD):
+    if Record.valid(current_line, FILE_HEADER_RECORD):
         current_line = lines.pop(0)
 
     records = []
-    if not valid_record(current_line, ACCOUNT_HEADER_RECORD):
-        raise BaseException('Expected account header record at line %d' % 
+    if not Record.valid(current_line, ACCOUNT_HEADER_RECORD):
+        raise BaseException('Expected account header record at line %d' %
             (line_count - len(lines)))
 
-    record = extract_record(current_line, ACCOUNT_HEADER_RECORD)
+    record = Record.extract(current_line, ACCOUNT_HEADER_RECORD)
     records.append(record)
     current_line = lines.pop(0)
     while lines:
-        if valid_record(current_line, MOVE_RECORD):
-            record = extract_record(current_line, MOVE_RECORD)
-        elif valid_record(current_line, MOVE_CONCEPT_RECORD):
-            record = extract_record(current_line, MOVE_CONCEPT_RECORD)
-        elif valid_record(current_line, MOVE_AMOUNT_EQUIVALENCE_RECORD):
-            record = extract_record(current_line, MOVE_AMOUNT_EQUIVALENCE_RECORD)
-        elif valid_record(current_line, ACCOUNT_FOOTER_RECORD):
-            record = extract_record(current_line, ACCOUNT_FOOTER_RECORD)
+        if Record.valid(current_line, MOVE_RECORD):
+            record = Record.extract(current_line, MOVE_RECORD)
+        elif Record.valid(current_line, MOVE_CONCEPT_RECORD):
+            record = Record.extract(current_line, MOVE_CONCEPT_RECORD)
+        elif Record.valid(current_line, MOVE_AMOUNT_EQUIVALENCE_RECORD):
+            record = Record.extract(current_line, MOVE_AMOUNT_EQUIVALENCE_RECORD)
+        elif Record.valid(current_line, ACCOUNT_FOOTER_RECORD):
+            record = Record.extract(current_line, ACCOUNT_FOOTER_RECORD)
             records.append(record)
             break
         else:
-            record = extract_record(current_line, MOVE_RECORD)
-            raise BaseException('Invalid data at line %d' % 
+            raise BaseException('Invalid data at line %d' %
                 (line_count - len(lines)))
         records.append(record)
         current_line = lines.pop(0)

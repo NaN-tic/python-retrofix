@@ -19,114 +19,113 @@
 #
 ##############################################################################
 
-from lowlevel import extract_record, valid_record
-
-# See lowlevel.py for record structures
+from record import Record
+from .fields import *
 
 PRESENTER_HEADER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=51'),
-        (  3,  2, 'data_code', 'N', '=70'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17,  6, 'creation_date', 'D', '%d%m%y'),
-        ( 23,  6, 'free_1', 'A'),
-        ( 29, 40, 'name', 'A'),
-        ( 69, 20, 'free_2', 'A'),
-        ( 89,  4, 'bank_code', 'N'),
-        ( 93,  4, 'bank_office', 'N'),
-        ( 97, 66, 'free_3', 'A'),
+        (  1,  2, 'record_code', Const('51')),
+        (  3,  2, 'data_code', Const('70')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17,  6, 'creation_date', Date('%d%m%y')),
+        ( 23,  6, 'free_1', Char),
+        ( 29, 40, 'name', Char),
+        ( 69, 20, 'free_2', Char),
+        ( 89,  4, 'bank_code', Number),
+        ( 93,  4, 'bank_office', Number),
+        ( 97, 66, 'free_3', Char),
         )
 
 ORDERING_HEADER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=53'),
-        (  3,  2, 'data_code', 'N', '=70'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17,  6, 'creation_date', 'D', '%d%m%y'),
-        ( 23,  6, 'free_1', 'A'),
-        ( 29, 40, 'name', 'A'),
-        ( 69, 20, 'account', 'ACCOUNT'),
-        ( 89,  8, 'free_2', 'A'),
-        ( 97,  2, 'procedure', 'N', '=06'),
-        ( 99, 52, 'free_3', 'A'),
-        (151,  9, 'ine', 'A'),
-        (160,  3, 'free_4', 'A'),
+        (  1,  2, 'record_code', Const('53')),
+        (  3,  2, 'data_code', Const('70')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17,  6, 'creation_date', Date('%d%m%y')),
+        ( 23,  6, 'free_1', Char),
+        ( 29, 40, 'name', Char),
+        ( 69, 20, 'account', Account),
+        ( 89,  8, 'free_2', Char),
+        ( 97,  2, 'procedure', Const('06')),
+        ( 99, 52, 'free_3', Char),
+        (151,  9, 'ine', Char),
+        (160,  3, 'free_4', Char),
         )
 
 REQUIRED_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=70'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'reference', 'A'), # Código de referencia
-        ( 29, 40, 'name', 'A'),
-        ( 69, 20, 'account', 'ACCOUNT'),
-        ( 89, 10, 'amount', 'N', '2'),
-        ( 99,  6, 'return_code', 'A'), # Código para devoluciones
-        (105, 10, 'internal_code', 'A'), # Código de referencia interna
-        (115, 40, 'concept', 'A'), # Primer campo de concepto
-        (155,  6, 'due_date', 'D', '%d%m%y'),
-        (161,  2, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('70')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'reference', Char), # Código de referencia
+        ( 29, 40, 'name', Char),
+        ( 69, 20, 'account', Account),
+        ( 89, 10, 'amount', Numeric),
+        ( 99,  6, 'return_code', Char), # Código para devoluciones
+        (105, 10, 'internal_code', Char), # Código de referencia interna
+        (115, 40, 'concept', Char), # Primer campo de concepto
+        (155,  6, 'due_date', Date('%d%m%y')),
+        (161,  2, 'free', Char),
         )
 
 OPTIONAL_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=71'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'reference', 'A'), # Código de referencia
-        ( 29, 40, 'concept_2', 'A'), # Segundo campo de concepto
-        ( 69, 40, 'concept_3', 'A'), # Tercer campo de concepto
-        (109, 10, 'concept_4', 'A'), # Cuarto campo de concepto
-        (149, 14, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('71')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'reference', Char), # Código de referencia
+        ( 29, 40, 'concept_2', Char), # Segundo campo de concepto
+        ( 69, 40, 'concept_3', Char), # Tercer campo de concepto
+        (109, 10, 'concept_4', Char), # Cuarto campo de concepto
+        (149, 14, 'free', Char),
         )
 
 ADDRESS_INDIVIDUAL_RECORD = (
-        (  1,  2, 'record_code', 'N', '=56'),
-        (  3,  2, 'data_code', 'N', '=76'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'reference', 'A'), # Código de referencia
-        ( 29, 40, 'payer_address', 'A'),
-        ( 69, 35, 'payer_city', 'A'),
-        (104,  5, 'payer_zip', 'A'),
-        (109, 38, 'ordering_city', 'A'), # Localidad del ordenante
-        (147,  2, 'province_code', 'A'), # Código de provincia
-        (149,  6, 'origin_date', 'D', '%d%m%y'),
-        (155,  8, 'free', 'A'),
+        (  1,  2, 'record_code', Const('56')),
+        (  3,  2, 'data_code', Const('76')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'reference', Char), # Código de referencia
+        ( 29, 40, 'payer_address', Char),
+        ( 69, 35, 'payer_city', Char),
+        (104,  5, 'payer_zip', Char),
+        (109, 38, 'ordering_city', Char), # Localidad del ordenante
+        (147,  2, 'province_code', Char), # Código de provincia
+        (149,  6, 'origin_date', Date('%d%m%y')),
+        (155,  8, 'free', Char),
         )
 
 ORDERING_FOOTER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=58'),
-        (  3,  2, 'data_code', 'N', '=70'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'free_1', 'A'), # Código de referencia
-        ( 29, 40, 'free_2', 'A'),
-        ( 69, 20, 'free_3', 'A'),
-        ( 89, 10, 'amount', 'N', '2'), # Suma de importes del ordenante
-        ( 99,  6, 'free_4', 'A'),
-        (105, 10, 'payment_line_count', 'N'), # Número de créditos del ordenante
-        (115, 10, 'record_count', 'N'), # Número registros del ordenante
-        (125, 20, 'free_5', 'A'),
-        (145, 18, 'free_6', 'A'),
+        (  1,  2, 'record_code', Const('58')),
+        (  3,  2, 'data_code', Const('70')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'free_1', Char), # Código de referencia
+        ( 29, 40, 'free_2', Char),
+        ( 69, 20, 'free_3', Char),
+        ( 89, 10, 'amount', Numeric), # Suma de importes del ordenante
+        ( 99,  6, 'free_4', Char),
+        (105, 10, 'payment_line_count', Integer), # Número de créditos del ordenante
+        (115, 10, 'record_count', Integer), # Número registros del ordenante
+        (125, 20, 'free_5', Char),
+        (145, 18, 'free_6', Char),
         )
 
 PRESENTER_FOOTER_RECORD = (
-        (  1,  2, 'record_code', 'N', '=59'),
-        (  3,  2, 'data_code', 'N', '=70'),
-        (  5,  9, 'nif', 'A'),
-        ( 14,  3, 'suffix', 'N'),
-        ( 17, 12, 'free_1', 'A'), # Código de referencia
-        ( 29, 40, 'free_2', 'A'),
-        ( 69,  4, 'ordering_count', 'N'),
-        ( 73, 16, 'free_4', 'A'),
-        ( 89, 10, 'amount', 'N', '2'), # Suma total de importes
-        ( 99,  6, 'free_5', 'A'),
-        (105, 10, 'payment_line_count', 'N'), # Número total de créditos
-        (115, 10, 'record_count', 'N'), # Número total de registros de fichero
-        (125, 20, 'free_6', 'A'),
-        (145, 18, 'free_7', 'A'),
+        (  1,  2, 'record_code', Const('59')),
+        (  3,  2, 'data_code', Const('70')),
+        (  5,  9, 'nif', Char),
+        ( 14,  3, 'suffix', Number),
+        ( 17, 12, 'free_1', Char), # Código de referencia
+        ( 29, 40, 'free_2', Char),
+        ( 69,  4, 'ordering_count', Integer),
+        ( 73, 16, 'free_4', Char),
+        ( 89, 10, 'amount', Numeric), # Suma total de importes
+        ( 99,  6, 'free_5', Char),
+        (105, 10, 'payment_line_count', Integer), # Número total de créditos
+        (115, 10, 'record_count', Integer), # Número total de registros de fichero
+        (125, 20, 'free_6', Char),
+        (145, 18, 'free_7', Char),
         )
 
 
@@ -135,23 +134,23 @@ def read(data):
     records = []
 
     current_line = lines.pop(0)
-    records.append(extract_record(current_line, PRESENTER_HEADER_RECORD))
+    records.append(Record.extract(current_line, PRESENTER_HEADER_RECORD))
 
     current_line = lines.pop(0)
-    records.append(extract_record(current_line, ORDERING_HEADER_RECORD))
+    records.append(Record.extract(current_line, ORDERING_HEADER_RECORD))
 
     current_line = lines.pop(0)
     while lines:
-        if valid_record(current_line, REQUIRED_INDIVIDUAL_RECORD):
-            record = extract_record(current_line, REQUIRED_INDIVIDUAL_RECORD)
-        elif valid_record(current_line, OPTIONAL_INDIVIDUAL_RECORD):
-            record = extract_record(current_line, OPTIONAL_INDIVIDUAL_RECORD)
-        elif valid_record(current_line, ADDRESS_INDIVIDUAL_RECORD):
-            record = extract_record(current_line, ADDRESS_INDIVIDUAL_RECORD)
-        elif valid_record(current_line, ORDERING_FOOTER_RECORD):
-            record = extract_record(current_line, ORDERING_FOOTER_RECORD)
-        elif valid_record(current_line, PRESENTER_FOOTER_RECORD):
-            record = extract_record(current_line, PRESENTER_FOOTER_RECORD)
+        if Record.valid(current_line, REQUIRED_INDIVIDUAL_RECORD):
+            record = Record.extract(current_line, REQUIRED_INDIVIDUAL_RECORD)
+        elif Record.valid(current_line, OPTIONAL_INDIVIDUAL_RECORD):
+            record = Record.extract(current_line, OPTIONAL_INDIVIDUAL_RECORD)
+        elif Record.valid(current_line, ADDRESS_INDIVIDUAL_RECORD):
+            record = Record.extract(current_line, ADDRESS_INDIVIDUAL_RECORD)
+        elif Record.valid(current_line, ORDERING_FOOTER_RECORD):
+            record = Record.extract(current_line, ORDERING_FOOTER_RECORD)
+        elif Record.valid(current_line, PRESENTER_FOOTER_RECORD):
+            record = Record.extract(current_line, PRESENTER_FOOTER_RECORD)
         else:
             raise BaseException('Invalid record: "%s"' % current_line)
         records.append(record)

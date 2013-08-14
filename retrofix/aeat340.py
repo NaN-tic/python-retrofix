@@ -19,90 +19,91 @@
 #
 ##############################################################################
 
-from lowlevel import extract_record, valid_record
+from record import Record
+from .fields import *
 
-# TODO: Implement numbers without the _sign field
+
 PRESENTER_HEADER_RECORD = (
-    (  1,  1, 'record_code', 'N', '=1'),
-    (  2,  3, 'model', 'N', '=340'),
-    (  5,  4, 'fiscalyear', 'N'),
-    (  9,  9, 'nif', 'A'),
-    ( 18, 40, 'presenter_name', 'A'),
-    ( 58,  1, 'support_type', 'A'),
-    ( 59,  9, 'contact_phone', 'N'),
-    ( 68, 40, 'contact_name', 'A'),
-    (108, 13, 'declaration_number', 'N'),
-    (121,  1, 'complementary', 'A'),
-    (122,  1, 'replacement', 'A'),
-    (123, 13, 'previous_declaration_number', 'N'),
-    (136,  2, 'period', 'A'),
-    (138,  9, 'record_count', 'N'),
-    (147, 18, 'total_base', 'N', '2'),
-    (165, 18, 'total_tax', 'N', '2'),
-    (183, 18, 'total', 'N', '2'),
-    (391,  9, 'representative_nif', 'A'),
-    (400, 16, 'electronic_number', 'A'),
+    (  1,  1, 'record_code', Const('1')),
+    (  2,  3, 'model', Const('340')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18, 40, 'presenter_name', Char),
+    ( 58,  1, 'support_type', Char),
+    ( 59,  9, 'contact_phone', Number),
+    ( 68, 40, 'contact_name', Char),
+    (108, 13, 'declaration_number', Number),
+    (121,  1, 'complementary', Char),
+    (122,  1, 'replacement', Char),
+    (123, 13, 'previous_declaration_number', Number),
+    (136,  2, 'period', Char),
+    (138,  9, 'record_count', Integer),
+    (147, 18, 'total_base', Numeric(sign=SIGN_N)),
+    (165, 18, 'total_tax', Numeric(sign=SIGN_N)),
+    (183, 18, 'total', Numeric(sign=SIGN_N)),
+    (391,  9, 'representative_nif', Char),
+    (400, 16, 'electronic_number', Char),
     )
 
 DETAIL_RECORD = (
-    (  1,  1, 'record_code', 'N', '=2'),
-    (  2,  3, 'model', 'N', '=340'),
-    (  5,  4, 'fiscalyear', 'N'),
-    (  9,  9, 'nif', 'A'),
-    ( 18,  9, 'party_nif', 'A'),
-    ( 27,  9, 'representative_nif', 'A'),
-    ( 36, 40, 'party_name', 'A'),
-    ( 76,  2, 'party_country', 'A'),
-    ( 78,  1, 'party_identifier_type', 'N'),
-    ( 79, 20, 'party_identifier', 'A'),
-    ( 99,  1, 'book_key', 'A'),
-    (100,  1, 'operation_key', 'A'),
-    (101,  8, 'issue_date', 'D', '%Y%m%d'),
-    (109,  8, 'operation_date', 'D', '%Y%m%d'),
-    (117,  5, 'tax_rate', 'N', '2'),
-    (122, 14, 'base', 'N', '2'),
-    (136, 14, 'tax', 'N', '2'),
-    (150, 14, 'total', 'N', '2'),
-    (164, 14, 'cost', 'N', '2'),
-    (178, 40, 'invoice_number', 'A'),
-    (218, 18, 'record_number', 'A'),
+    (  1,  1, 'record_code', Const('2')),
+    (  2,  3, 'model', Const('340')),
+    (  5,  4, 'fiscalyear', Number),
+    (  9,  9, 'nif', Char),
+    ( 18,  9, 'party_nif', Char),
+    ( 27,  9, 'representative_nif', Char),
+    ( 36, 40, 'party_name', Char),
+    ( 76,  2, 'party_country', Char),
+    ( 78,  1, 'party_identifier_type', Number),
+    ( 79, 20, 'party_identifier', Char),
+    ( 99,  1, 'book_key', Char),
+    (100,  1, 'operation_key', Char),
+    (101,  8, 'issue_date', Date('%Y%m%d')),
+    (109,  8, 'operation_date', Date('%Y%m%d')),
+    (117,  5, 'tax_rate', Numeric(sign=SIGN_N)),
+    (122, 14, 'base', Numeric(sign=SIGN_N)),
+    (136, 14, 'tax', Numeric(sign=SIGN_N)),
+    (150, 14, 'total', Numeric(sign=SIGN_N)),
+    (164, 14, 'cost', Numeric(sign=SIGN_N)),
+    (178, 40, 'invoice_number', Char),
+    (218, 18, 'record_number', Char),
     # Issued Invoices
-    (236,  8, 'invoice_count', 'N'),
-    (244,  2, 'record_count', 'N'),
-    (246, 40, 'first_invoice_number', 'A'),
-    (286, 40, 'last_invoice_number', 'A'),
-    (326, 40, 'corrective_invoice_number', 'A'),
-    (366,  5, 'equivalence_tax_rate', 'N', '2'),
-    (371, 14, 'equivalence_tax', 'N', '2'),
-    (385,  1, 'property_state', 'A'),
-    (386, 25, 'cadaster_number', 'A'),
-    (411, 15, 'cash_amount_sign', 'A'),
-    (411, 15, 'cash_amount', 'N', '2'),
-    (426,  4, 'fiscalyear', 'N'),
-    (430, 15, 'property_transfer_amount', 'N', '2'),
+    (236,  8, 'invoice_count', Integer),
+    (244,  2, 'record_count', Integer),
+    (246, 40, 'first_invoice_number', Char),
+    (286, 40, 'last_invoice_number', Char),
+    (326, 40, 'corrective_invoice_number', Char),
+    (366,  5, 'equivalence_tax_rate', Numeric(sign=SIGN_N)),
+    (371, 14, 'equivalence_tax', Numeric(sign=SIGN_N)),
+    (385,  1, 'property_state', Char),
+    (386, 25, 'cadaster_number', Char),
+    (411, 15, 'cash_amount_sign', Char),
+    (411, 15, 'cash_amount', Numeric(sign=SIGN_N)),
+    (426,  4, 'fiscalyear', Number),
+    (430, 15, 'property_transfer_amount', Numeric(sign=SIGN_N)),
     # Received Invoices
-    (236, 18, 'invoice_count', 'N'),
-    (254,  2, 'record_count', 'N'),
-    (256, 40, 'first_invoice_number', 'A'),
-    (296, 40, 'last_invoice_number', 'A'),
-    (336, 14, 'deducible_amount', 'N', '2'),
+    (236, 18, 'invoice_count', Integer),
+    (254,  2, 'record_count', Integer),
+    (256, 40, 'first_invoice_number', Char),
+    (296, 40, 'last_invoice_number', Char),
+    (336, 14, 'deducible_amount', Numeric(sign=SIGN_N)),
     # Investment goods
-    (236,  3, 'pro_rata', 'N'),
-    (239, 14, 'yearly_regularization', 'N', '2'),
-    (253, 40, 'submission_number', 'A'),
-    (293, 14, 'transmissions', 'N', '2'),
-    (307,  8, 'usage_start_date', 'D', '%Y%m%d'),
-    (315, 17, 'good_identifier', 'A'),
+    (236,  3, 'pro_rata', Integer),
+    (239, 14, 'yearly_regularization', Numeric(sign=SIGN_N)),
+    (253, 40, 'submission_number', Char),
+    (293, 14, 'transmissions', Numeric(sign=SIGN_N)),
+    (307,  8, 'usage_start_date', Date('%Y%m%d')),
+    (315, 17, 'good_identifier', Char),
     # Intracommunity operations (certain)
-    (236,  1, 'intracommunity_operation_type', 'N'),
-    (237,  1, 'declaring_key', 'A'),
-    (238,  2, 'intracommunity_country', 'A'),
-    (240,  3, 'operation_term', 'N'),
-    (243, 35, 'goods_description', 'A'),
-    (278, 40, 'party_street', 'A'),
-    (278, 22, 'party_city', 'A'),
-    (278, 10, 'party_zip', 'A'),
-    (350, 135, 'other_documentation', 'A'),
+    (236,  1, 'intracommunity_operation_type', Number),
+    (237,  1, 'declaring_key', Char),
+    (238,  2, 'intracommunity_country', Char),
+    (240,  3, 'operation_term', Number),
+    (243, 35, 'goods_description', Char),
+    (278, 40, 'party_street', Char),
+    (278, 22, 'party_city', Char),
+    (278, 10, 'party_zip', Char),
+    (350, 135, 'other_documentation', Char),
     )
 
 
@@ -111,12 +112,12 @@ def read(data):
     records = []
 
     current_line = lines.pop(0)
-    records.append(extract_record(current_line, PRESENTER_HEADER_RECORD))
+    records.append(Record.extract(current_line, PRESENTER_HEADER_RECORD))
 
     current_line = lines.pop(0)
     while lines:
-        if valid_record(current_line, DETAIL_RECORD):
-            record = extract_record(current_line, DETAIL_RECORD)
+        if Record.valid(current_line, DETAIL_RECORD):
+            record = Record.extract(current_line, DETAIL_RECORD)
         else:
             raise Exception('Invalid record: %s' % current_line)
         records.append(record)
