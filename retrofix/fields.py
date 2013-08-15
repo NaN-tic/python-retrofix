@@ -161,6 +161,9 @@ class Numeric(Field):
         minus = self._decimals
         sign = self.get_sign(value)
         minus += len(sign)
+        assert self._size - minus > 0, ('Number formatting error. Field size '
+            '"%d" but only "%d" characters left for formatting field "%s".') % (
+                self._size, self._size - minus, self._name)
         return sign + format_number(value, self._size - minus, self._decimals)
 
     def set(self, value):
