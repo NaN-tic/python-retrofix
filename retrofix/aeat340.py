@@ -42,7 +42,7 @@ PRESENTER_HEADER_RECORD = (
     (165, 18, 'total_tax', Numeric(sign=SIGN_N)),
     (183, 18, 'total', Numeric(sign=SIGN_N)),
     (391,  9, 'representative_nif', Char),
-    (400, 16, 'electronic_number', Char),
+    (400, 16, 'digital_signature', Char),
     )
 
 ISSUED_RECORD = (
