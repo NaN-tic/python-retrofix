@@ -169,7 +169,7 @@ class Numeric(Field):
         assert length > 0, ('Number formatting error. Field size '
             '"%d" but only "%d" characters left for formatting field "%s".') % (
                 self._size, length, self._name)
-        return sign + format_number(value, length, self._decimals)
+        return sign + format_number(abs(value), length, self._decimals)
 
     def set(self, value):
         try:
