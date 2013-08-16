@@ -141,9 +141,8 @@ class Record(object):
                 return False
         return True
 
-
 def write(records):
     data = ''
     for record in records:
-        data += record.write()
+        data += record.write() + '\r\n'
     return data
