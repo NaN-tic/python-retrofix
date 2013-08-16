@@ -37,14 +37,14 @@ PRESENTER_HEADER_RECORD = (
     (122,  1, 'replacement', Char),
     (123, 13, 'previous_declaration_number', Number),
     (136,  9, 'party_count', Integer),
-    (145, 16, 'total', Numeric(sign=SIGN_N)),
+    (145, 16, 'party_amount', Numeric(sign=SIGN_N)),
     (161,  9, 'property_count', Integer),
-    (170, 15, 'lease_total', Numeric(sign=SIGN_N)),
+    (170, 15, 'property_amount', Numeric(sign=SIGN_N)),
     (391,  9, 'representative_nif', Char),
     (488, 13, 'digital_signature', Char),
     )
 
-DECLARED_RECORD = (
+PARTY_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('347')),
     (  5,  4, 'fiscalyear', Number),
@@ -54,9 +54,9 @@ DECLARED_RECORD = (
     ( 36, 40, 'party_name', Char),
     ( 76,  1, 'sheet_type', Const('D')),
     ( 77,  2, 'province_code', Number),
-    ( 79,  2, 'country_code', Number),
+    ( 79,  2, 'country_code', Char),
     ( 82,  1, 'operation_key', Char),
-    ( 83, 16, 'operation_total', Numeric(sign=SIGN_N)),
+    ( 83, 16, 'amount', Numeric(sign=SIGN_N)),
     ( 99,  1, 'insurance', Char),
     (100,  1, 'business_premises_rent', Char),
     (101, 15, 'cash_amount', Numeric(sign=SIGN_N)),
@@ -72,7 +72,6 @@ DECLARED_RECORD = (
     (248, 16, 'fourth_quarter_property_amount', Numeric(sign=SIGN_N)),
     )
 
-# TODO: Doc says record_code is 2, but shouldn't it be 3?
 PROPERTY_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('347')),
@@ -81,8 +80,8 @@ PROPERTY_RECORD = (
     ( 18,  9, 'party_nif', Char),
     ( 27,  9, 'representative_nif', Char),
     ( 36, 40, 'party_name', Char),
-    ( 76,  1, 'sheet_type', Const('D')),
-    (100, 15, 'total', Char),
+    ( 76,  1, 'sheet_type', Const('I')),
+    (100, 15, 'amount', Numeric(sign=SIGN_POSITIVE)),
     (115,  1, 'situation', Number),
     (116, 25, 'cadaster_number', Char),
     (141,  5, 'road_type', Char),
@@ -113,8 +112,8 @@ def read(data):
 
     current_line = lines.pop(0)
     while lines:
-        if Record.valid(current_line, DECLARED_RECORD):
-            record = Record.extract(current_line, DECLARED_RECORD)
+        if Record.valid(current_line, PARTY_RECORD):
+            record = Record.extract(current_line, PARTY_RECORD)
         if Record.valid(current_line, PROPERTY_RECORD):
             record = Record.extract(current_line, PROPERTY_RECORD)
         else:
