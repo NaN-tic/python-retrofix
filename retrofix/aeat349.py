@@ -37,15 +37,15 @@ PRESENTER_HEADER_RECORD = (
     (122,  1, 'replacement', Char),
     (123, 13, 'previous_declaration_number', Number),
     (136,  2, 'period', Char),
-    (138,  9, 'intracommunity_operator_count', Integer),
+    (138,  9, 'operator_count', Integer),
     (147, 15, 'intracommunity_amount', Numeric(sign=SIGN_N)),
-    (162,  9, 'intracommunity_correction_count', Integer),
-    (171, 15, 'correction_amount', Numeric(sign=SIGN_N)),
+    (162,  9, 'ammendment_count', Integer),
+    (171, 15, 'ammendment_amount', Numeric(sign=SIGN_N)),
     (391,  9, 'representative_nif', Char),
     (488, 13, 'digital_signature', Char),
     )
 
-INTRACOMMUNITY_RECORD = (
+OPERATOR_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('349')),
     (  5,  4, 'fiscalyear', Number),
@@ -80,8 +80,8 @@ def read(data):
 
     current_line = lines.pop(0)
     while lines:
-        if Record.valid(current_line, INTRACOMMUNITY_RECORD):
-            record = Record.extract(current_line, INTRACOMMUNITY_RECORD)
+        if Record.valid(current_line, OPERATOR_RECORD):
+            record = Record.extract(current_line, OPERATOR_RECORD)
         if Record.valid(current_line, AMMENDMENT_RECORD):
             record = Record.extract(current_line, AMMENDMENT_RECORD)
         else:
