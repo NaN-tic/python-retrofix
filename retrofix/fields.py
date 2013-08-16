@@ -164,13 +164,12 @@ class Numeric(Field):
     def get_for_file(self, value):
         if value is None:
             value = Decimal('0')
-        minus = self._decimals
         sign = self.get_sign(value)
-        minus += len(sign)
-        assert self._size - minus > 0, ('Number formatting error. Field size '
+        length = self._size - len(sign)
+        assert length > 0, ('Number formatting error. Field size '
             '"%d" but only "%d" characters left for formatting field "%s".') % (
-                self._size, self._size - minus, self._name)
-        return sign + format_number(value, self._size - minus, self._decimals)
+                self._size, length, self._name)
+        return sign + format_number(value, length, self._decimals)
 
     def set(self, value):
         try:
