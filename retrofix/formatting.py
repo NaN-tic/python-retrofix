@@ -21,7 +21,6 @@
 def format_string(text, length, fill=' ', align='<'):
     """
     Formats the string into a fixed length ASCII (iso-8859-1) record.
-
     Original code by: Pexego
     """
     if not text:

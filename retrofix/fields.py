@@ -46,14 +46,14 @@ class Field(object):
 
     def set_from_file(self, value):
         assert len(value) == self._size, ('Invalid length of field "%s". '
-        'Expected "%d" but got "%d".' % (self._name, self._size,
-            len(value)))
+            'Expected "%d" but got "%d".' % (self._name, self._size,
+                len(value)))
         return value
 
     def get_for_file(self, value):
         if value is None:
             value = ''
-        return ' ' * (self._size - len(value)) + value
+        return format_string(value, self._size)
 
     def get(self, value):
         return value
@@ -69,8 +69,8 @@ class Char(Field):
 
     def set(self, value):
         assert len(value) <= self._size, ('Invalid length for field "%s". Max '
-        'length is "%d" but you set "%d".' % (self._name, self._size,
-            len(value)))
+            'length is "%d" but you set "%d".' % (self._name, self._size,
+                len(value)))
         return super(Char, self).set(value)
 
 
