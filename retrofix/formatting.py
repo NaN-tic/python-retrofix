@@ -98,12 +98,3 @@ def format_number(number, int_length, dec_length=0, include_sign=False):
         dec_length), 'Formatted number must match the given length'
 
     return ascii_string
-
-
-def format_boolean(value, yes='X', no=' '):
-    """
-    Formats a boolean value into a fixed length ASCII (iso-8859-1) record.
-
-    Original code by: Pexego
-    """
-    return value and yes or no

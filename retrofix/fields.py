@@ -35,7 +35,8 @@ from .formatting import format_string, format_number
 from .exception import RetrofixException
 
 __all__ = ['Field', 'Char', 'Const', 'Account', 'Number', 'Numeric', 'Integer',
-    'Date', 'Selection', 'SIGN_DEFAULT', 'SIGN_12', 'SIGN_N']
+    'Date', 'Selection', 'Boolean', 'SIGN_DEFAULT', 'SIGN_12', 'SIGN_N',
+    'SIGN_POSITIVE', 'BOOLEAN_01', 'BOOLEAN_X']
 
 
 class Field(object):
@@ -134,6 +135,7 @@ class Number(Char):
 SIGN_DEFAULT = 'default'
 SIGN_12 = 'sign_12'
 SIGN_N = 'sgin_n'
+SIGN_POSITIVE = 'positive'
 
 
 class Numeric(Field):
@@ -149,6 +151,10 @@ class Numeric(Field):
             return '2' if value >= Decimal('0.0') else '1'
         if self._sign == SIGN_N:
             return ' ' if value >= Decimal('0.0') else 'N'
+        if self._sign == SIGN_POSITIVE:
+            assert value >= Decimal('0.0'), ('Field "%s" must be >= 0.0 but '
+                'got "%.2f"' % (self._name, value))
+            return ''
 
     def set_from_file(self, value):
         super(Numeric, self).set_from_file(value)
@@ -226,3 +232,38 @@ class Selection(Char):
             '"%s". Expected one of: %s' % (value, self._name, self._values))
         value = self._values[value]
         return super(Selection, self).set(value)
+
+
+BOOLEAN_01 = {
+    True: '1',
+    False: '0',
+    }
+
+BOOLEAN_X = {
+    True: 'X',
+    False: ' ',
+    }
+
+
+class Boolean(Field):
+    def __init__(self, formatting=None):
+        super(Boolean, self).__init__()
+        if formatting is None:
+            formatting = BOOLEAN_01
+        self._formatting = formatting
+
+    def set_from_file(self, value):
+        for key, text in self._formatting:
+            if value == text:
+                return key
+        raise RetrofixException('Invalid value "%s" for boolean field "%s"' % (
+                value, self._name))
+
+    def get_for_file(self, value):
+        return self._formatting[bool(value)]
+
+    def get(self, value):
+        return bool(value)
+
+    def set(self, value):
+        return super(Boolean, self).set(bool(value))
