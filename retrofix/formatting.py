@@ -35,7 +35,11 @@ def format_string(text, length, fill=' ', align='<'):
 
 def format_number(number, size, decimals=0):
     assert number >= Decimal('0.0')
-    text = '{0:{1}{2}{3}.{4}f}'.format(number, '0', '>', size + 1, decimals)
+    length = size
+    if decimals > 0:
+        length += 1
+    text = '{0:{1}{2}{3}.{4}f}'.format(number, '0', '>', length, decimals)
     text = text.replace('.', '')
-    assert len(text) == size, 'Formatted number must match the given length'
+    assert len(text) == size, ('Formatted number "%s" must match the given '
+        'length "%d". Got: "%s".' % (number, size, text))
     return text
