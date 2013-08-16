@@ -24,39 +24,17 @@ def format_string(text, length, fill=' ', align='<'):
 
     Original code by: Pexego
     """
-
     if not text:
-        return fill*length
-
-    #
-    # String uppercase
-    #
-    text = text.upper()
-
-    #
-    # Turn text (probably unicode) into an ASCII (iso-8859-1) string
-    #
-    if isinstance(text, (unicode)):
-        ascii_string = text.encode('iso-8859-1', 'ignore')
+        return fill * length
+    if isinstance(text, unicode):
+        text = text.encode('iso-8859-1', 'ignore')
     else:
-        ascii_string = str(text or '')
-    # Cut the string if it is too long
-    if len(ascii_string) > length:
-        ascii_string = ascii_string[:length]
-    # Format the string
-    #ascii_string = '{0:{1}{2}{3}s}'.format(ascii_string, fill, align, length) #for python >= 2.6
-    if align == '<':
-        ascii_string = str(ascii_string) + (length-len(str(ascii_string)))*fill
-    elif align == '>':
-        ascii_string = (length-len(str(ascii_string)))*fill + str(ascii_string)
-    else:
-        assert False, 'Wrong aling option. It should be < or >'
-
-    # Sanity-check
-    assert len(ascii_string) == length, (
-            'Formatted string must match the given length')
-    # Return string
-    return ascii_string
+        text = str(text or '')
+    if len(text) > length:
+        text = text[:length]
+    text = '{0:{1}{2}{3}s}'.format(text, fill, align, length)
+    assert len(text) == length, 'Formatted string must match the given length'
+    return text
 
 
 def format_number(number, int_length, dec_length=0, include_sign=False):
