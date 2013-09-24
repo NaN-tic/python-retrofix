@@ -19,20 +19,7 @@
 ##############################################################################
 
 
-import sys
-try:
-    import cdecimal
-    # Use cdecimal globally
-    if 'decimal' not in sys.modules:
-        sys.modules["decimal"] = cdecimal
-except ImportError:
-    pass
-
-from decimal import Decimal
-
-import re
-from datetime import datetime
-from .fields import *
+from .fields import Field
 from .exception import RetrofixException
 
 BLANK = ' '
@@ -87,7 +74,6 @@ class Record(object):
             start = field[0] - first_position
             end = start + field[1]
             key = field[2]
-            ftype = field[3]
             value = line[start:end]
             self.set_from_file(key, value)
 
@@ -103,7 +89,7 @@ class Record(object):
         try:
             record.load(line, first_position=first_position)
             return True
-        except (AssertionError, RetrofixException), e:
+        except (AssertionError, RetrofixException):
             return False
 
     def write(self, first_position=1):

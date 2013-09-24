@@ -197,7 +197,7 @@ class Date(Field):
         except ValueError:
             raise RetrofixException('Invalid date value "%s" does not '
                     'match pattern "%s" in field "%s"' % (value,
-                    pattern, key))
+                    self._pattern, self._name))
 
     def get_for_file(self, value):
         if value is None:

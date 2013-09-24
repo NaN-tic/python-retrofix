@@ -19,7 +19,6 @@
 #
 ##############################################################################
 
-from record import Record
 from .fields import *
 
 HEADER_RECORD_TYPE_1 = (
