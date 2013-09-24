@@ -1,6 +1,6 @@
 ##############################################################################
 #
-#    Copyright (C) 2011-2012 NaN Projectes de Programari Lliure, S.L.
+#    Copyright (C) 2011-2013 NaN Projectes de Programari Lliure, S.L.
 #                            http://www.NaN-tic.com
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,8 +18,7 @@
 #
 ##############################################################################
 
-PACKAGE = "retrofix"
-VERSION = "1.0"
-LICENSE = "GPL-3"
-WEBSITE = "http://www.NaN-tic.com/"
-
+PACKAGE = 'retrofix'
+VERSION = '0.1'
+LICENSE = 'GPL-3'
+WEBSITE = 'http://www.NaN-tic.com/'

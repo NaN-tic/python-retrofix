@@ -2,7 +2,7 @@
 # encoding: utf8
 ##############################################################################
 #
-#    Copyright (C) 2011-2012 NaN Projectes de Programari Lliure, S.L.
+#    Copyright (C) 2011-2013 NaN Projectes de Programari Lliure, S.L.
 #                            http://www.NaN-tic.com
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@ execfile(os.path.join('retrofix', 'version.py'))
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+
 setup(name=PACKAGE,
     version=VERSION,
     description='retrofix',
@@ -36,13 +37,12 @@ setup(name=PACKAGE,
     author='NaN·tic',
     author_email='info@nan-tic.com',
     url=WEBSITE,
-    download_url="http://www.nan-tic.com/" + \
-            VERSION.rsplit('.', 1)[0] + '/',
+    download_url='http://www.nan-tic.com/' + VERSION.rsplit('.', 1)[0] + '/',
     packages=find_packages(),
     package_data={
-        'retrofix.tests': ['c19.txt', 'c32.txt', 'c34.txt', 'c43.txt', 
+        'retrofix.tests': ['c19.txt', 'c32.txt', 'c34.txt', 'c43.txt',
             'c58.txt'],
-    },
+        },
     scripts=[],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -53,7 +53,7 @@ setup(name=PACKAGE,
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries',
-    ],
+        ],
     license=LICENSE,
     install_requires=[
         'banknumber >= 1.0',
@@ -61,4 +61,4 @@ setup(name=PACKAGE,
     extras_require={},
     zip_safe=False,
     test_suite='retrofix.tests',
-)
+    )
