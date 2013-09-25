@@ -37,7 +37,7 @@ setup(name=PACKAGE,
     author='NaN·tic',
     author_email='info@nan-tic.com',
     url=WEBSITE,
-    download_url='http://www.nan-tic.com/' + VERSION.rsplit('.', 1)[0] + '/',
+    download_url='https://pypi.python.org/pypi/retrofix/' + VERSION,
     packages=find_packages(),
     package_data={
         'retrofix.tests': ['c19.txt', 'c32.txt', 'c34.txt', 'c43.txt',
