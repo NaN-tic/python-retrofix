@@ -50,7 +50,7 @@ ACCOUNT_HEADER_RECORD = (
     (11, 10, 'account_number', Number),
     (21,  6, 'start_date', Date('%y%m%d')),
     (27,  6, 'end_date', Date('%y%m%d')),
-    (33, 15, 'initial_balance', Numeric),
+    (33, 15, 'initial_balance', Numeric(sign=SIGN_12)),
     (48,  3, 'currency_code', Number),
     (51,  1, 'information_mode', Number),
     (52, 26, 'customer_name', Char),
@@ -65,7 +65,7 @@ MOVE_RECORD = (
     (17,  6, 'value_date', Date('%y%m%d')),
     (23,  2, 'common_concept_code', Number),
     (25,  3, 'bank_concept_code', Number), # Bank's own concept code
-    (28, 15, 'amount', Numeric),
+    (28, 15, 'amount', Numeric(sign=SIGN_12)),
     (43, 10, 'document_number', Number),
     (53, 12, 'reference_1', Char),
     (65, 16, 'reference_2', Char),
@@ -94,8 +94,8 @@ ACCOUNT_FOOTER_RECORD = (
     (21,  5, 'debit_record_count', Integer),
     (26, 14, 'debit_total', Numeric),
     (40,  5, 'credit_record_count', Integer),
-    (45,  5, 'credit_total', Numeric),
-    (59, 15, 'final_balance', Numeric),
+    (45, 14, 'credit_total', Numeric),
+    (59, 15, 'final_balance', Numeric(sign=SIGN_12)),
     (74,  3, 'currency_code', Number),
     (77,  4, 'free', Char),
 )

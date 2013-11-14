@@ -158,8 +158,13 @@ class Numeric(Field):
 
     def set_from_file(self, value):
         super(Numeric, self).set_from_file(value)
-        return Decimal('%s.%s' % (value[:-self._decimals],
+        sign = 1
+        if self._sign in (SIGN_12, SIGN_N):
+            value = value[1:]
+            sign = -1 if value[0] in ('1', 'N') else 1
+        num = sign * Decimal('%s.%s' % (value[:-self._decimals],
                 value[-self._decimals:]))
+        return num
 
     def get_for_file(self, value):
         if value is None:
