@@ -160,8 +160,8 @@ class Numeric(Field):
         super(Numeric, self).set_from_file(value)
         sign = 1
         if self._sign in (SIGN_12, SIGN_N):
-            value = value[1:]
             sign = -1 if value[0] in ('1', 'N') else 1
+            value = value[1:]
         num = sign * Decimal('%s.%s' % (value[:-self._decimals],
                 value[-self._decimals:]))
         return num
