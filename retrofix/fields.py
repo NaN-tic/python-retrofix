@@ -118,8 +118,9 @@ class Account(Char):
 
 
 class Number(Char):
-    def __init__(self):
+    def __init__(self, align='left'):
         super(Number, self).__init__()
+        self._align = align
 
     def set_from_file(self, value):
         assert re.match('[0-9]*$', value), (
@@ -129,6 +130,12 @@ class Number(Char):
     def set(self, value):
         assert re.match('[0-9]*$', value), (
             'Non-number value "%s" in field "%s"' % (value, self._name))
+
+        l = self._size - len(value)
+        if self._align == 'right':
+            if l:
+                value = (l * '0') + value
+
         return super(Number, self).set(value)
 
 
