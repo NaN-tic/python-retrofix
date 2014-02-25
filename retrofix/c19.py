@@ -23,7 +23,7 @@ from record import Record
 from fields import *
 
 # Currency ISO codes:
-# 
+#
 # Dólar australiano    036
 # Dólar canadiense     124
 # Corona Danesa        208
@@ -76,7 +76,7 @@ REQUIRED_INDIVIDUAL_RECORD = (
         ( 17, 12, 'reference_code', Char),
         ( 29, 40, 'name', Char),
         ( 69, 20, 'account', Account),
-        ( 89, 10, 'amount', Numeric(sign=SIGN_12)),
+        ( 89, 10, 'amount', Numeric(sign=SIGN_POSITIVE)),
         ( 99, 16, 'free_1', Char),
         (115, 40, 'concept', Char),
         (155,  8, 'free_2', Char)
@@ -166,7 +166,7 @@ ORDERING_FOOTER_RECORD = (
         ( 29, 40, 'free_2', Char),
         ( 69, 20, 'free_3', Char),
 	# Suma de los importes del ordenante
-        ( 89, 10, 'amount_sum', Numeric(sign=SIGN_12)),
+        ( 89, 10, 'amount_sum', Numeric(sign=SIGN_POSITIVE)),
         ( 99,  6, 'free_4', Char),
  	# Número de domiciliaciones del ordenante
         (105, 10, 'required_count', Integer),
@@ -187,7 +187,7 @@ PRESENTER_FOOTER_RECORD = (
         ( 69,  4, 'ordering_count', Integer),
         ( 73, 16, 'free_3', Char),
 	# Suma total de importes
-        ( 89, 10, 'amount_sum', Numeric(sign=SIGN_12)),
+        ( 89, 10, 'amount_sum', Numeric(sign=SIGN_POSITIVE)),
         ( 99,  6, 'free_4', Char),
 	# Número total de domiciliaciones
         (105, 10, 'required_count', Integer),

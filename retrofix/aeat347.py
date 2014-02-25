@@ -30,16 +30,16 @@ PRESENTER_HEADER_RECORD = (
     (  9,  9, 'nif', Char),
     ( 18, 40, 'presenter_name', Char),
     ( 58,  1, 'support_type', Char),
-    ( 59,  9, 'contact_phone', Number),
+    ( 59,  9, 'contact_phone', Number(align='right')),
     ( 68, 40, 'contact_name', Char),
-    (108, 13, 'declaration_number', Number),
+    (108, 13, 'declaration_number', Number(align='right')),
     (121,  1, 'complementary', Char),
     (122,  1, 'replacement', Char),
-    (123, 13, 'previous_declaration_number', Number),
+    (123, 13, 'previous_declaration_number', Number(align='right')),
     (136,  9, 'party_count', Integer),
     (145, 16, 'party_amount', Numeric(sign=SIGN_N)),
     (161,  9, 'property_count', Integer),
-    (170, 15, 'property_amount', Numeric(sign=SIGN_N)),
+    (170, 15, 'property_amount', Numeric),
     (391,  9, 'representative_nif', Char),
     (488, 13, 'digital_signature', Char),
     )
@@ -59,9 +59,9 @@ PARTY_RECORD = (
     ( 83, 16, 'amount', Numeric(sign=SIGN_N)),
     ( 99,  1, 'insurance', Boolean(BOOLEAN_X)),
     (100,  1, 'business_premises_rent', Boolean(BOOLEAN_X)),
-    (101, 15, 'cash_amount', Numeric(sign=SIGN_N)),
+    (101, 15, 'cash_amount', Numeric),
     (116, 16, 'vat_liable_property_amount', Numeric(sign=SIGN_N)),
-    (132,  4, 'fiscalyear_cash_operation', Number),
+    (132,  4, 'fiscalyear_cash_operation', Number(align='right')),
     (136, 16, 'first_quarter_amount', Numeric(sign=SIGN_N)),
     (152, 16, 'first_quarter_property_amount', Numeric(sign=SIGN_N)),
     (168, 16, 'second_quarter_amount', Numeric(sign=SIGN_N)),
@@ -70,6 +70,7 @@ PARTY_RECORD = (
     (216, 16, 'third_quarter_property_amount', Numeric(sign=SIGN_N)),
     (232, 16, 'fourth_quarter_amount', Numeric(sign=SIGN_N)),
     (248, 16, 'fourth_quarter_property_amount', Numeric(sign=SIGN_N)),
+    (264, 237, 'blank', Char),
     )
 
 PROPERTY_RECORD = (
@@ -100,6 +101,7 @@ PROPERTY_RECORD = (
     (322,  5, 'municipality_code', Char),
     (327,  2, 'province_code', Number),
     (329,  5, 'zip', Number),
+    (334, 167, 'blank', Char),
     )
 
 
