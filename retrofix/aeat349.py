@@ -30,17 +30,17 @@ PRESENTER_HEADER_RECORD = (
     (  9,  9, 'nif', Char),
     ( 18, 40, 'presenter_name', Char),
     ( 58,  1, 'support_type', Char),
-    ( 59,  9, 'contact_phone', Number),
+    ( 59,  9, 'contact_phone', Number(align='right')),
     ( 68, 40, 'contact_name', Char),
-    (108, 13, 'declaration_number', Number),
+    (108, 13, 'declaration_number', Number(align='right')),
     (121,  1, 'complementary', Char),
     (122,  1, 'replacement', Char),
-    (123, 13, 'previous_declaration_number', Number),
+    (123, 13, 'previous_declaration_number', Number(align='right')),
     (136,  2, 'period', Char),
     (138,  9, 'operation_count', Integer),
-    (147, 15, 'operation_amount', Numeric(sign=SIGN_N)),
+    (147, 15, 'operation_amount', Numeric()),
     (162,  9, 'ammendment_count', Integer),
-    (171, 15, 'ammendment_amount', Numeric(sign=SIGN_N)),
+    (171, 15, 'ammendment_amount', Numeric()),
     (391,  9, 'representative_nif', Char),
     (488, 13, 'digital_signature', Char),
     )
@@ -53,7 +53,8 @@ OPERATOR_RECORD = (
     ( 76, 17, 'party_vat', Char),
     ( 93, 40, 'party_name', Char),
     (133,  1, 'operation_key', Char),
-    (134, 13, 'base', Numeric(sign=SIGN_N)),
+    (134, 13, 'base', Numeric()),
+    (147, 354, '',Char),
     )
 
 AMMENDMENT_RECORD = (
@@ -66,8 +67,9 @@ AMMENDMENT_RECORD = (
     (133,  1, 'operation_key', Char),
     (147,  4, 'ammendment_fiscalyear', Number),
     (151,  2, 'ammendment_period', Char),
-    (153, 13, 'base', Numeric(sign=SIGN_N)),
-    (166, 13, 'original_base', Numeric(sign=SIGN_N)),
+    (153, 13, 'base', Numeric()),
+    (166, 13, 'original_base', Numeric()),
+    (179, 322, '', Char),
     )
 
 
