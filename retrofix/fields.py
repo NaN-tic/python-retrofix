@@ -68,9 +68,8 @@ class Char(Field):
         self._size = None
 
     def set(self, value):
-        assert len(value) <= self._size, ('Invalid length for field "%s". Max '
-            'length is "%d" but you set "%d".' % (self._name, self._size,
-                len(value)))
+        if len(value) > self._size:
+            value = value[:self._size]
         return super(Char, self).set(value)
 
 
