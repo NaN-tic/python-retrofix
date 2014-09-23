@@ -1,3 +1,9 @@
+Version 0.8 - 2014-09-23
+* Cut char fields if value is longer than size
+* Adapt to new changes in model CSB303
+
+Version 0.7 - 2014-02-27
+
 Version 0.2 - 2013-11-15
 * CSB43 fixes
 
