@@ -3,6 +3,8 @@
 #
 #    Copyright (C) 2013 NaN Projectes de Programari Lliure, S.L.
 #                           http://www.NaN-tic.com
+#    Copyright (C) 2015 Zikzakmedia S.L.
+#                           http://www.zikzakmedia.com
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
