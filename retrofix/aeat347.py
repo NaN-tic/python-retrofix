@@ -39,7 +39,7 @@ PRESENTER_HEADER_RECORD = (
     (136,  9, 'party_count', Integer),
     (145, 16, 'party_amount', Numeric(sign=SIGN_N)),
     (161,  9, 'property_count', Integer),
-    (170, 15, 'property_amount', Numeric),
+    (170, 16, 'property_amount', Numeric(sign=SIGN_N)),
     (391,  9, 'representative_nif', Char),
     (488, 13, 'digital_signature', Char),
     )
@@ -70,7 +70,12 @@ PARTY_RECORD = (
     (216, 16, 'third_quarter_property_amount', Numeric(sign=SIGN_N)),
     (232, 16, 'fourth_quarter_amount', Numeric(sign=SIGN_N)),
     (248, 16, 'fourth_quarter_property_amount', Numeric(sign=SIGN_N)),
-    (264, 237, 'blank', Char),
+    (264, 17, 'community_vat', Char),
+    (281,  1, 'cash_vat_operation', Boolean(BOOLEAN_X)),
+    (282,  1, 'tax_person_operation', Boolean(BOOLEAN_X)),
+    (283,  1, 'related_goods_operation', Boolean(BOOLEAN_X)),
+    (284, 16, 'cash_vat_criteria', Numeric(sign=SIGN_N)),
+    (300, 201, 'blank', Char),
     )
 
 PROPERTY_RECORD = (
