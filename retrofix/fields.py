@@ -156,7 +156,7 @@ class Numeric(Field):
         if self._sign == SIGN_12:
             return '2' if value >= Decimal('0.0') else '1'
         if self._sign == SIGN_N:
-            return ' ' if value >= Decimal('0.0') else 'N'
+            return '' if value >= Decimal('0.0') else 'N'
         if self._sign == SIGN_POSITIVE:
             assert value >= Decimal('0.0'), ('Field "%s" must be >= 0.0 but '
                 'got "%.2f"' % (self._name, value))

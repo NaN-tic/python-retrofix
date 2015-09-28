@@ -127,8 +127,8 @@ class Record(object):
                 return False
         return True
 
-def write(records):
+def write(records, separator='\r\n'):
     data = ''
     for record in records:
-        data += record.write() + '\r\n'
+        data += record.write() + separator
     return data
