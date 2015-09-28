@@ -1,3 +1,6 @@
+Version 0.10 - 2015-09-28
+Update 303 model
+
 Version 0.9 - 2015-02-12
 * Added fields community_vat, cash_vat_operation, tax_person_operation,
 related_goods_operation and cash_vat_criteria according with modifications made
