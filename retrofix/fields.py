@@ -67,6 +67,10 @@ class Char(Field):
         self._name = None
         self._size = None
 
+    def set_from_file(self, value):
+        value = value.ljust(self._size)
+        return super(Char, self).set_from_file(value)
+
     def set(self, value):
         if len(value) > self._size:
             value = value[:self._size]
