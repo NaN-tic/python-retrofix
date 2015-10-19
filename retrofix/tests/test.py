@@ -38,9 +38,19 @@ from retrofix import c43
 from retrofix import c58
 
 
+def read_flat(file_name):
+    file_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        file_name
+    )
+    return codecs.open(file_path, 'r', encoding='latin1').read()
+
+
+
+
 class C19TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c19.txt', 'r', encoding='latin1').read()
+        self.data = read_flat('c19.txt')
         self.data = self.data.upper()
         # Presenter Header
         record = Record(c19.PRESENTER_HEADER_RECORD)
@@ -65,7 +75,7 @@ class C19TestCase(unittest.TestCase):
 
 class C32TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c32.txt', 'r', encoding='latin1').read()
+        self.data = read_flat('c32.txt')
         self.data = self.data.upper()
         # Presenter Header
         record = Record(c32.FILE_HEADER_RECORD)
@@ -88,7 +98,7 @@ class C32TestCase(unittest.TestCase):
 
 class C34TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c34.txt', 'r', encoding='latin1').read()
+        self.data = read_flat('c34.txt')
         self.data = self.data.upper()
         # Presenter Header
         record = Record(c34.ORDERING_HEADER_RECORD)
@@ -113,7 +123,7 @@ class C34TestCase(unittest.TestCase):
 
 class C43TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c43.txt', 'r', encoding='latin1').read()
+        self.data = read_flat('c43.txt')
         self.data = self.data.upper()
         # Account Header
         record = Record(c43.ACCOUNT_HEADER_RECORD)
@@ -140,7 +150,7 @@ class C43TestCase(unittest.TestCase):
 
 class C58TestCase(unittest.TestCase):
     def setUp(self):
-        self.data = codecs.open('c58.txt', 'r', encoding='latin1').read()
+        self.data = read_flat('c58.txt')
         self.data = self.data.upper()
         # Presenter Header
         record = Record(c58.PRESENTER_HEADER_RECORD)
@@ -171,6 +181,7 @@ def suite():
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(C43TestCase))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(C58TestCase))
     return suite
+
 
 if __name__ == '__main__':
     unittest.TextTestRunner(verbosity=2).run(suite())
