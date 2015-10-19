@@ -36,7 +36,7 @@ from .exception import RetrofixException
 
 __all__ = ['Field', 'Char', 'Const', 'Account', 'Number', 'Numeric', 'Integer',
     'Date', 'Selection', 'Boolean', 'SIGN_DEFAULT', 'SIGN_12', 'SIGN_N',
-    'SIGN_POSITIVE', 'BOOLEAN_01', 'BOOLEAN_12', 'BOOLEAN_X']
+    'SIGN_POSITIVE', 'BOOLEAN_01', 'BOOLEAN_12', 'BOOLEAN_X', 'BOOLEAN_W1']
 
 
 class Field(object):
@@ -260,6 +260,11 @@ BOOLEAN_12 = {
 
 BOOLEAN_X = {
     True: 'X',
+    False: ' ',
+    }
+
+BOOLEAN_W1 = {
+    True: '1',
     False: ' ',
     }
 
