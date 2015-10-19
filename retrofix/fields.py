@@ -272,7 +272,7 @@ class Boolean(Field):
         self._formatting = formatting
 
     def set_from_file(self, value):
-        for key, text in self._formatting:
+        for key, text in self._formatting.items():
             if value == text:
                 return key
         raise RetrofixException('Invalid value "%s" for boolean field "%s"' % (
