@@ -36,6 +36,7 @@ from retrofix import c32
 from retrofix import c34_1_la_caixa as c34
 from retrofix import c43
 from retrofix import c58
+from retrofix import c57
 
 
 def read_flat(file_name):
@@ -171,6 +172,78 @@ class C58TestCase(unittest.TestCase):
     def test0001_c58_write(self):
         data = self.presenter_header.write()
         self.assert_(self.data.startswith(data))
+
+
+class C57TestCase(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.data = read_flat('c57.txt')
+        cls.data = cls.data.upper()
+
+    def test_file_header(self):
+        header_record = Record(c57.FILE_HEADER)
+        header_record.record_code = '01'
+        header_record.operation_code = '70'
+        header_record.free_C = '57013 '
+        header_record.sender_number = '22350466'
+        header_record.entity_number = '0182'
+        header_record.presentation_date = datetime.datetime(2015, 6, 26)
+
+        records = c57.read(self.data)
+        self.assertEqual(records[0], header_record)
+
+    def test_sender_header(self):
+        record = Record(c57.SENDER_HEADER)
+        record.record_code = '02'
+        record.operation_code = '70'
+        record.sender_number = '22350466'
+        record.sufix = '501'
+        record.entity_number = '0182'
+        record.presentation_date = datetime.datetime(2015, 6, 26)
+
+        records = c57.read(self.data)
+        self.assertEqual(records[1], record)
+
+    def test_individual_records(self):
+        record = Record(c57.INDIVIDUAL_RECORD)
+        record.record_code = '60'
+        record.operation_code = '70'
+        record.sender_number = '22350466'
+        record.sufix = '501'
+        record.payment_channel = '2'
+        record.entity_number = '0182'
+        record.office_number = '0756'
+        record.date = datetime.datetime(2015, 6, 26)
+        record.amount = Decimal('23.39')
+        record.payment_identification = datetime.datetime(2015, 6, 29)
+        record.reference = '0000102109676'
+
+        records = c57.read(self.data)
+        self.assertEqual(records[2], record)
+
+    def test_sender_footer(self):
+        record = Record(c57.SENDER_FOOTER)
+        record.record_code = '80'
+        record.operation_code = '70'
+        record.sender_number = '22350466'
+        record.sufix = '501'
+        record.number_of_records = 11
+        record.total_amount = Decimal('1293.51')
+
+        records = c57.read(self.data)
+        self.assertEqual(records[11], record)
+
+    def test_file_footer(self):
+        record = Record(c57.FILE_FOOTER)
+        record.record_code = '90'
+        record.operation_code = '70'
+        record.sender_number = '22350466'
+        record.number_of_records = 13
+        record.total_amount = Decimal('1293.51')
+
+        records = c57.read(self.data)
+        self.assertEqual(records[12], record)
 
 
 def suite():
