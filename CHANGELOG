@@ -1,3 +1,8 @@
+Version 0.12 - 2015-10-21
+* Add C57
+* Add new boolean format with '1' and whitespace
+* Allow to run tests with 'python setup.py test'
+
 Version 0.11 - 2015-10-07
 * Fill char fields with spaces is it's length is less than the expected
 
