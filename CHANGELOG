@@ -1,3 +1,6 @@
+Version 0.13 - 2015-10-21
+* Allow to build doc using 'python setup.py build_sphinx'
+
 Version 0.12 - 2015-10-21
 * Add C57
 * Add new boolean format with '1' and whitespace
