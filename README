@@ -5,7 +5,7 @@ RetroFix is a python library for reading and writing fixed-size field text file
 and more specifically for managing files from Spanish banks and public
 institutions, including:
 
-- CSB 19, 32, 34 (several versions), 43 & 58
+- CSB 19, 32, 34 (several versions), 43, 57 & 58
 - AEAT 303, 340, 347 & 349
 
 Installing
