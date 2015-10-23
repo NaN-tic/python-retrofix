@@ -41,7 +41,7 @@ setup(name=PACKAGE,
     packages=find_packages(),
     package_data={
         'retrofix.tests': ['c19.txt', 'c32.txt', 'c34.txt', 'c43.txt',
-            'c58.txt'],
+            'c57.txt', 'c58.txt'],
         },
     scripts=[],
     classifiers=[
