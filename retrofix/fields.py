@@ -36,7 +36,8 @@ from .exception import RetrofixException
 
 __all__ = ['Field', 'Char', 'Const', 'Account', 'Number', 'Numeric', 'Integer',
     'Date', 'Selection', 'Boolean', 'SIGN_DEFAULT', 'SIGN_12', 'SIGN_N',
-    'SIGN_POSITIVE', 'BOOLEAN_01', 'BOOLEAN_12', 'BOOLEAN_X', 'BOOLEAN_W1']
+    'SIGN_N_BLANK', 'SIGN_POSITIVE', 'BOOLEAN_01', 'BOOLEAN_12', 'BOOLEAN_X',
+    'BOOLEAN_W1']
 
 
 class Field(object):
@@ -145,6 +146,7 @@ class Number(Char):
 SIGN_DEFAULT = 'default'
 SIGN_12 = 'sign_12'
 SIGN_N = 'sgin_n'
+SIGN_N_BLANK = 'sign_n_blank'
 SIGN_POSITIVE = 'positive'
 
 
@@ -161,6 +163,8 @@ class Numeric(Field):
             return '2' if value >= Decimal('0.0') else '1'
         if self._sign == SIGN_N:
             return '' if value >= Decimal('0.0') else 'N'
+        if self._sign == SIGN_N_BLANK:
+            return ' ' if value >= Decimal('0.0') else 'N'
         if self._sign == SIGN_POSITIVE:
             assert value >= Decimal('0.0'), ('Field "%s" must be >= 0.0 but '
                 'got "%.2f"' % (self._name, value))
