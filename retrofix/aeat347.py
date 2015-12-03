@@ -89,7 +89,7 @@ PROPERTY_RECORD = (
     ( 27,  9, 'representative_nif', Char),
     ( 36, 40, 'party_name', Char),
     ( 76,  1, 'sheet_type', Const('I')),
-    (100, 15, 'amount', Numeric(sign=SIGN_POSITIVE)),
+    ( 99, 16, 'amount', Numeric(sign=SIGN_N_BLANK)),
     (115,  1, 'situation', Number),
     (116, 25, 'cadaster_number', Char),
     (141,  5, 'road_type', Char),
