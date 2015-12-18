@@ -1,3 +1,6 @@
+* Add missing fields in aeat340 records
+
+Version 0.14 - 2015-12-10
 * Fix amount position of PROPERTY_RECORD of aeat347
 * Put a white space in sign position for values in 347 and 340
 

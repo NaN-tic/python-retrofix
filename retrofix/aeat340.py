@@ -79,7 +79,11 @@ ISSUED_RECORD = (
     (386, 25, 'cadaster_number', Char),
     (411, 15, 'cash_amount', Numeric(sign=SIGN_N_BLANK)),
     (426,  4, 'invoice_fiscalyear', Number),
-    (430, 15, 'property_transfer_amount', Numeric(sign=SIGN_N_BLANK)),
+    (430, 15, 'property_transfer_amount', Numeric(sign=SIGN_POSITIVE)),
+    (445,  8, 'payment_date', Date('%Y%m%d')),
+    (453, 13, 'received_amount', Numeric(sign=SIGN_POSITIVE)),
+    (466,  1, 'payment_method', Char),
+    (467, 34, 'payment_method_number', Char),
     )
 
 RECEIVED_RECORD = (
@@ -110,6 +114,10 @@ RECEIVED_RECORD = (
     (256, 40, 'first_invoice_number', Char),
     (296, 40, 'last_invoice_number', Char),
     (336, 14, 'deducible_amount', Numeric(sign=SIGN_N_BLANK)),
+    (350,  8, 'payment_date', Date('%Y%m%d')),
+    (358, 13, 'received_amount', Numeric(sign=SIGN_POSITIVE)),
+    (371,  1, 'payment_method', Char),
+    (372, 34, 'payment_method_number', Char),
     )
 
 INVESTMENT_RECORD = (
