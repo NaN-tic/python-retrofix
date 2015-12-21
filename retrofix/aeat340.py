@@ -32,7 +32,7 @@ PRESENTER_HEADER_RECORD = (
     ( 58,  1, 'support_type', Char),
     ( 59,  9, 'contact_phone', Number),
     ( 68, 40, 'contact_name', Char),
-    (108, 13, 'declaration_number', Number),
+    (108, 13, 'declaration_number', Char),
     (121,  1, 'complementary', Char),
     (122,  1, 'replacement', Char),
     (123, 13, 'previous_declaration_number', Number),
@@ -40,9 +40,10 @@ PRESENTER_HEADER_RECORD = (
     (138,  9, 'record_count', Integer),
     (147, 18, 'total_base', Numeric(sign=SIGN_N_BLANK)),
     (165, 18, 'total_tax', Numeric(sign=SIGN_N_BLANK)),
-    (183, 18, 'total', Numeric(sign=SIGN_N_BLANK)),
+    (183, 19, 'total', Numeric(sign=SIGN_N_BLANK)),
     (391,  9, 'representative_nif', Char),
     (400, 16, 'digital_signature', Char),
+    (416, 85, 'blank', Char),
     )
 
 ISSUED_RECORD = (
@@ -60,7 +61,7 @@ ISSUED_RECORD = (
     (100,  1, 'operation_key', Char),
     (101,  8, 'issue_date', Date('%Y%m%d')),
     (109,  8, 'operation_date', Date('%Y%m%d')),
-    (117,  5, 'tax_rate', Numeric(sign=SIGN_N_BLANK)),
+    (117,  5, 'tax_rate', Numeric(sign=SIGN_POSITIVE)),
     (122, 14, 'base', Numeric(sign=SIGN_N_BLANK)),
     (136, 14, 'tax', Numeric(sign=SIGN_N_BLANK)),
     (150, 14, 'total', Numeric(sign=SIGN_N_BLANK)),
@@ -73,11 +74,11 @@ ISSUED_RECORD = (
     (246, 40, 'first_invoice_number', Char),
     (286, 40, 'last_invoice_number', Char),
     (326, 40, 'corrective_invoice_number', Char),
-    (366,  5, 'equivalence_tax_rate', Numeric(sign=SIGN_N_BLANK)),
+    (366,  5, 'equivalence_tax_rate', Numeric(sign=SIGN_POSITIVE)),
     (371, 14, 'equivalence_tax', Numeric(sign=SIGN_N_BLANK)),
     (385,  1, 'property_state', Char),
     (386, 25, 'cadaster_number', Char),
-    (411, 15, 'cash_amount', Numeric(sign=SIGN_N_BLANK)),
+    (411, 15, 'cash_amount', Numeric(sign=SIGN_POSITIVE)),
     (426,  4, 'invoice_fiscalyear', Number),
     (430, 15, 'property_transfer_amount', Numeric(sign=SIGN_POSITIVE)),
     (445,  8, 'payment_date', Date('%Y%m%d')),
@@ -101,7 +102,7 @@ RECEIVED_RECORD = (
     (100,  1, 'operation_key', Char),
     (101,  8, 'issue_date', Date('%Y%m%d')),
     (109,  8, 'operation_date', Date('%Y%m%d')),
-    (117,  5, 'tax_rate', Numeric(sign=SIGN_N_BLANK)),
+    (117,  5, 'tax_rate', Numeric(sign=SIGN_POSITIVE)),
     (122, 14, 'base', Numeric(sign=SIGN_N_BLANK)),
     (136, 14, 'tax', Numeric(sign=SIGN_N_BLANK)),
     (150, 14, 'total', Numeric(sign=SIGN_N_BLANK)),
@@ -118,6 +119,7 @@ RECEIVED_RECORD = (
     (358, 13, 'received_amount', Numeric(sign=SIGN_POSITIVE)),
     (371,  1, 'payment_method', Char),
     (372, 34, 'payment_method_number', Char),
+    (406, 95, 'blank', Char),
     )
 
 INVESTMENT_RECORD = (
