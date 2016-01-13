@@ -40,7 +40,7 @@ PRESENTER_HEADER_RECORD = (
     (138,  9, 'record_count', Integer),
     (147, 18, 'total_base', Numeric(sign=SIGN_N_BLANK)),
     (165, 18, 'total_tax', Numeric(sign=SIGN_N_BLANK)),
-    (183, 19, 'total', Numeric(sign=SIGN_N_BLANK)),
+    (183, 18, 'total', Numeric(sign=SIGN_N_BLANK)),
     (391,  9, 'representative_nif', Char),
     (400, 16, 'digital_signature', Char),
     (416, 85, 'blank', Char),

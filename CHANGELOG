@@ -1,3 +1,5 @@
+* Fix length of 'total' field of Presenter Header record of 340
+
 Version 0.16 - 2015-12-21
 * Fix invalid configuration of aeat340 records
 
