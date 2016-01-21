@@ -1,7 +1,7 @@
 # encoding: utf8
 ##############################################################################
 #
-#    Copyright (C) 2013 NaN Projectes de Programari Lliure, S.L.
+#    Copyright (C) 2013-2016 NaN Projectes de Programari Lliure, S.L.
 #                           http://www.NaN-tic.com
 #    Copyright (C) 2015 Zikzakmedia S.L.
 #                           http://www.zikzakmedia.com
@@ -21,8 +21,9 @@
 #
 ##############################################################################
 
-from record import Record
+from .exception import RetrofixException
 from .fields import *
+from .record import Record
 
 
 PRESENTER_HEADER_RECORD = (
@@ -126,7 +127,7 @@ def read(data):
         if Record.valid(current_line, PROPERTY_RECORD):
             record = Record.extract(current_line, PROPERTY_RECORD)
         else:
-            raise Exception('Invalid record: %s' % current_line)
+            raise RetrofixException('Invalid record: %s' % current_line)
         records.append(record)
         current_line = lines.pop(0)
     return records
