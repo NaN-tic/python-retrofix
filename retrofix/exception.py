@@ -1,6 +1,6 @@
 ##############################################################################
 #
-#    Copyright (C) 2013 NaN Projectes de Programari Lliure, S.L.
+#    Copyright (C) 2013-2016 NaN Projectes de Programari Lliure, S.L.
 #                            http://www.NaN-tic.com
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,5 +18,5 @@
 #
 ##############################################################################
 
-class RetrofixException(BaseException):
+class RetrofixException(Exception):
     pass
