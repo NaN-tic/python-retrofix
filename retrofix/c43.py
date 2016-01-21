@@ -1,7 +1,7 @@
 # encoding: utf8
 ##############################################################################
 #
-#    Copyright (C) 2011-2013 NaN Projectes de Programari Lliure, S.L.
+#    Copyright (C) 2011-2016 NaN Projectes de Programari Lliure, S.L.
 #                            http://www.NaN-tic.com
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,8 +19,9 @@
 #
 ##############################################################################
 
-from record import Record
+from .exception import RetrofixException
 from .fields import *
+from .record import Record
 
 # Currency ISO codes:
 #
@@ -130,7 +131,7 @@ def read(data):
 
     records = []
     if not Record.valid(current_line, ACCOUNT_HEADER_RECORD):
-        raise BaseException('Expected account header record at line %d' %
+        raise RetrofixException('Expected account header record at line %d' %
             (line_count - len(lines)))
 
     record = Record.extract(current_line, ACCOUNT_HEADER_RECORD)
@@ -148,7 +149,7 @@ def read(data):
             records.append(record)
             break
         else:
-            raise BaseException('Invalid data at line %d' %
+            raise RetrofixException('Invalid data at line %d' %
                 (line_count - len(lines)))
         records.append(record)
         current_line = lines.pop(0)

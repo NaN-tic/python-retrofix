@@ -20,8 +20,9 @@
 #
 ##############################################################################
 
-from record import Record
+from .exception import RetrofixException
 from .fields import *
+from .record import Record
 
 ORDERING_HEADER_RECORD = (
     (1, 2, 'record_code', Const('03')),
@@ -421,7 +422,7 @@ def read(data):
             record = Record.extract(current_line, ORDERING_FOOTER_RECORD)
         else:
             record = Record.extract(current_line, DETAIL_001_RECORD)
-            raise BaseException('Invalid record: "%s"' % current_line)
+            raise RetrofixException('Invalid record: "%s"' % current_line)
         records.append(record)
         current_line = lines.pop(0)
     return records

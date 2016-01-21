@@ -2,8 +2,9 @@
 
 from __future__ import absolute_import
 
-from retrofix.record import Record
-from retrofix.fields import *
+from .exception import RetrofixException
+from .fields import *
+from .record import Record
 
 
 FILE_HEADER = (
@@ -127,7 +128,7 @@ def read(data):
         elif Record.valid(current_line, SENDER_FOOTER):
             record = Record.extract(current_line, SENDER_FOOTER)
         else:
-            raise BaseException('Invalid record: "%s"' % current_line)
+            raise RetrofixException('Invalid record: "%s"' % current_line)
         records.append(record)
 
     current_line = lines.pop(0)
