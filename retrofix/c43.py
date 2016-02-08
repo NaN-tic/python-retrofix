@@ -61,11 +61,11 @@ ACCOUNT_HEADER_RECORD = (
 MOVE_RECORD = (
     ( 1,  2, 'record_code', Const('22')),
     ( 3,  4, 'free', Char), # With space. Exceptionally will show bank code
-    ( 7,  4, 'bank_office', Number),
+    ( 7,  4, 'bank_office', Char),
     (11,  6, 'operation_date', Date('%y%m%d')),
     (17,  6, 'value_date', Date('%y%m%d')),
     (23,  2, 'common_concept_code', Number),
-    (25,  3, 'bank_concept_code', Number), # Bank's own concept code
+    (25,  3, 'bank_concept_code', Char), # Bank's own concept code
     (28, 15, 'amount', Numeric(sign=SIGN_12)),
     (43, 10, 'document_number', Number),
     (53, 12, 'reference_1', Char),
