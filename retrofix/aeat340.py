@@ -183,8 +183,8 @@ INTRACOMMUNITY_RECORD = (
     (240,  3, 'operation_term', Number),
     (243, 35, 'goods_description', Char),
     (278, 40, 'party_street', Char),
-    (278, 22, 'party_city', Char),
-    (278, 10, 'party_zip', Char),
+    (318, 22, 'party_city', Char),
+    (340, 10, 'party_zip', Char),
     (350, 135, 'other_documentation', Char),
     )
 
