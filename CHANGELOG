@@ -1,3 +1,7 @@
+Version 0.19 - 2016-03-17
+* CSB 43 - Bank office is null + Concept Bank are characters
+* Fix intracommunitary record for 340 report
+
 Version 0.18 - 2016-01-21
 * Raise RetrofixException instead of BaseException or Exception
 * Inherit RetrofixException from Exception to follow documentation guidelines
