@@ -40,7 +40,7 @@ PRESENTER_RECORD = (
     (160,  1, 'declarant_nature', Number(align='right')),
     (161,  9, 'protected_heritage_vat', Char),
     (170, 16, 'protected_heritage_name', Char),
-    (391,  9, 'representative_nif', Char),
+    (391,  9, 'representative_vat', Char),
     (488, 13, 'digital_signature', Char),
     )
 
@@ -50,7 +50,7 @@ PARTY_RECORD = (
     (  5,  4, 'fiscalyear_code', Number(align='right')),
     (  9,  9, 'company_vat', Char),
     ( 18,  9, 'party_vat', Char),
-    ( 27,  9, 'representative_nif', Char),
+    ( 27,  9, 'representative_vat', Char),
     ( 36, 40, 'party_name', Char),
     ( 76,  2, 'party_subdivision_code', Number(align='right')),
     ( 78,  1, 'key', Char),
