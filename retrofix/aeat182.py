@@ -39,9 +39,8 @@ PRESENTER_RECORD = (
     (145, 15, 'amount_of_donations', Numeric(sign=SIGN_N)),
     (160,  1, 'declarant_nature', Number(align='right')),
     (161,  9, 'protected_heritage_vat', Char),
-    (170, 16, 'protected_heritage_name', Char),
-    (391,  9, 'representative_vat', Char),
-    (488, 13, 'digital_signature', Char),
+    (170, 31, 'protected_heritage_name', Char),
+    (238, 12, 'digital_signature', Char),
     )
 
 PARTY_RECORD = (
@@ -63,7 +62,7 @@ PARTY_RECORD = (
     (106,  1, 'revocation', Char),
     (107,  4, 'exercise_of_the_revoked_donation', Number(align='right')),
     (111,  1, 'type_of_good', Char),
-    (112, 10, 'identification_of_good', Char),
+    (112,138, 'identification_of_good', Char),
     )
 
 
