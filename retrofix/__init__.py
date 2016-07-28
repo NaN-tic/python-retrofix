@@ -18,4 +18,4 @@
 #
 ##############################################################################
 
-from record import Record, write
+from .record import Record, write

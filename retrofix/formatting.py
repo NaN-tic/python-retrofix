@@ -23,7 +23,7 @@ from decimal import Decimal
 def format_string(text, length, fill=' ', align='<'):
     if not text:
         return fill * length
-    if isinstance(text, unicode):
+    if str == bytes and isinstance(text, unicode):
         text = text.encode('iso-8859-1', 'ignore')
     else:
         text = str(text or '')
@@ -32,6 +32,7 @@ def format_string(text, length, fill=' ', align='<'):
     text = '{0:{1}{2}{3}s}'.format(text, fill, align, length)
     assert len(text) == length, 'Formatted string must match the given length'
     return text
+
 
 def format_number(number, size, decimals=0):
     assert number >= Decimal('0.0')

@@ -22,9 +22,9 @@
 
 
 from setuptools import setup, find_packages
+from retrofix.version import PACKAGE, VERSION, LICENSE, WEBSITE
 import os
 
-execfile(os.path.join('retrofix', 'version.py'))
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -61,4 +61,5 @@ setup(name=PACKAGE,
     extras_require={},
     zip_safe=False,
     test_suite='retrofix.tests',
+    use2to3=True,
     )
