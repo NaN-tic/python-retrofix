@@ -18,15 +18,9 @@
 #
 ##############################################################################
 
-import sys, os
-DIR = os.path.abspath(os.path.normpath(os.path.join(__file__,
-    '..', '..')))
-if os.path.isdir(DIR):
-    sys.path.insert(0, os.path.dirname(DIR))
-
+import os
 import unittest
 import datetime
-import pprint
 from decimal import Decimal
 import codecs
 
@@ -82,7 +76,7 @@ class C32TestCase(unittest.TestCase):
         record = Record(c32.FILE_HEADER_RECORD)
         record.record_code = '02'
         record.data_code = '65'
-        record.file_date = datetime.datetime(2011, 07, 04)
+        record.file_date = datetime.datetime(2011, 7, 4)
         record.number = '1280'
         record.bank_code = '2959'
         record.bank_office = '0912'
