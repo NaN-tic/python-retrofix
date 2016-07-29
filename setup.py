@@ -61,5 +61,4 @@ setup(name=PACKAGE,
     extras_require={},
     zip_safe=False,
     test_suite='retrofix.tests',
-    use2to3=True,
     )
