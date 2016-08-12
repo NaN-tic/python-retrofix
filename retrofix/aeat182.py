@@ -17,7 +17,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from record import Record
+from .record import Record
 from .fields import Char, Const, Integer, Number, Numeric
 from .fields import SIGN_N
 

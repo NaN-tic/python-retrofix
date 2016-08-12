@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from record import Record
+from .record import Record
 from .fields import *
 
 
