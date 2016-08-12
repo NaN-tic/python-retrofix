@@ -1,0 +1,18 @@
+language: python
+install:
+    - pip install tox
+script:
+    - tox
+env:
+    matrix:
+        - TOXENV=py27
+        - TOXENV=py33
+        - TOXENV=py34
+        - TOXENV=py35
+notifications:
+    irc:
+        channels:
+            - "chat.freenode.net#trytonspain-ci"
+        on_success: change
+        on_failure: always
+        skip_join: true
