@@ -31,6 +31,8 @@ from retrofix import c34_1_la_caixa as c34
 from retrofix import c43
 from retrofix import c58
 from retrofix import c57
+# Import them to test that have a valid definition
+from retrofix import aeat182, aeat303, aeat340, aeat347, aeat349
 
 
 def read_flat(file_name):
