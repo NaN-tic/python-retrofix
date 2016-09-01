@@ -73,6 +73,8 @@ class Char(Field):
         return super(Char, self).set_from_file(value)
 
     def set(self, value):
+        if value is None:
+            value = ''
         if len(value) > self._size:
             value = value[:self._size]
         return super(Char, self).set(value)
@@ -132,6 +134,8 @@ class Number(Char):
         return super(Number, self).set_from_file(value)
 
     def set(self, value):
+        if value is None:
+            value = ''
         assert re.match('[0-9]*$', value), (
             'Non-number value "%s" in field "%s"' % (value, self._name))
 
@@ -196,6 +200,9 @@ class Numeric(Field):
     def set(self, value):
         try:
             return Decimal(value)
+        except TypeError:
+            raise RetrofixException('Invalid value "%s" for Numeric Field "%s"'
+                % (value, self._name))
         except ValueError:
             raise RetrofixException('Invalid value "%s" for Numeric Field "%s"'
                 % (value, self._name))
@@ -229,7 +236,8 @@ class Date(Field):
         return super(Date, self).get_for_file(res)
 
     def set(self, value):
-        assert value, datetime
+        if value is not None:
+            assert value, datetime
         return super(Date, self).set(value)
 
 

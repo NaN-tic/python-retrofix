@@ -25,6 +25,9 @@ from decimal import Decimal
 import codecs
 
 from retrofix.record import Record
+from retrofix.fields import Char, Account, Number, Numeric, Integer, Date,\
+    Boolean
+from retrofix.exception import RetrofixException
 from retrofix import c19
 from retrofix import c32
 from retrofix import c34_1_la_caixa as c34
@@ -41,8 +44,6 @@ def read_flat(file_name):
         file_name
     )
     return codecs.open(file_path, 'r', encoding='latin1').read()
-
-
 
 
 class C19TestCase(unittest.TestCase):
@@ -117,6 +118,7 @@ class C34TestCase(unittest.TestCase):
     def test0001_c34_write(self):
         data = self.ordering_header.write()
         self.assert_(self.data.startswith(data))
+
 
 class C43TestCase(unittest.TestCase):
     def setUp(self):
@@ -240,6 +242,36 @@ class C57TestCase(unittest.TestCase):
 
         records = c57.read(self.data)
         self.assertEqual(records[12], record)
+
+
+class GenericTestCase(unittest.TestCase):
+
+    def test_none_fields(self):
+        'Test setting none values on fields'
+        TEST_RECORD = (
+            (1,  1, 'char', Char),
+            (2, 22, 'account', Account),
+            (22, 26, 'number', Number),
+            (26, 30, 'numeric', Numeric),
+            (30, 40, 'integer', Integer),
+            (40, 48, 'date', Date('YYYYMMDD')),
+            (48, 50, 'boolean', Boolean),
+            )
+        record = Record(TEST_RECORD)
+        record.char = None
+        record.account = None
+        record.number = None
+        with self.assertRaises(RetrofixException):
+            record.numeric = None
+        with self.assertRaises(RetrofixException):
+            record.integer = None
+        record.date = None
+        record.boolean = None
+        self.assertEqual(record.char, '')
+        self.assertEqual(record.account, '')
+        self.assertEqual(record.number, '')
+        self.assertEqual(record.date, None)
+        self.assertEqual(record.boolean, False)
 
 
 def suite():
