@@ -1,3 +1,5 @@
+* Replace banknumber with python-stdnum
+
 Version 0.22 - 2016-09-06
 * Manage None values on fields
 

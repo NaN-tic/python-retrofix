@@ -56,7 +56,7 @@ setup(name=PACKAGE,
         ],
     license=LICENSE,
     install_requires=[
-        'banknumber >= 1.0',
+        'python-stdnum >= 1.5',
         ],
     extras_require={},
     zip_safe=False,
