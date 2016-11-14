@@ -29,7 +29,8 @@ except ImportError:
 from decimal import Decimal
 import re
 from datetime import datetime
-import banknumber
+
+from stdnum.es.ccc import is_valid
 
 from .formatting import format_string, format_number
 from .exception import RetrofixException
@@ -108,7 +109,7 @@ class Account(Char):
 
     def set_from_file(self, value):
         account = value.strip()
-        if account and not banknumber.check_code('ES', account):
+        if account and not is_valid(account):
             raise RetrofixException('Invalid bank account "%s" in field "%s"'
                 % (value, self._name))
         return super(Account, self).set_from_file(value)
@@ -117,7 +118,7 @@ class Account(Char):
         account = value
         if account:
             account = account.strip()
-        if account and not banknumber.check_code('ES', account):
+        if account and not is_valid(account):
             raise RetrofixException('Invalid bank account "%s" in field "%s"'
                 % (value, self._name))
         return super(Account, self).set(value)
