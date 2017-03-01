@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'RetroFix'
-copyright = u'2011-2016, NaN·tic'
+copyright = u'2011-2017, NaN·tic'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

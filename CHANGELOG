@@ -1,3 +1,5 @@
+Version 0.23 - 2017-03-01
+* FIX 303 report
 * Replace banknumber with python-stdnum
 
 Version 0.22 - 2016-09-06
