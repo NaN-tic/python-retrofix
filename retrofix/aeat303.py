@@ -54,7 +54,7 @@ RECORD = (
     (   3,  3, 'model', Const('303')),
     (   6,  5, 'page', Const('01000')),
     (  11,  1, 'model_end', Const('>')),
-    (  12,  1, 'type', Char),
+    (  12,  1, 'additional_page_indicator', Char),
     (  13,  1, 'type', Char),
     (  14,  9, 'company_vat', Char),
     (  23, 60, 'company_name', Char),
