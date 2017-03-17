@@ -151,7 +151,7 @@ ADDITIONAL_RECORD = (
     ( 114, 17, 'recc_adquisitions_tax', Numeric(sign=SIGN_N)),
     ( 131, 17, 'result_tax_regularitzation', Numeric(sign=SIGN_N)),
     ( 148, 17, 'sum_results', Numeric(sign=SIGN_N)),
-    ( 165,  9, 'state_administration_percent', Numeric()),
+    ( 165,  9, 'state_administration_percent', Numeric(decimals=6)),
     ( 174, 17, 'state_administration_amount', Numeric(sign=SIGN_N)),
     ( 191, 17, 'aduana_tax_pending', Numeric(sign=SIGN_N)),
     ( 208, 17, 'previous_period_amount_to_compensate', Numeric(sign=SIGN_N)),
