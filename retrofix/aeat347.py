@@ -35,7 +35,7 @@ PRESENTER_HEADER_RECORD = (
     ( 58,  1, 'support_type', Char),
     ( 59,  9, 'contact_phone', Number(align='right')),
     ( 68, 40, 'contact_name', Char),
-    (108, 13, 'declaration_number', Number(align='right')),
+    (108, 13, 'declaration_number', Char),
     (121,  1, 'complementary', Char),
     (122,  1, 'replacement', Char),
     (123, 13, 'previous_declaration_number', Number(align='right')),
