@@ -23,6 +23,7 @@ from .record import Record
 from .fields import *
 
 
+# DP30300
 HEADER_RECORD = (
     (   1,  2, 'model_start', Const('<T')),
     (   3,  3, 'model', Const('303')),
@@ -49,6 +50,7 @@ FOOTER_RECORD = (
     (  19,  2, 'record_end', Const('\r\n')),
     )
 
+# DP30301
 RECORD = (
     (   1,  2, 'model_start', Const('<T')),
     (   3,  3, 'model', Const('303')),
@@ -129,7 +131,8 @@ RECORD = (
     ( 785, 17, 'deductible_pro_rata_regularization', Numeric(sign=SIGN_N)),
     ( 802, 17, 'deductible_total', Numeric(sign=SIGN_N)),
     ( 819, 17, 'general_regime_result', Numeric(sign=SIGN_N)),
-    ( 836,582, 'reserved_aeat', Char),
+    ( 836,  1, 'exonerated_mod390', Number),
+    ( 837,581, 'reserved_aeat', Char),
     (1418, 13, 'reserved_aeat_electronic_stamp', Char),
     (1431, 12, 'record_end_id', Const('</T30301000>')),
 )
@@ -137,6 +140,7 @@ RECORD = (
 # This is used for the 'modulos'.
 SIMPLIFIED_RECORD = ()
 
+# DP30303
 ADDITIONAL_RECORD = (
     (   1,  2, 'model_start', Const('<T')),
     (   3,  3, 'model', Const('303')),
@@ -151,7 +155,8 @@ ADDITIONAL_RECORD = (
     ( 114, 17, 'recc_adquisitions_tax', Numeric(sign=SIGN_N)),
     ( 131, 17, 'result_tax_regularitzation', Numeric(sign=SIGN_N)),
     ( 148, 17, 'sum_results', Numeric(sign=SIGN_N)),
-    ( 165,  9, 'state_administration_percent', Numeric(decimals=6)),
+    ( 165,  5, 'state_administration_percent', Numeric(decimals=2)),
+    ( 170,  4, 'reserved_aeat', Char),
     ( 174, 17, 'state_administration_amount', Numeric(sign=SIGN_N)),
     ( 191, 17, 'aduana_tax_pending', Numeric(sign=SIGN_N)),
     ( 208, 17, 'previous_period_amount_to_compensate', Numeric(sign=SIGN_N)),
@@ -187,8 +192,18 @@ ADDITIONAL_RECORD = (
     ( 486, 17, 'special_info_operations_rs', Numeric(sign=SIGN_N)),
     ( 503, 17, 'special_info_financial_op_not_usual', Numeric(sign=SIGN_N)),
     ( 520, 17, 'special_info_total', Numeric(sign=SIGN_N)),
-    ( 537,  1, 'exonerated_mod390', Number),
-    ( 538,590, 'reserved_aeat', Char),
+    ( 537,  1, 'reserved_aeat2', Char),
+    ( 538,  5, 'info_territory_alava', Numeric(decimals=2)),
+    ( 543,  5, 'info_territory_guipuzcoa', Numeric(decimals=2)),
+    ( 548,  5, 'info_territory_vizcaya', Numeric(decimals=2)),
+    ( 553,  5, 'info_territory_navarra', Numeric(decimals=2)),
+    ( 558, 17, 'special_info_exempt_op_2bdeduced', Numeric(sign=SIGN_N)),
+    ( 575, 17, 'special_info_farming_cattleraising_fishing', Numeric(sign=SIGN_N)),
+    ( 592, 17, 'special_info_passive_subject_re', Numeric(sign=SIGN_N)),
+    ( 609, 17, 'special_info_art_antiques_collectibles', Numeric(sign=SIGN_N)),
+    ( 626, 17, 'special_info_travel_agency', Numeric(sign=SIGN_N)),
+    ( 643, 17, 'special_info_delivery_investment_domestic_operations', Numeric(sign=SIGN_N)),
+    ( 660,468, 'reserved_aeat3', Char),
     (1128, 12, 'record_end_id', Const('</T30303000>')),
     )
 
