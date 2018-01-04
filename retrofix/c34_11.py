@@ -20,7 +20,8 @@
 ##############################################################################
 
 from .exception import RetrofixException
-from .fields import *
+from .fields import (Const, Char, Number, Date, Account, Numeric, Integer,
+    Selection)
 from .record import Record
 
 ORDERING_HEADER_RECORD = (

@@ -22,7 +22,8 @@
 ##############################################################################
 
 from .exception import RetrofixException
-from .fields import *
+from .fields import Const, Number, Char, Integer, Numeric, Boolean
+from .fields import SIGN_N_BLANK, BOOLEAN_X
 from .record import Record
 
 

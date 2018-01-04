@@ -20,7 +20,7 @@
 ##############################################################################
 
 from .exception import RetrofixException
-from .fields import *
+from .fields import Const, Char, Number, Date, Account, Numeric, Integer
 from .record import Record
 
 PRESENTER_HEADER_RECORD = (

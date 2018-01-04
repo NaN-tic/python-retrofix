@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from .fields import *
+from .fields import Const, Char, Number, Date, Selection, Numeric, Integer
 
 HEADER_RECORD_TYPE_1 = (
     ( 1,  2, 'record_code', Const('03')),
