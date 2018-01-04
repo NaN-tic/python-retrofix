@@ -3,7 +3,8 @@
 from __future__ import absolute_import
 
 from .exception import RetrofixException
-from .fields import *
+from .fields import Const, Char, Number, Date, Numeric, Selection, Boolean
+from .fields import BOOLEAN_W1
 from .record import Record
 
 

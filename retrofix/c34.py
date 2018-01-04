@@ -20,7 +20,8 @@
 ##############################################################################
 
 from .exception import RetrofixException
-from .fields import *
+from .fields import Const, Char, Number, Date, Numeric, Integer, Selection
+from . import fields
 from .record import Record
 
 HEADER_RECORD_TYPE_1 = (
@@ -104,7 +105,7 @@ RECIPIENT_RECORD_TYPE_010 = (
     (5, 10, 'nif', Char),
     (15, 12, 'recipient_nif', Char),
     (27, 3, 'data_number', Const('010')),
-    (30, 12, 'amount', Numeric(sign=SIGN_12)),
+    (30, 12, 'amount', Numeric(sign=fields.SIGN_12)),
     (42, 4, 'bank_code', Number),
     (46, 4, 'bank_office', Number),
     (50, 10, 'bank_account_num', Number),
@@ -231,7 +232,7 @@ RECORD_OF_TOTALS = (
     (5, 10, 'nif', Char),
     (15, 12, 'free_1', Char),
     (27, 3, 'free_2', Char),
-    (30, 12, 'amount', Numeric(sign=SIGN_12)),
+    (30, 12, 'amount', Numeric(sign=fields.SIGN_12)),
     (42, 8, 'payment_line_count', Integer),
     (50, 10, 'record_count', Integer),
     (60, 6, 'free_3', Char),
@@ -244,7 +245,7 @@ def read(data):
     records = []
 
     current_line = lines.pop(0)
-    records.append(Record.extract(current_line, ORDERING_HEADER_RECORD))
+    records.append(Record.extract(current_line, fields.ORDERING_HEADER_RECORD))
 
 # Por cada registro de Transferencias o Nóminas se constituirán obligatoriamente
 # los registros tipo de Dato 010, 011, 012, 014 y, opcionalmente, el 013, 016 y
@@ -257,40 +258,40 @@ def read(data):
 
     current_line = lines.pop(0)
     while lines:
-        if Record.valid(current_line, ORDERING_HEADER_002_RECORD):
-            record = Record.extract(current_line, ORDERING_HEADER_002_RECORD)
-        elif Record.valid(current_line, ORDERING_HEADER_003_RECORD):
-            record = Record.extract(current_line, ORDERING_HEADER_003_RECORD)
-        elif Record.valid(current_line, ORDERING_HEADER_004_RECORD):
-            record = Record.extract(current_line, ORDERING_HEADER_004_RECORD)
-        elif Record.valid(current_line, NATIONAL_HEADER_RECORD):
-            record = Record.extract(current_line, NATIONAL_HEADER_RECORD)
-        elif Record.valid(current_line, DETAIL_001_RECORD):
-            record = Record.extract(current_line, DETAIL_001_RECORD)
-        elif Record.valid(current_line, DETAIL_002_RECORD):
-            record = Record.extract(current_line, DETAIL_002_RECORD)
-        elif Record.valid(current_line, DETAIL_003_RECORD):
-            record = Record.extract(current_line, DETAIL_003_RECORD)
-        elif Record.valid(current_line, DETAIL_004_RECORD):
-            record = Record.extract(current_line, DETAIL_004_RECORD)
-        elif Record.valid(current_line, DETAIL_005_RECORD):
-            record = Record.extract(current_line, DETAIL_005_RECORD)
-        elif Record.valid(current_line, DETAIL_006_RECORD):
-            record = Record.extract(current_line, DETAIL_006_RECORD)
-        elif Record.valid(current_line, DETAIL_007_RECORD):
-            record = Record.extract(current_line, DETAIL_007_RECORD)
-#        elif Record.valid(current_line, DETAIL_101_RECORD):
-#            record = Record.extract(current_line, DETAIL_101_RECORD)
-#        elif Record.valid(current_line, DETAIL_102_RECORD):
-#            record = Record.extract(current_line, DETAIL_102_RECORD)
-#        elif Record.valid(current_line, DETAIL_103_RECORD):
-#            record = Record.extract(current_line, DETAIL_103_RECORD)
-#        elif Record.valid(current_line, DETAIL_910_RECORD):
-#            record = Record.extract(current_line, DETAIL_910_RECORD)
-        elif Record.valid(current_line, NATIONAL_FOOTER_RECORD):
-            record = Record.extract(current_line, NATIONAL_FOOTER_RECORD)
-        elif Record.valid(current_line, ORDERING_FOOTER_RECORD):
-            record = Record.extract(current_line, ORDERING_FOOTER_RECORD)
+        if Record.valid(current_line, fields.ORDERING_HEADER_002_RECORD):
+            record = Record.extract(current_line, fields.ORDERING_HEADER_002_RECORD)
+        elif Record.valid(current_line, fields.ORDERING_HEADER_003_RECORD):
+            record = Record.extract(current_line, fields.ORDERING_HEADER_003_RECORD)
+        elif Record.valid(current_line, fields.ORDERING_HEADER_004_RECORD):
+            record = Record.extract(current_line, fields.ORDERING_HEADER_004_RECORD)
+        elif Record.valid(current_line, fields.NATIONAL_HEADER_RECORD):
+            record = Record.extract(current_line, fields.NATIONAL_HEADER_RECORD)
+        elif Record.valid(current_line, fields.DETAIL_001_RECORD):
+            record = Record.extract(current_line, fields.DETAIL_001_RECORD)
+        elif Record.valid(current_line, fields.DETAIL_002_RECORD):
+            record = Record.extract(current_line, fields.DETAIL_002_RECORD)
+        elif Record.valid(current_line, fields.DETAIL_003_RECORD):
+            record = Record.extract(current_line, fields.DETAIL_003_RECORD)
+        elif Record.valid(current_line, fields.DETAIL_004_RECORD):
+            record = Record.extract(current_line, fields.DETAIL_004_RECORD)
+        elif Record.valid(current_line, fields.DETAIL_005_RECORD):
+            record = Record.extract(current_line, fields.DETAIL_005_RECORD)
+        elif Record.valid(current_line, fields.DETAIL_006_RECORD):
+            record = Record.extract(current_line, fields.DETAIL_006_RECORD)
+        elif Record.valid(current_line, fields.DETAIL_007_RECORD):
+            record = Record.extract(current_line, fields.DETAIL_007_RECORD)
+#        elif Record.valid(current_line, fields.DETAIL_101_RECORD):
+#            record = Record.extract(current_line, fields.DETAIL_101_RECORD)
+#        elif Record.valid(current_line, fields.DETAIL_102_RECORD):
+#            record = Record.extract(current_line, fields.DETAIL_102_RECORD)
+#        elif Record.valid(current_line, fields.DETAIL_103_RECORD):
+#            record = Record.extract(current_line, fields.DETAIL_103_RECORD)
+#        elif Record.valid(current_line, fields.DETAIL_910_RECORD):
+#            record = Record.extract(current_line, fields.DETAIL_910_RECORD)
+        elif Record.valid(current_line, fields.NATIONAL_FOOTER_RECORD):
+            record = Record.extract(current_line, fields.NATIONAL_FOOTER_RECORD)
+        elif Record.valid(current_line, fields.ORDERING_FOOTER_RECORD):
+            record = Record.extract(current_line, fields.ORDERING_FOOTER_RECORD)
         else:
             raise RetrofixException('Invalid record: "%s"' % current_line)
         records.append(record)

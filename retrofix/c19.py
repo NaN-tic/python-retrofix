@@ -20,7 +20,8 @@
 ##############################################################################
 
 from .exception import RetrofixException
-from .fields import *
+from .fields import Const, Char, Number, Date, Account, Numeric, Integer
+from .fields import SIGN_POSITIVE
 from .record import Record
 
 # Currency ISO codes:

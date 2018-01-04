@@ -20,7 +20,8 @@
 ##############################################################################
 
 from .exception import RetrofixException
-from .fields import *
+from .fields import Const, Number, Char, Integer, Numeric, Date
+from .fields import SIGN_N_BLANK, SIGN_POSITIVE, DETAIL_RECORD
 from .record import Record
 
 
