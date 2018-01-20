@@ -21,7 +21,7 @@
 
 from .exception import RetrofixException
 from .fields import Const, Number, Char, Integer, Numeric, Date
-from .fields import SIGN_N_BLANK, SIGN_POSITIVE, DETAIL_RECORD
+from .fields import SIGN_N_BLANK, SIGN_POSITIVE
 from .record import Record
 
 
@@ -198,8 +198,14 @@ def read(data):
 
     current_line = lines.pop(0)
     while lines:
-        if Record.valid(current_line, DETAIL_RECORD):
-            record = Record.extract(current_line, DETAIL_RECORD)
+        if Record.valid(current_line, ISSUED_RECORD):
+            record = Record.extract(current_line, ISSUED_RECORD)
+        elif Record.valid(current_line, RECEIVED_RECORD):
+            record = Record.extract(current_line, RECEIVED_RECORD)
+        elif Record.valid(current_line, INVESTMENT_RECORD):
+            record = Record.extract(current_line, INVESTMENT_RECORD)
+        elif Record.valid(current_line, INTRACOMMUNITY_RECORD):
+            record = Record.extract(current_line, INTRACOMMUNITY_RECORD)
         else:
             raise RetrofixException('Invalid record: %s' % current_line)
         records.append(record)
