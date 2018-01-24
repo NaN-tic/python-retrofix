@@ -167,7 +167,7 @@ ADDITIONAL_RECORD = (
     ( 259, 17, 'to_deduce', Numeric(sign=SIGN_N)),
     ( 276, 17, 'liquidation_result', Numeric(sign=SIGN_N)),
     ( 293,  1, 'complementary_declaration', Boolean(BOOLEAN_X)),
-    ( 294, 13, 'previous_declaration_receipt', Number),
+    ( 294, 13, 'previous_declaration_receipt', Char),
     ( 307,  1, 'without_activity', Boolean(BOOLEAN_X)),
     ( 308, 11, 'swift_bank', Char),
     ( 319, 34, 'bank_account', Char),
