@@ -59,6 +59,7 @@ PARTY_RECORD = (
     ( 76,  1, 'sheet_type', Const('D')),
     ( 77,  2, 'province_code', Number),
     ( 79,  2, 'country_code', Char),
+    ( 81,  1, 'blank01', Char),
     ( 82,  1, 'operation_key', Char),
     ( 83, 16, 'amount', Numeric(sign=SIGN_N_BLANK)),
     ( 99,  1, 'insurance', Boolean(BOOLEAN_X)),
@@ -79,7 +80,7 @@ PARTY_RECORD = (
     (282,  1, 'tax_person_operation', Boolean(BOOLEAN_X)),
     (283,  1, 'related_goods_operation', Boolean(BOOLEAN_X)),
     (284, 16, 'cash_vat_criteria', Numeric(sign=SIGN_N_BLANK)),
-    (300, 201, 'blank', Char),
+    (300, 201, 'blank02', Char),
     )
 
 PROPERTY_RECORD = (
