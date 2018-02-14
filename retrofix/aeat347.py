@@ -98,7 +98,7 @@ PROPERTY_RECORD = (
     (141,  5, 'road_type', Char),
     (146, 50, 'street', Char),
     (196,  3, 'number_type', Char),
-    (199,  5, 'number', Number),
+    (199,  5, 'number', Char),
     (204,  3, 'number_qualifier', Char),
     (207,  3, 'block', Char),
     (210,  3, 'doorway', Char),
@@ -109,7 +109,7 @@ PROPERTY_RECORD = (
     (262, 30, 'city', Char),
     (292, 30, 'municipality', Char),
     (322,  5, 'municipality_code', Char),
-    (327,  2, 'province_code', Number),
+    (327,  2, 'province_code', Char),
     (329,  5, 'zip', Number),
     (334, 167, 'blank', Char),
     )
