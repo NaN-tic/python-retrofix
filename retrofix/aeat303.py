@@ -133,7 +133,9 @@ RECORD = (
     ( 802, 17, 'deductible_total', Numeric(sign=SIGN_N)),
     ( 819, 17, 'general_regime_result', Numeric(sign=SIGN_N)),
     ( 836,  1, 'exonerated_mod390', Number),
-    ( 837,581, 'reserved_aeat', Char),
+    ( 837,  1, 'passive_subject_foral_administration', Number),
+    ( 838,  1, 'taken_vat_book_to_aeat', Number),
+    ( 839,579, 'reserved_aeat', Char),
     (1418, 13, 'reserved_aeat_electronic_stamp', Char),
     (1431, 12, 'record_end_id', Const('</T30301000>')),
 )
