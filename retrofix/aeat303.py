@@ -132,10 +132,11 @@ RECORD = (
     ( 785, 17, 'deductible_pro_rata_regularization', Numeric(sign=SIGN_N)),
     ( 802, 17, 'deductible_total', Numeric(sign=SIGN_N)),
     ( 819, 17, 'general_regime_result', Numeric(sign=SIGN_N)),
-    ( 836,  1, 'exonerated_mod390', Number),
+    ( 836,  1, 'anual_operation_volume', Number),
     ( 837,  1, 'passive_subject_foral_administration', Number),
     ( 838,  1, 'taken_vat_book_to_aeat', Number),
-    ( 839,579, 'reserved_aeat', Char),
+    ( 839,  1, 'exonerated_mod390', Number),
+    ( 840,578, 'reserved_aeat', Char),
     (1418, 13, 'reserved_aeat_electronic_stamp', Char),
     (1431, 12, 'record_end_id', Const('</T30301000>')),
 )
@@ -206,7 +207,8 @@ ADDITIONAL_RECORD = (
     ( 609, 17, 'special_info_art_antiques_collectibles', Numeric(sign=SIGN_N)),
     ( 626, 17, 'special_info_travel_agency', Numeric(sign=SIGN_N)),
     ( 643, 17, 'special_info_delivery_investment_domestic_operations', Numeric(sign=SIGN_N)),
-    ( 660,468, 'reserved_aeat3', Char),
+    ( 660, 5, 'information_taxation_reason_territory', Numeric(sign=SIGN_N)),
+    ( 665,463, 'reserved_aeat3', Char),
     (1128, 12, 'record_end_id', Const('</T30303000>')),
     )
 
