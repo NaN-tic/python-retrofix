@@ -49,7 +49,8 @@ class Record(object):
                 field = field()
             field._size = size
             field._name = name
-            assert name not in keys, 'Duplicate field name "%s".' % name
+            if name in keys:
+                raise AssertionError('Duplicate field name "%s".' % name)
             keys.add(name)
             self._fields[name] = field
 
@@ -60,13 +61,15 @@ class Record(object):
         self._values[name] = self._fields[name].set_from_file(value)
 
     def __getattr__(self, name):
-        assert name in self._fields, 'Field "%s" does not exist.' % name
+        if name not in self._fields:
+            raise AssertionError('Field "%s" does not exist.' % name)
         return self._fields[name].get(self._values.get(name))
 
     def __setattr__(self, name, value):
         if name.startswith('_'):
             return super(Record, self).__setattr__(name, value)
-        assert name in self._fields, 'Field "%s" does not exist.' % name
+        if name not in self._fields:
+            raise AssertionError('Field "%s" does not exist.' % name)
         self._values[name] = self._fields[name].set(value)
 
     def load(self, line, first_position=1):
@@ -102,12 +105,13 @@ class Record(object):
 
             value = self.get_for_file(name)
 
-            assert len(value) == length, ('Field "%s" should be of size "%d" '
-                'but got "%d" on record "%s".' % (name, length, len(value),
-                    str(self)))
-            assert start >= current_position, ('Error writing field "%s". '
-                'Start: %d, Current Position: %d' % (name, start,
-                    current_position))
+            if len(value) != length:
+                raise AssertionError('Field "%s" should be of size "%d" but '
+                    'got "%d" on record "%s".' % (name, length, len(value),
+                        str(self)))
+            if start < current_position:
+                raise AssertionError('Error writing field "%s". ' 'Start: %d,'
+                    'Current Position: %d' % (name, start, current_position))
             text += BLANK * (start - current_position)
             text += value
             current_position = len(text)

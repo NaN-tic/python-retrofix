@@ -30,17 +30,21 @@ def format_string(text, length, fill=' ', align='<'):
     if len(text) > length:
         text = text[:length]
     text = '{0:{1}{2}{3}s}'.format(text, fill, align, length)
-    assert len(text) == length, 'Formatted string must match the given length'
+    if len(text) != length:
+        raise AssertionError('Formatted string must match the given length')
     return text
 
 
 def format_number(number, size, decimals=0):
-    assert number >= Decimal('0.0')
+    if number < Decimal('0.0'):
+        raise AssertionError('Formatted number "%s" number must be >= 0' %
+            number)
     length = size
     if decimals > 0:
         length += 1
     text = '{0:{1}{2}{3}.{4}f}'.format(number, '0', '>', length, decimals)
     text = text.replace('.', '')
-    assert len(text) == size, ('Formatted number "%s" must match the given '
-        'length "%d". Got: "%s".' % (number, size, text))
+    if len(text) != size:
+        raise AssertionError('Formatted number "%s" must match the given '
+            'length "%d". Got: "%s".' % (number, size, text))
     return text
