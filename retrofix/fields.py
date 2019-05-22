@@ -47,9 +47,9 @@ class Field(object):
         self._size = None
 
     def set_from_file(self, value):
-        assert len(value) == self._size, ('Invalid length of field "%s". '
-            'Expected "%d" but got "%d".' % (self._name, self._size,
-                len(value)))
+        if len(value) != self._size:
+            raise AssertionError('Invalid length of field "%s". Expected '
+                '"%d" but got "%d".' % (self._name, self._size, len(value)))
         return value
 
     def get_for_file(self, value):
@@ -87,8 +87,9 @@ class Const(Char):
         self._const = const
 
     def set_from_file(self, value):
-        assert value == self._const, ('Invalid value "%s" in Const field '
-            '"%s". Expected "%s".' % (value, self._name, self._const))
+        if value != self._const:
+            raise AssertionError('Invalid value "%s" in Const field "%s". '
+                'Expected "%s".' % (value, self._name, self._const))
         return super(Const, self).set_from_file(value)
 
     def get_for_file(self, value):
@@ -98,8 +99,8 @@ class Const(Char):
         return self._const
 
     def set(self, value):
-        assert value == self._const, ('Invalid value for field "%s"'
-            % self._name)
+        if value != self._const:
+            raise AssertionError('Invalid value for field "%s"' % self._name)
         return super(Const, self).set(value)
 
 
@@ -130,15 +131,17 @@ class Number(Char):
         self._align = align
 
     def set_from_file(self, value):
-        assert re.match('[0-9]*$', value), (
-            'Non-number value "%s" in field "%s"' % (value, self._name))
+        if not re.match('[0-9]*$', value):
+            raise AssertionError('Non-number value "%s" in field "%s"' %
+                (value, self._name))
         return super(Number, self).set_from_file(value)
 
     def set(self, value):
         if value is None:
             value = ''
-        assert re.match('[0-9]*$', value), (
-            'Non-number value "%s" in field "%s"' % (value, self._name))
+        if not re.match('[0-9]*$', value):
+            raise AssertionError('Non-number value "%s" in field "%s"' %
+                (value, self._name))
 
         l = self._size - len(value)
         if self._align == 'right':
@@ -171,8 +174,9 @@ class Numeric(Field):
         if self._sign == SIGN_N_BLANK:
             return ' ' if value >= Decimal('0.0') else 'N'
         if self._sign == SIGN_POSITIVE:
-            assert value >= Decimal('0.0'), ('Field "%s" must be >= 0.0 but '
-                'got "%.2f"' % (self._name, value))
+            if value < Decimal('0.0'):
+                raise AssertionError('Field "%s" must be >= 0.0 but got "%.2f"'
+                    % (self._name, value))
             return ''
 
     def set_from_file(self, value):
@@ -193,9 +197,10 @@ class Numeric(Field):
             value = Decimal('0')
         sign = self.get_sign(value)
         length = self._size - len(sign)
-        assert length > 0, ('Number formatting error. Field size '
-            '"%d" but only "%d" characters left for formatting field "%s".') % (
-                self._size, length, self._name)
+        if length <= 0:
+            raise AssertionError('Number formatting error. Field size "%d" '
+                'but only "%d" characters left for formatting field "%s".') % (
+                    self._size, length, self._name)
         return sign + format_number(abs(value), length, self._decimals)
 
     def set(self, value):
@@ -238,7 +243,8 @@ class Date(Field):
 
     def set(self, value):
         if value is not None:
-            assert value, datetime
+            if not value:
+                raise AssertionError(datetime)
         return super(Date, self).set(value)
 
 
@@ -253,13 +259,16 @@ class Selection(Char):
         return super(Selection, self).get_for_file(value)
 
     def set_from_file(self, value):
-        assert value in self._keys, ('Value "%s" not found in selection field '
-            '"%s". Expected one of: %s' % (value, self._name, self._keys))
+        if value not in self._keys:
+            raise AssertionError('Value "%s" not found in selection field '
+                '"%s". Expected one of: %s' % (value, self._name, self._keys))
         return super(Selection, self).set_from_file(value)
 
     def set(self, value):
-        assert value in self._values, ('Value "%s" not found in selection field '
-            '"%s". Expected one of: %s' % (value, self._name, self._values))
+        if value not in self._values:
+            raise AssertionError('Value "%s" not found in selection field '
+                '"%s". Expected one of: %s' % (value, self._name,
+                    self._values))
         value = self._values[value]
         return super(Selection, self).set(value)
 
