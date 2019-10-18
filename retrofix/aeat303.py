@@ -132,7 +132,7 @@ RECORD = (
     ( 785, 17, 'deductible_pro_rata_regularization', Numeric(sign=SIGN_N)),
     ( 802, 17, 'deductible_total', Numeric(sign=SIGN_N)),
     ( 819, 17, 'general_regime_result', Numeric(sign=SIGN_N)),
-    ( 836,  1, 'anual_operation_volume', Number),
+    ( 836,  1, 'annual_operation_volume', Number),
     ( 837,  1, 'passive_subject_foral_administration', Number),
     ( 838,  1, 'taken_vat_book_to_aeat', Number),
     ( 839,  1, 'exonerated_mod390', Number),
