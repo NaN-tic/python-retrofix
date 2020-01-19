@@ -207,7 +207,8 @@ ADDITIONAL_RECORD = (
     ( 626, 17, 'special_info_travel_agency', Numeric(sign=SIGN_N)),
     ( 643, 17, 'special_info_delivery_investment_domestic_operations', Numeric(sign=SIGN_N)),
     ( 660, 5, 'information_taxation_reason_territory', Numeric(sign=SIGN_N)),
-    ( 665,463, 'reserved_aeat3', Char),
+    ( 665, 17, 'reserved_aeat3', Char),
+    ( 682,446, 'reserved_aeat4', Char),
     (1128, 12, 'record_end_id', Const('</T30303000>')),
     )
 
