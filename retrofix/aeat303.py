@@ -135,7 +135,9 @@ RECORD = (
     ( 837,  1, 'passive_subject_foral_administration', Number),
     ( 838,  1, 'taken_vat_book_to_aeat', Number),
     ( 839,  1, 'exonerated_mod390', Number),
-    ( 840,578, 'reserved_aeat', Char),
+    ( 840,  1, 'give_up_simplificated_regime', Number),
+    ( 841,  1, 'reduce_days_on_simplificated_regime', Char),
+    ( 842,576, 'reserved_aeat', Char),
     (1418, 13, 'reserved_aeat_electronic_stamp', Char),
     (1431, 12, 'record_end_id', Const('</T30301000>')),
 )
