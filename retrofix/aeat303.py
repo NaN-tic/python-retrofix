@@ -53,7 +53,7 @@ RECORD = (
     (  23, 80, 'company_name', Char),
     ( 103,  4, 'fiscalyear', Number),
     ( 107,  2, 'period', Char),
-    ( 109,  1, 'passive_subject_foral_administration', Number),
+    ( 109,  1, 'passive_subject_foral_administration', Boolean(BOOLEAN_12)),
     ( 110,  1, 'monthly_return_subscription', Boolean(BOOLEAN_12)),
     ( 111,  1, 'regime_type', Number),
     ( 112,  1, 'joint_liquidation', Boolean(BOOLEAN_12)),
