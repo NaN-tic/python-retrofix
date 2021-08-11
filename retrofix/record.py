@@ -30,6 +30,7 @@ BLANK = ' '
 # * Field name
 # * Field type
 
+
 class Record(object):
     def __init__(self, structure):
         """
@@ -130,6 +131,7 @@ class Record(object):
             if self.get_for_file(field) != other.get_for_file(field):
                 return False
         return True
+
 
 def write(records, separator='\r\n'):
     data = ''
