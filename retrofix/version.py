@@ -19,6 +19,6 @@
 ##############################################################################
 
 PACKAGE = 'retrofix'
-VERSION = '0.27.0'
+VERSION = '0.27.1'
 LICENSE = 'GPL-3'
 WEBSITE = 'http://www.NaN-tic.com/'
