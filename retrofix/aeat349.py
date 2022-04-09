@@ -30,7 +30,7 @@ PRESENTER_HEADER_RECORD = (
     (  5,  4, 'fiscalyear', Number),
     (  9,  9, 'nif', Char),
     ( 18, 40, 'presenter_name', Char),
-    ( 58,  1, '', Char),
+    ( 58,  1, 'reserved_aeat', Char),
     ( 59,  9, 'contact_phone', Number(align='right')),
     ( 68, 40, 'contact_name', Char),
     (108, 13, 'declaration_number', Integer),
@@ -43,9 +43,9 @@ PRESENTER_HEADER_RECORD = (
     (162,  9, 'ammendment_count', Integer),
     (171, 15, 'ammendment_amount', Numeric()),
     (186,  1, 'change_periodicity', Char),
-    (187,204, '', Char),
+    (187,204, 'reserved_aeat2', Char),
     (391,  9, 'representative_nif', Char),
-    (400,101, '', Char),
+    (400,101, 'reserved_aeat3', Char),
     )
 
 OPERATOR_RECORD = (
@@ -58,10 +58,10 @@ OPERATOR_RECORD = (
     ( 93, 40, 'party_name', Char),
     (133,  1, 'operation_key', Char),
     (134, 13, 'base', Numeric()),
-    (147, 32, '',Char),
-    (179, 17, 'substitution_nif',Char),
-    (196, 40, 'substitution_name',Char),
-    (236,265, '',Char),
+    (147, 32, 'reserved_aeat2', Char),
+    (179, 17, 'substitution_nif', Char),
+    (196, 40, 'substitution_name', Char),
+    (236,265, 'reserved_aeat3', Char),
     )
 
 AMMENDMENT_RECORD = (
@@ -69,18 +69,18 @@ AMMENDMENT_RECORD = (
     (  2,  3, 'model', Const('349')),
     (  5,  4, 'fiscalyear', Number),
     (  9,  9, 'nif', Char),
-    ( 18, 58, '', Char),
+    ( 18, 58, 'reserved_aeat', Char),
     ( 76, 17, 'party_vat', Char),
     ( 93, 40, 'party_name', Char),
     (133,  1, 'operation_key', Char),
-    (134, 13, '', Char),
+    (134, 13, 'reserved_aeat2', Char),
     (147,  4, 'ammendment_fiscalyear', Number),
     (151,  2, 'ammendment_period', Char),
     (153, 13, 'base', Numeric()),
     (166, 13, 'original_base', Numeric()),
-    (179, 17, 'substitution_nif',Char),
-    (196, 40, 'substitution_name',Char),
-    (236,265, '', Char),
+    (179, 17, 'substitution_nif', Char),
+    (196, 40, 'substitution_name', Char),
+    (236,265, 'reserved_aeat3', Char),
     )
 
 
