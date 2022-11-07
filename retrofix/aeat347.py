@@ -30,7 +30,7 @@ from .record import Record
 PRESENTER_HEADER_RECORD = (
     (  1,  1, 'record_code', Const('1')),
     (  2,  3, 'model', Const('347')),
-    (  5,  4, 'fiscalyear', Number),
+    (  5,  4, 'year', Number),
     (  9,  9, 'nif', Char),
     ( 18, 40, 'presenter_name', Char),
     ( 58,  1, 'support_type', Char),
@@ -51,7 +51,7 @@ PRESENTER_HEADER_RECORD = (
 PARTY_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('347')),
-    (  5,  4, 'fiscalyear', Number),
+    (  5,  4, 'year', Number),
     (  9,  9, 'nif', Char),
     ( 18,  9, 'party_nif', Char),
     ( 27,  9, 'representative_nif', Char),
@@ -86,7 +86,7 @@ PARTY_RECORD = (
 PROPERTY_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('347')),
-    (  5,  4, 'fiscalyear', Number),
+    (  5,  4, 'year', Number),
     (  9,  9, 'nif', Char),
     ( 18,  9, 'party_nif', Char),
     ( 27,  9, 'representative_nif', Char),
