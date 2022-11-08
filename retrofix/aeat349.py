@@ -27,7 +27,7 @@ from .record import Record
 PRESENTER_HEADER_RECORD = (
     (  1,  1, 'record_code', Const('1')),
     (  2,  3, 'model', Const('349')),
-    (  5,  4, 'fiscalyear', Number),
+    (  5,  4, 'year', Number),
     (  9,  9, 'nif', Char),
     ( 18, 40, 'presenter_name', Char),
     ( 58,  1, 'reserved_aeat', Char),
@@ -51,7 +51,7 @@ PRESENTER_HEADER_RECORD = (
 OPERATOR_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('349')),
-    (  5,  4, 'fiscalyear', Number),
+    (  5,  4, 'year', Number),
     (  9,  9, 'nif', Char),
     ( 18, 58, 'reserverd_aeat', Char),
     ( 76, 17, 'party_vat', Char),
@@ -67,7 +67,7 @@ OPERATOR_RECORD = (
 AMMENDMENT_RECORD = (
     (  1,  1, 'record_code', Const('2')),
     (  2,  3, 'model', Const('349')),
-    (  5,  4, 'fiscalyear', Number),
+    (  5,  4, 'year', Number),
     (  9,  9, 'nif', Char),
     ( 18, 58, 'reserved_aeat', Char),
     ( 76, 17, 'party_vat', Char),
