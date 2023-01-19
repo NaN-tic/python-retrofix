@@ -30,6 +30,7 @@ def format_string(text, length, fill=' ', align='<'):
     if len(text) > length:
         text = text[:length]
     text = text.replace('·', '-')
+    text = text.replace('+', '-')
     text = '{0:{1}{2}{3}s}'.format(text, fill, align, length)
     if len(text) != length:
         raise AssertionError('Formatted string must match the given length')
