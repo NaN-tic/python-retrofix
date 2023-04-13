@@ -151,7 +151,7 @@ GENERAL_RECORD = (
     (  11,  1, 'model_end', Const('>')),
     (  12, 17, 'intracommunity_deliveries', Numeric(sign=SIGN_N)),
     (  29, 17, 'exports', Numeric(sign=SIGN_N)),
-    (  46, 17, 'not_subject_localization_rules', Numeric(sign=SIGN_N)),
+    (  46, 17, 'not_subject_localitzation_rules', Numeric(sign=SIGN_N)),
     (  63, 17, 'subject_operations_w_reverse_charge', Numeric(sign=SIGN_N)),
     (  80, 17, 'oss_not_subject_operations', Numeric(sign=SIGN_N)),
     (  97, 17, 'oss_subject_operations', Numeric(sign=SIGN_N)),
