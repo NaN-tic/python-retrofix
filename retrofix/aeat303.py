@@ -34,7 +34,7 @@ HEADER_RECORD = (
     (  13,  5, 'model_end', Const('0000>')),
     (  18,  5, 'open_aux', Const('<AUX>')),
     (  23, 70, 'first_reserved_for_administration', Char),
-    (  93,  4, 'program_version', Const('0293')),
+    (  93,  4, 'program_version', Const('0300')),
     (  97,  4, 'second_reserved_for_administration', Char),
     ( 101,  9, 'development_company_vat', Char),
     ( 110,213, 'third_reserved_for_administration', Char),
