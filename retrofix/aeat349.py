@@ -74,7 +74,7 @@ AMMENDMENT_RECORD = (
     ( 93, 40, 'party_name', Char),
     (133,  1, 'operation_key', Char),
     (134, 13, 'reserved_aeat2', Char),
-    (147,  4, 'ammendment_fiscalyear', Number),
+    (147,  4, 'ammendment_fiscalyear', Char),
     (151,  2, 'ammendment_period', Char),
     (153, 13, 'base', Numeric()),
     (166, 13, 'original_base', Numeric()),
