@@ -1,7 +1,10 @@
-Version 0.30.0- 2023-10-28
+Version 0.30.2 - 2024-04-26
+* Fix 349 ammendement relation fiscal year and period
+
+Version 0.30.0 - 2023-10-28
 * Add 2 new AEAT report models: 111 and 115
 
-Version 0.27.2- 2022-04-09
+Version 0.27.2 - 2022-04-09
 * Update model 349 based on documentation from AEAT
 
 Version 0.27.1 - 2021-02-12
