@@ -1,3 +1,6 @@
+Version 0.32.0 - 2025-02-06
+* Update 303 fields with the new taxes structure.
+
 Version 0.31.0 - 2024-04-26
 * Update 303 fields with the new taxes 2% and 7,5% and they surcharges.
 * Update 303 with the new "Rectificativa" fields.
