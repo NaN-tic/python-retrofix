@@ -36,7 +36,7 @@ from .formatting import format_string, format_number
 from .exception import RetrofixException
 
 __all__ = ['Field', 'Char', 'Const', 'Account', 'Number', 'Numeric', 'Integer',
-    'Date', 'Selection', 'Boolean', 'SIGN_DEFAULT', 'SIGN_12', 'SIGN_N',
+    'Date', 'DateTime', 'Selection', 'Boolean', 'SIGN_DEFAULT', 'SIGN_12', 'SIGN_N',
     'SIGN_N_BLANK', 'SIGN_POSITIVE', 'BOOLEAN_01', 'BOOLEAN_12', 'BOOLEAN_X',
     'BOOLEAN_W1']
 
@@ -228,7 +228,7 @@ class Date(Field):
         if value == '0' * len(value):
             return
         try:
-            return datetime.strptime(value, self._pattern)
+            return datetime.strptime(value, self._pattern).date()
         except ValueError:
             raise RetrofixException('Invalid date value "%s" does not '
                     'match pattern "%s" in field "%s"' % (value,
@@ -246,6 +246,35 @@ class Date(Field):
             if not value:
                 raise AssertionError(datetime)
         return super(Date, self).set(value)
+
+
+class DateTime(Field):
+    def __init__(self, pattern):
+        super(DateTime, self).__init__()
+        self._pattern = pattern
+
+    def set_from_file(self, value):
+        if value == '0' * len(value):
+            return
+        try:
+            return datetime.strptime(value, self._pattern)
+        except ValueError:
+            raise RetrofixException('Invalid datetime value "%s" does not '
+                    'match pattern "%s" in field "%s"' % (value,
+                    self._pattern, self._name))
+
+    def get_for_file(self, value):
+        if value is None:
+            res = ''
+        else:
+            res = datetime.strftime(value, self._pattern)
+        return super(Date, self).get_for_file(res)
+
+    def set(self, value):
+        if value is not None:
+            if not value:
+                raise AssertionError(datetime)
+        return super(DateTime, self).set(value)
 
 
 class Selection(Char):
