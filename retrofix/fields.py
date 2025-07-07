@@ -219,35 +219,6 @@ class Integer(Numeric):
         super(Integer, self).__init__(decimals=0)
 
 
-class Date(Field):
-    def __init__(self, pattern):
-        super(Date, self).__init__()
-        self._pattern = pattern
-
-    def set_from_file(self, value):
-        if value == '0' * len(value):
-            return
-        try:
-            return datetime.strptime(value, self._pattern).date()
-        except ValueError:
-            raise RetrofixException('Invalid date value "%s" does not '
-                    'match pattern "%s" in field "%s"' % (value,
-                    self._pattern, self._name))
-
-    def get_for_file(self, value):
-        if value is None:
-            res = ''
-        else:
-            res = datetime.strftime(value, self._pattern)
-        return super(Date, self).get_for_file(res)
-
-    def set(self, value):
-        if value is not None:
-            if not value:
-                raise AssertionError(datetime)
-        return super(Date, self).set(value)
-
-
 class DateTime(Field):
     def __init__(self, pattern):
         super(DateTime, self).__init__()
@@ -268,13 +239,22 @@ class DateTime(Field):
             res = ''
         else:
             res = datetime.strftime(value, self._pattern)
-        return super(Date, self).get_for_file(res)
+        return super(DateTime, self).get_for_file(res)
 
     def set(self, value):
         if value is not None:
             if not value:
                 raise AssertionError(datetime)
         return super(DateTime, self).set(value)
+
+
+class Date(DateTime):
+
+    def set_from_file(self, value):
+        date = super(Date, self).set_from_file(value)
+        if date:
+            return date.date()
+        return
 
 
 class Selection(Char):
