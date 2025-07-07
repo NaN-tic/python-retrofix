@@ -41,6 +41,9 @@ Integer
 Date
   Ensures the field matches the date format supplied to the constructor.
 
+DateTime
+  Ensures the field matches the date time format supplied to the constructor.
+
 Selection
   Only allows a given set of string values supplied to the constructor.
 
@@ -75,3 +78,11 @@ Take a look at the following example:
        f.write(record.write(lines))
    finally:
        f.close()
+
+Run tests:
+
+    $ python3 -m unittest retrofix.tests.test
+
+Develop:
+
+    $ export PYTHONPATH=$(pwd)

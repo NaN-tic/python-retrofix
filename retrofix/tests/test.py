@@ -25,8 +25,8 @@ from decimal import Decimal
 import codecs
 
 from retrofix.record import Record
-from retrofix.fields import Char, Account, Number, Numeric, Integer, Date,\
-    Boolean
+from retrofix.fields import (Char, Account, Number, Numeric, Integer,
+    Date, DateTime, Boolean)
 from retrofix.exception import RetrofixException
 from retrofix import c19
 from retrofix import c32
@@ -274,6 +274,29 @@ class GenericTestCase(unittest.TestCase):
         self.assertEqual(record.date, None)
         self.assertEqual(record.boolean, False)
 
+    def test_read_data(self):
+        'Test read source data and type field'
+        TEST_RECORD = (
+            (1,  1, 'char', Char),
+            (2, 2, 'integer', Integer),
+            (10, 8, 'date', Date('%Y%m%d')),
+            (20, 1, 'boolean', Boolean),
+            (22, 14, 'datetime', DateTime('%Y%m%d %H:%M')),
+            )
+        data = 'A31      20251224  1 20251224 12:00\nB15      20250101  0 20250101 12:00'
+
+        def read(data):
+            records = []
+            for line in data.splitlines():
+                records.append(Record.extract(line, TEST_RECORD))
+            return records
+
+        for line in read(data):
+            self.assertTrue(isinstance(line.char, str))
+            self.assertTrue(isinstance(line.integer, Decimal))
+            self.assertTrue(isinstance(line.date, datetime.date))
+            self.assertTrue(isinstance(line.boolean, bool))
+            self.assertTrue(isinstance(line.datetime, datetime.datetime))
 
 def suite():
     suite = unittest.TestSuite()
@@ -282,6 +305,7 @@ def suite():
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(C34TestCase))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(C43TestCase))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(C58TestCase))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(GenericTestCase))
     return suite
 
 
