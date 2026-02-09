@@ -1,3 +1,6 @@
+Version 0.33.1 - 2026-02-09
+Fix bug, remove unnecesary code on 303.
+
 Version 0.33.0 - 2026-02-09
 * Update 347, add new field BDNS call number.
 
