@@ -82,7 +82,7 @@ PARTY_RECORD = (
     (282,  1, 'tax_person_operation', Boolean(BOOLEAN_X)),
     (283,  1, 'related_goods_operation', Boolean(BOOLEAN_X)),
     (284, 16, 'cash_vat_criteria', Numeric(sign=SIGN_N_BLANK)),
-    (300,  6, 'bdns_call_number', Char),
+    (300,  6, 'bdns_call_number', Number(align='right')),
     (306,195, 'blank04', Char),
     )
 
