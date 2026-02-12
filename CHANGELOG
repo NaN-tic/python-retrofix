@@ -1,3 +1,6 @@
+Version 0.33.2 - 2026-02-12
+347 model: Fix bug with field Change from char to number.
+
 Version 0.33.1 - 2026-02-09
 Fix bug, remove unnecesary code on 303.
 
