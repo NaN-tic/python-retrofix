@@ -144,9 +144,8 @@ class Number(Char):
                 (value, self._name))
 
         l = self._size - len(value)
-        if self._align == 'right':
-            if l:
-                value = (l * '0') + value
+        if self._align == 'right' and l:
+            value = (l * '0') + value
 
         return super(Number, self).set(value)
 

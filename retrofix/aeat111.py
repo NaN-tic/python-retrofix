@@ -20,8 +20,8 @@
 ##############################################################################
 
 from .record import Record
-from .fields import Const, Date, Number, Numeric, Char, Boolean
-from .fields import BOOLEAN_12, SIGN_POSITIVE, SIGN_N, BOOLEAN_X
+from .fields import Const, Number, Numeric, Char, Boolean
+from .fields import SIGN_POSITIVE, SIGN_N, BOOLEAN_X
 
 
 # M11100
