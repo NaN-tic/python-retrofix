@@ -1,3 +1,6 @@
+Version 0.34.1 - 2026-02-23
+303 model: Change the way that versoin is set. Get from Tryton.
+
 Version 0.34.0 - 2026-02-23
 303 model: Update postions and add new cells.
 
